@@ -74,8 +74,29 @@ class ReportesController extends BaseController {
 				$regionArr['Costa'] = count(ReportesController::get_personas(8));
 			}
 		}
-		// if(($rama1||$rama2||$rama3||$rama4||$rama5||$rama6||$rama7||$rama8||$rama9||$rama10||$rama11||$rama12||$rama13||$rama14||$rama15||$rama16||$rama17)!= null)
-		return Response::json($regionArr);
+
+		$ramaArr = array();
+		$erer = '';
+		if(($rama1||$rama2||$rama3||$rama4||$rama5||$rama6||$rama7||$rama8||$rama9||$rama10||$rama11||$rama12||$rama13||$rama14||$rama15||$rama16||$rama17)!= null){
+			if(!is_null($rama1)){$ramaArr['Alfarería y cerámica'] = }
+			if(!is_null($rama2)){$ramaArr['Textiles'] = }
+			if(!is_null($rama3)){$ramaArr['Madera'] = }
+			if(!is_null($rama4)){$ramaArr['Cerería'] = }
+			if(!is_null($rama5)){$ramaArr['Metalisteria'] = }
+			if(!is_null($rama6)){$ramaArr['Orfebreria'] = }
+			if(!is_null($rama7)){$ramaArr['Joyería'] = }
+			if(!is_null($rama8)){$ramaArr['Fibras vegetales'] = }
+			if(!is_null($rama9)){$ramaArr['Cartoneria y papel'] = }
+			if(!is_null($rama10)){$ramaArr['Talabartería y peletería'] = }
+			if(!is_null($rama11)){$ramaArr['Maque y laca'] = }
+			if(!is_null($rama12)){$ramaArr['Lapidaría y cantería'] = }
+			if(!is_null($rama13)){$ramaArr['Arte huichol'] = }
+			if(!is_null($rama14)){$ramaArr['Hueso y cuerno'] = }
+			if(!is_null($rama15)){$ramaArr['Concha y caracoles'] = }
+			if(!is_null($rama16)){$ramaArr['Vidrio'] = }
+			if(!is_null($rama17)){$ramaArr['Plumaria'] = }
+		}
+		return Response::json($erer);
 	}
 
 	public function get_personas($id)
