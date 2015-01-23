@@ -43,8 +43,8 @@ class ReportesController extends BaseController {
 		$sexoArr = array();
 		if (($hombre || $mujer) != null) {
 			$sexoArr = array(
-				'hombre' => count(Persona::where('sexo','=',$hombre) -> get()),
-				'mujer' => count(Persona::where('sexo','=',$mujer) -> get()),
+				'hombres' => count(Persona::where('sexo','=',$hombre) -> get()),
+				'mujeres' => count(Persona::where('sexo','=',$mujer) -> get()),
 			);
 		}
 

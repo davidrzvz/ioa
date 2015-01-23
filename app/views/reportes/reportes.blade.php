@@ -93,14 +93,11 @@
               <input name="rama17" type="checkbox" value="17"> Rama 17
             </label>
         </div>
-        <div class="pull-right">
-            <button type="button" class="btn btn-xs btn-success hidden" style="margin-top:10px;"><i class="fa fa-line-chart"></i> Generar nuevo reporte</button>
-            <button type="button" class="btn btn-xs btn-primary" style="margin-top:10px;" onclick="reporte()"><i class="fa fa-line-chart"></i> Generar reporte</button>
-        </div>
+        <button type="button" class="btn btn-xs btn-primary" style="margin-top:10px;" onclick="reporte()"><i class="fa fa-line-chart"></i> Generar reporte</button>
         <div class="row">
-            <div id="grafica1" class="col-md-4" style="height: 300px; margin-bottom: 20px;"></div>
-            <div id="grafica2" class="col-md-4"></div>
-            <div id="grafica3" class="col-md-4"></div>
+            <div id="grafica1" class="col-md-6" style="height: 500px; margin-bottom: 20px;"></div>
+            <div id="grafica2" class="col-md-6" style="height: 500px; margin-bottom: 20px;"></div>
+            <div id="grafica3" class="col-md-12" style="height: 500px; margin-bottom: 20px;"></div>
         </div>
     </form>
 @stop
@@ -108,21 +105,51 @@
     <script>
         function reporte () {
             $.post('reportes/reporte',$('#filtros').serialize(), function(json) {
-                console.log(json);
-                Morris.Donut({
-                    element: 'grafica1',
-                    data: [
-                        {label: "Hombres", value: 1},
-                        {label: "Mujeres", value: 2},
-                    ],
-                    backgroundColor: '#F7F7F7',
-                    labelColor: '#2B2B2B',
-                    colors: [
-                        '#2196F3',
-                        '#F50057',
-                    ],
-                });
+                if (json.sexo) {
+                    $('#grafica1').html('');
+                    Morris.Donut({
+                        element: 'grafica1',
+                        data: data(json.sexo),
+                        backgroundColor: '#F7F7F7',
+                        labelColor: '#2B2B2B',
+                        colors: [
+                            '#2196F3',
+                            '#F50057',
+                        ],
+                    });
+                };
+                if (json.region) {
+                    $('#grafica2').html('');
+                    Morris.Bar({
+                        element: 'grafica2',
+                        data: data(json.region),
+                        xkey: 'label',
+                        ykeys: ['value'],
+                        labels: ['Cantidad'],
+                        xLabelAngle: 90,
+                    });
+                };
+                if (json.rama) {
+                    $('#grafica3').html('');
+                    Morris.Bar({
+                        element: 'grafica3',
+                        data: data(json.rama),
+                        xkey: 'label',
+                        ykeys: ['value'],
+                        labels: ['Cantidad'],
+                        xLabelAngle: 90,
+                    });
+                };
             }, 'json');
+        }
+        function data (json) {
+            var data = [];
+            ii = 0;
+            $.each(json,function(index,i){
+                var obj = {label:Object.keys(json)[ii++],value:i}
+                data.push(obj);
+            });
+            return data;
         }
     </script>
 @endsection
