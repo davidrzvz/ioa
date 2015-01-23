@@ -11,13 +11,13 @@
 				<div class="col-sm-12">
 					<div class="btn-group btn-group-justified" role="group" aria-label="...">
 					<div class="btn-group" role="group">
-					    <button id="12" type="button" class="btn btn-xs btn-primary">FERIA</button>
+					    <button id="12" type="button" class="btn btn-xs btn-ioa">FERIA</button>
 					</div>
 					<div class="btn-group" role="group">
-						<button id="123" type="button" class="btn btn-xs btn-primary">CONCURSO</button>
+						<button id="123" type="button" class="btn btn-xs btn-ioa">CONCURSO</button>
 					</div>
 					<div class="btn-group" role="group">
-					    <button id="1234" type="button" class="btn btn-xs btn-primary">TALLER</button>
+					    <button id="1234" type="button" class="btn btn-xs btn-ioa">TALLER</button>
 					</div>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 				</div>
 			
 				<div class="form-group" style="top: 13px !important;">
-				<button id="found" type="submit" class="btn btn-primary pull-right">
+				<button id="found" type="submit" class="btn btn-ioa pull-right">
 				<span class="glyphicon glyphicon-search"></span> 
 					Buscar 
 				</button>
@@ -82,7 +82,7 @@
 
 
 		        <div class="form-group" style="top: 13px !important;">
-		        	<button id="found" type="submit" class="btn btn-primary pull-right">
+		        	<button id="found" type="submit" class="btn btn-ioa pull-right">
 		        	<span class="glyphicon glyphicon-search"></span> 
 		        		Buscar 
 		        	</button>
@@ -116,7 +116,7 @@
 			    </div>
 
 			    <div class="form-group" style="top: 13px !important;">
-			    	<button id="found" type="submit" class="btn btn-primary pull-right">
+			    	<button id="found" type="submit" class="btn btn-ioa pull-right">
 			    	<span class="glyphicon glyphicon-search"></span> 
 			    		Buscar 
 			    	</button>

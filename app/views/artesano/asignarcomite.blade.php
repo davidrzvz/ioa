@@ -202,7 +202,7 @@
 					</div>
 				
 				<div class="col-md-12">
-					<button type="submit" class="btn btn-primary btn-lg pull-right">
+					<button type="submit" class="btn btn-ioa btn-lg pull-right">
 						 Registrar 
 						<span class="glyphicon glyphicon-pencil"></span>
 						<span class="glyphicon glyphicon-ok"></span></button>

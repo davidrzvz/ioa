@@ -30,7 +30,7 @@
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->role_id }}</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-xs update" title="{{$user->username}}" onclick="update(this)">Editar</button>
+                                <button type="button" class="btn btn-ioa btn-xs update" title="{{$user->username}}" onclick="update(this)">Editar</button>
                                 <button type="button" class="btn btn-warning btn-xs delete" title="{{$user->username}}" onclick="password(this)">reset password</button>
                                 <button type="button" class="btn btn-danger btn-xs delete" title="{{$user->username}}" onclick="eliminar(this)">eliminar</button>
                             </td>
@@ -153,7 +153,7 @@ $(document).ready(function() {
         $.post($('#nuevo-user').attr('action'), $('#nuevo-user').serialize(), function(json) {
             if(json.success){
                 swal('Usuario creado', null, "success");
-                html = '<tr><td>'+json.user_id+'</td><td>'+json.username+'</td><td>'+json.role_id+'</td><td><button type="button" class="btn btn-primary btn-xs update" onclick="update(this)" title='+json.username+'>Editar</button> <button type="button" class="btn btn-warning btn-xs delete" title='+json.username+' onclick="password(this)">reset password</button> <button type="button" class="btn btn-danger btn-xs delete" onclick="eliminar(this)" title='+json.username+'>eliminar</button></td></tr>';
+                html = '<tr><td>'+json.user_id+'</td><td>'+json.username+'</td><td>'+json.role_id+'</td><td><button type="button" class="btn btn-ioa btn-xs update" onclick="update(this)" title='+json.username+'>Editar</button> <button type="button" class="btn btn-warning btn-xs delete" title='+json.username+' onclick="password(this)">reset password</button> <button type="button" class="btn btn-danger btn-xs delete" onclick="eliminar(this)" title='+json.username+'>eliminar</button></td></tr>';
                 $('#usuarios').append(html);
             }
             else

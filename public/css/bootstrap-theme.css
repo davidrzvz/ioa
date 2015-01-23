@@ -37,6 +37,11 @@
 .btn.active {
   background-image: none;
 }
+.btn-ioa {
+  color: #ffffff;
+  background-color: #774723;
+  border-color: #3B2413;
+}
 .btn-default {
   background-image: -webkit-linear-gradient(top, #ffffff 0%, #e0e0e0 100%);
   background-image: -o-linear-gradient(top, #ffffff 0%, #e0e0e0 100%);

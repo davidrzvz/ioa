@@ -50,6 +50,7 @@ $artesano["persona"]["rama_id"]=Rama::find($artesano->persona->rama_id)->nombre;
 $artesano["documentos"]=Documento::where('persona_id','=',$artesano->persona_id)->get();
 $artesano["compras"]=$artesano->comprasyventas()->get();
 $artesano["organizacion"]=$artesano->organizacion;
+$artesano["concursos"]=$artesano->concursos()->get();
 
 		return Response::json($artesano);
 

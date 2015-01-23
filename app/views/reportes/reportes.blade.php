@@ -93,7 +93,7 @@
               <input name="rama17" type="checkbox" value="17"> Rama 17
             </label>
         </div>
-        <button type="button" class="btn btn-xs btn-primary" style="margin-top:10px;" onclick="reporte()"><i class="fa fa-line-chart"></i> Generar reporte</button>
+        <button type="button" class="btn btn-xs btn-ioa" style="margin-top:10px;" onclick="reporte()"><i class="fa fa-line-chart"></i> Generar reporte</button>
         <div class="row">
             <div id="grafica1" class="col-md-6" style="height: 500px; margin-bottom: 20px;"></div>
             <div id="grafica2" class="col-md-6" style="height: 500px; margin-bottom: 20px;"></div>
@@ -105,8 +105,11 @@
     <script>
         function reporte () {
             $.post('reportes/reporte',$('#filtros').serialize(), function(json) {
+                console.log(json);
+                $('#grafica1').html('');
+                $('#grafica2').html('');
+                $('#grafica3').html('');
                 if (json.sexo) {
-                    $('#grafica1').html('');
                     Morris.Donut({
                         element: 'grafica1',
                         data: data(json.sexo),
@@ -119,7 +122,6 @@
                     });
                 };
                 if (json.region) {
-                    $('#grafica2').html('');
                     Morris.Bar({
                         element: 'grafica2',
                         data: data(json.region),
@@ -130,7 +132,6 @@
                     });
                 };
                 if (json.rama) {
-                    $('#grafica3').html('');
                     Morris.Bar({
                         element: 'grafica3',
                         data: data(json.rama),

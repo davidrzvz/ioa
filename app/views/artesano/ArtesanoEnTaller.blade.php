@@ -74,7 +74,7 @@
 			<div class="col-sm-12">
 
 				<div class="form-group" style="top: 13px !important;">
-					<button id="found" type="submit" class="btn btn-primary pull-right">
+					<button id="found" type="submit" class="btn btn-ioa pull-right">
 						<span class="glyphicon glyphicon-search"></span> 
 						Buscar 
 					</button>
@@ -112,7 +112,7 @@
 				</h4>
 
 				<div class="form-group" style="top: 13px !important;">
-					<button id="found" type="submit" class="btn btn-primary pull-right">
+					<button id="found" type="submit" class="btn btn-ioa pull-right">
 					<span class="glyphicon glyphicon-ok"></span> 
 							Registrar 
 					</button>

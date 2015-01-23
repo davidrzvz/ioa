@@ -129,7 +129,11 @@ a:hover {
 .sf-sub-indicator{
     display: none;
 }
-
+.btn-ioa {
+    color: #ffffff;
+    background-color: #774723;
+    border-color: #3B2413;
+}
 .sf-menu ul {
 	color: #583D21;
 	position:		absolute;

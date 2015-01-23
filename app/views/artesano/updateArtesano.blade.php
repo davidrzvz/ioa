@@ -39,7 +39,7 @@
 				</div>
 
 				<div class="form-group" style="top: 13px !important;">
-					<button id="found" type="submit" class="btn btn-primary pull-right">
+					<button id="found" type="submit" class="btn btn-ioa pull-right">
 						<span class="glyphicon glyphicon-search"></span> 
 						Buscar 
 					</button>
@@ -220,7 +220,7 @@
 		</div>
 
 		<div class="form-group" >
-			<button type="submit" class="btn btn-primary btn-lg pull-right">
+			<button type="submit" class="btn btn-ioa btn-lg pull-right">
 			<span class="glyphicon glyphicon-floppy-disk"></span> 
 			Guardar
 			</button>

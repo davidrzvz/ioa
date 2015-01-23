@@ -27,7 +27,7 @@
 						</div>
 					</div>
 						<div class="col-sm-12 form-group">
-							<button type="submit" class="btn btn-primary pull-right">Registrar
+							<button type="submit" class="btn btn-ioa pull-right">Registrar
 							<span class="glyphicon glyphicon-ok"></span></button>
 						</div>
 

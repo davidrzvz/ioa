@@ -65,6 +65,11 @@ hr {
   /*For fake logo only, remove if change*/
 
 }
+.btn-ioa {
+  color: #ffffff;
+  background-color: #774723;
+  border-color: #3B2413;
+}
 .navbar-brand{
   padding-top: 0px !important;
   vertical-align: bottom !important;

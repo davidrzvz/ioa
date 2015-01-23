@@ -173,7 +173,7 @@
 					</div>
 				</div>
 				<div class="col-sm-12 form-group">
-					<button id="btonen" type="submit" class="btn btn-primary btn-lg pull-right">Registrar <span class="glyphicon glyphicon-ok"></span></button>
+					<button id="btonen" type="submit" class="btn btn-ioa btn-lg pull-right">Registrar <span class="glyphicon glyphicon-ok"></span></button>
 				</div>
 			{{ Form::close() }}
 		</div>
@@ -204,7 +204,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary pull-right">
+						<button type="submit" class="btn btn-ioa pull-right">
 							<span class="glyphicon glyphicon-search"></span> 
 							Buscar 
 						</button>
@@ -267,7 +267,7 @@
 							</div>
 						</div>
 						<div class="col-sm-12 form-group">
-							<button type="submit" class="btn btn-primary btn-lg pull-right" id="btner">
+							<button type="submit" class="btn btn-ioa btn-lg pull-right" id="btner">
 								 Registrar 
 								<span class="glyphicon glyphicon-ok"></span>
 							</button>

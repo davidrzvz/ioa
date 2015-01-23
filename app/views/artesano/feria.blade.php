@@ -58,7 +58,7 @@
 
 			<div class="col-sm-10">
 				<div class="form-group col-sm-12">
-				<button type="submit" class="btn btn-primary  pull-right">Registrar
+				<button type="submit" class="btn btn-ioa  pull-right">Registrar
 				<span class="glyphicon glyphicon-ok"></span></button>
 			</div>
 			</div>

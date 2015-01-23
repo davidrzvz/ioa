@@ -313,7 +313,7 @@
 					</div>
 					
 					<div class="col-md-12 form-group" style="margin-top: 10px;">
-					<button type="submit" class="btn btn-primary btn-lg pull-right">
+					<button type="submit" class="btn btn-ioa btn-lg pull-right">
 						 Registrar 
 						<span class="glyphicon glyphicon-ok"></span></button>
 				</div>

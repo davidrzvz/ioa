@@ -63,6 +63,11 @@ strong {
 dfn {
   font-style: italic;
 }
+.btn-ioa {
+  color: #ffffff;
+  background-color: #774723;
+  border-color: #3B2413;
+}
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
