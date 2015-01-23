@@ -98,7 +98,7 @@
             <button type="button" class="btn btn-xs btn-primary" style="margin-top:10px;" onclick="reporte()"><i class="fa fa-line-chart"></i> Generar reporte</button>
         </div>
         <div class="row">
-            <div id="grafica1" class="col-md-4"></div>
+            <div id="grafica1" class="col-md-4" style="height: 300px; margin-bottom: 20px;"></div>
             <div id="grafica2" class="col-md-4"></div>
             <div id="grafica3" class="col-md-4"></div>
         </div>
@@ -109,6 +109,19 @@
         function reporte () {
             $.post('reportes/reporte',$('#filtros').serialize(), function(json) {
                 console.log(json);
+                Morris.Donut({
+                    element: 'grafica1',
+                    data: [
+                        {label: "Hombres", value: 1},
+                        {label: "Mujeres", value: 2},
+                    ],
+                    backgroundColor: '#F7F7F7',
+                    labelColor: '#2B2B2B',
+                    colors: [
+                        '#2196F3',
+                        '#F50057',
+                    ],
+                });
             }, 'json');
         }
     </script>
