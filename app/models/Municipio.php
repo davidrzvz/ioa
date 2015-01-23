@@ -3,7 +3,7 @@
  	public $timestamps = false;
  	protected $table = 'municipios';
 
-public function Distritos(){
+public function Distrito(){
 	return $this->belongsTo('Distrito');
 }
  public function Localidades(){

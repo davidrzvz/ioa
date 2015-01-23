@@ -27,7 +27,7 @@
  <div class="col-md-6 wellr">
         <div class="bg-orga col-md-12 text-center">MÁS ACCIONES</div>
         <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
-            <a target="_self" href="artesano">
+            <a target="_self" href="reportes">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/report.png"></img><br>
             {{ Form::label('reportes', 'REPORTES') }}
             </a>

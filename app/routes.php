@@ -79,8 +79,4 @@ Route::post('ArtesanoEnFeria','ArtesanoEnFeriaController@buscar');
 Route::get('ArtesanoEnTaller','RegistroenTallerController@get_nuevo');
 Route::post('ArtesanoEnTaller','RegistroenTallerController@buscar');
 
-
-
-
-
-
+Route::controller('reportes', 'ReportesController');

@@ -16,6 +16,14 @@
     {{HTML::style('css/bootstrap-datetimepicker.min.css');}}
     {{HTML::script('js/sweet-alert.js');}}
     {{HTML::style('css/sweet-alert.css');}}
+    <!-- Añadí estos -->
+    {{  HTML::script('js/chart/morris.min.js')}}
+    {{  HTML::script('js/chart/raphael-min.js')}}
+    {{  HTML::script('js/tables/jquery.dataTables.min.js')}}
+    {{  HTML::script('js/dataTables.tableTools.min.js')}}
+    {{  HTML::style('css/jquery.dataTables.css')}}
+    {{  HTML::style('css/dataTables.tableTools.css')}}
+    <!-- Dave -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
