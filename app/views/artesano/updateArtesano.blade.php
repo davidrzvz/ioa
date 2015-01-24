@@ -262,7 +262,7 @@ $(document).ready(function() {
 					'allowedFileExtensions' : ['jpg','jpeg','png','gif'],
 					'elErrorContainer': '#errorBlock'
 				});
-$('#datetimePicker1').datetimepicker({
+$('#datetimePicker1,#datetimePicker').datetimepicker({
     language: 'es',
     pickTime: false
 });
@@ -311,7 +311,6 @@ $('#buscarartesano').bootstrapValidator({
 .on('success.form.bv', function(e) {
     e.preventDefault();
 	$.post($(this).attr('action'), $(this).serialize(), function(json) {
-		console.log(json);
 		$('#datitos, #documentos').removeClass("hidden");
 			$('#persona_id').val(json.persona_id);
 			$('#nombre').val(json.persona.nombre);

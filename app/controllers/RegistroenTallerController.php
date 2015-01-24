@@ -34,30 +34,6 @@ $artesano["organizacion"]=$artesano->organizacion;
 		return Response::json($artesano);
 
 	}
-	////////////////////////////No se cual de las dos va////////////////////
-	public function post_personaconcursos(){
-		if(Input::get('idartesano') == "")
-			$objt = Persona::find(Input::get('idpersona'));
-		else
-			$objt = Artesano::find(Input::get('idartesano'));
-
-		if(!is_null($objt->Concursos()->where('concurso_id','=',Input::get('concid'))->first()))
-			return Response::json(array('error'=>true));
-
-		$objt->Concursos()->attach(Input::get('concid'),
-			array(
-				'categoria' 		=> 	Input::get('categoria'),
-				'pieza' 			=> 	Input::get('pieza'),
-				'costounitario' 	=> 	Input::get('costo'),
-				'avaluo' 			=> 	Input::get('avaluo'),
-				'entrego' 			=> 	Input::get('entrego'),
-				'calidad' 			=> 	Input::get('calidad'),
-				'recibio' 			=> 	Input::get('recibio'),
-				'fecharegistro' 	=> 	date('Y-m-d'),
-				'observaciones' 	=> 	Input::get('observ')
-				));
-		return Response::json(array('success'=>true));
-	}
 	public function registrar(){
 		$objt = Artesano::find(Input::get('artesanoid'));
 		if(!is_null($objt->Talleres()->where('taller_id','=',Input::get('tallerid'))->first()))
