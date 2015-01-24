@@ -27,7 +27,7 @@
 			<img id="123" class="botones elegido" title="Artesano" src="./imgs/nueva.png"></img>
 			<img id="1234"class="botones" style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" title="Persona" src="./imgs/inscrito.png"></img>
 		</div>	
-<!-- /////////////////-->		
+ <!-- /////////////////-->		
 		<div class="col-sm-8 pull-right wellr" id="divalta">
 			<div class="bg-orga col-sm-12 text-center">DATOS DEL PARTICIPANTE</div>
 			{{ Form::open(array('url' => 'personaConcurso','role' => 'form','id' => 'formalta','data-toggle' => 'validator')) }}
@@ -177,7 +177,7 @@
 				</div>
 			{{ Form::close() }}
 		</div>
-<!--////////////////////////-->
+ <!--////////////////////////-->
 		<div class="col-sm-8 pull-right hidden" id="inscritod">
 			<div class="col-sm-12 wellr">
 				{{ Form::open(array('id' => 'buscaconcursante', 'url' => 'buscaconcursante')) }}
@@ -367,6 +367,8 @@ $(document).ready(function() {
 					$('[name = idartesano]').val(json.artesano.id);
 				else
 					$('[name = idartesano]').val("");
+				$('[name = concid]').val("");
+				$('.bg-evento').removeClass('sombreado-evento');
 			}
 		}, 'json');
 	});
@@ -580,17 +582,20 @@ $(document).ready(function() {
 	})
 	.on('success.form.bv', function(e) {
         e.preventDefault();
-        console.log($('#inscrito').attr('action'))
         if($('[name = concid').val() == "")
         	swal('Error', 'Aun no seleccionas un concurso', 'error');
         else
 		$.post($('#inscrito').attr('action'), $('#inscrito').serialize(), function(json) {
-			console.log(json)
 			if(json.error)
 				swal('Error', 'Esta persona ya esta inscrita', 'error');
 			else
 				swal('Operacion completada correctamente', '', 'success');
 			$('#inscrito').data('bootstrapValidator').resetForm(true);
+			$('#inscrito_div').addClass('hidden');
+			$('[name = idartesano]').val("");
+			$('[name = idpersona]').val("");
+			$('[name = concid]').val("");
+			$('.bg-evento').removeClass('sombreado-evento');
 		}, 'json');
 		
 	});

@@ -110,11 +110,14 @@
 		$(document).ready(function() {
 			$('#datetimePicker1').datetimepicker({
 		        language: 'es',
-		        pickTime: false
+		        pickTime: false,
+		        minDate: moment().add(7, 'days'),
+		        defaultDate: moment().add(7, 'days').format("YYYY-MM-DD")
 		    });
 		    $('#datetimePicker2').datetimepicker({
 		        language: 'es',
-		        pickTime: false
+		        pickTime: false,
+		        defaultDate: moment().add(8, 'days').format("YYYY-MM-DD")
 		    });
 
 			$('#concursoform').bootstrapValidator({
@@ -137,7 +140,18 @@
 					notEmpty:{},
 					date: {
 		            format: 'YYYY-MM-DD'
-		            }
+		            },
+		            callback: {
+                        message: 'The date is not in the range',
+                        callback: function(value, validator) {
+                            var m = new moment(value, 'YYYY-MM-DD', true);
+                            if (!m.isValid()) {
+                                return false;
+                            }
+                            // Check if the date in our range
+                            return m.isAfter(moment().add(7, 'D').format("YYYY-MM-DD")) && m.isBefore(moment().add(6, 'M').format("YYYY-MM-DD"));
+                        }
+                    }
 				}
 
 			},
