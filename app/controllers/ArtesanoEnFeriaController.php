@@ -31,4 +31,12 @@ $artesano["organizacion"]=$artesano->organizacion;
 		return Response::json($artesano);
 
 	}
+
+public function registrar(){
+$objt = Artesano::find(Input::get('artesanoid'));
+if(!is_null($objt->Ferias()->where('feria_id','=',Input::get('feriaid'))->first()))
+			return Response::json(array('error'=>true));
+$objt->Ferias()->attach(Input::get('feriaid'));
+return Response::json(array('success'=>true));
+}
 }

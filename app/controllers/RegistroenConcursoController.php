@@ -111,6 +111,7 @@ class RegistroenConcursoController extends BaseController {
 		else
 			return Response::json(array('error'=>true));
 	}
+	
 	public function post_personaconcursos(){
 		if(Input::get('idartesano') == "")
 			$objt = Persona::find(Input::get('idpersona'));
@@ -119,7 +120,27 @@ class RegistroenConcursoController extends BaseController {
 
 		if(!is_null($objt->Concursos()->where('concurso_id','=',Input::get('concid'))->first()))
 			return Response::json(array('error'=>true));
-
+		$numeroregistro = DB::table('artesano_concurso')
+			->select('numregistro')
+			->where('concurso_id','=',Input::get('concid'))
+			->orderBy('numregistro','desc')
+			->first();
+			if(is_null($numeroregistro))
+				$numeroregistro = 20500;
+			else
+				$numeroregistro = $numeroregistro->numregistro;
+		$numeroregistro2 = DB::table('concurso_persona')
+			->select('numregistro')
+			->where('concurso_id','=',Input::get('concid'))
+			->orderBy('numregistro','desc')
+			->first();
+			if(is_null($numeroregistro2))
+				$numeroregistro = 20500;
+			else
+				$numeroregistro2 = $numeroregistro2->numregistro;
+		if($numeroregistro2 > $numeroregistro)
+				$numeroregistro =	$numeroregistro2;			
+			//return Response::json(array('nums'=>$numregistro));
 		$objt->Concursos()->attach(Input::get('concid'),
 			array(
 				'categoria' 		=> 	Input::get('categoria'),
@@ -130,7 +151,8 @@ class RegistroenConcursoController extends BaseController {
 				'calidad' 			=> 	Input::get('calidad'),
 				'recibio' 			=> 	Input::get('recibio'),
 				'fecharegistro' 	=> 	date('Y-m-d'),
-				'observaciones' 	=> 	Input::get('observ')
+				'observaciones' 	=> 	Input::get('observ'),
+				'numregistro'		=>	$numeroregistro+1
 				));
 		return Response::json(array('success'=>true));
 	}

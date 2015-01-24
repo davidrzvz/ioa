@@ -44,6 +44,7 @@ Route::post('feria','RegistroFeriaController@post_nuevo');
 
 Route::get('taller','RegistroTallerController@get_nuevo');
 Route::post('taller','RegistroTallerController@post_nuevo');
+Route::post('taller2','RegistroTallerController@update');
 
 Route::get('organizacion','RegistroOrganizacionController@get_nuevo');
 Route::post('organizacion','RegistroOrganizacionController@post_nuevo');
@@ -71,12 +72,17 @@ Route::post('personaConcurso2','RegistroenConcursoController@post_personaconcurs
 
 Route::post('buscaconcursante','RegistroenConcursoController@post_buscaconcursante');
 
-
 Route::get('editarEventos','editarEventoController@get_nuevo');
+Route::post('editarEventos/feria','editarEventoController@updateFeria');
+Route::post('editarEventos/concurso','editarEventoController@updateConcurso');
+Route::post('editarEventos/taller','editarEventoController@updateTaller');
+
 
 Route::get('ArtesanoEnFeria','ArtesanoEnFeriaController@get_ArtesanoEnFeria');
 Route::post('ArtesanoEnFeria','ArtesanoEnFeriaController@buscar');
+Route::post('ArtesanoEnFeria2','ArtesanoEnFeriaController@registrar');
 Route::get('ArtesanoEnTaller','RegistroenTallerController@get_nuevo');
 Route::post('ArtesanoEnTaller','RegistroenTallerController@buscar');
+Route::post('ArtesanoEnTaller2','RegistroenTallerController@registrar');
 
 Route::controller('reportes', 'ReportesController');

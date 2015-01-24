@@ -60,28 +60,29 @@ class AltaArtesanoController extends BaseController {
 	{
 	///////////////////////////////////////////////////Artesano
 	$personaArtesano = Persona::create(array(
-		'nombre'=> Input::get('nombre'),
-		'curp' => Input::get('curp'),
-		'sexo'=> Input::get('sexo'), 
-		'cuis'=> Input::get('cuis'),
-		'cp'=> Input::get('cp'), 
-		'telefono'=> Input::get('tel'), 
-		'domicilio'=> Input::get('domicilio'), 
-		'lada'=> Input::get('lada'), 
-		'observaciones'=> Input::get('observ'), 
-		'fechanacimiento'=> Input::get('fechanace'), 
-		'grupoetnico_id'=> Input::get('grupoetnico'), 
-		'localidad_id'=> Input::get('localidad'), 
-		'rama_id'=> Input::get('rama')));
+		'nombre'			=> Input::get('nombre'),
+		'curp' 				=> Input::get('curp'),
+		'sexo'				=> Input::get('sexo'), 
+		'cuis'				=> Input::get('cuis'),
+		'cp'				=> Input::get('cp'), 
+		'telefono'			=> Input::get('tel'), 
+		'domicilio'			=> Input::get('domicilio'), 
+		'lada'				=> Input::get('lada'), 
+		'observaciones'		=> Input::get('observ'), 
+		'fechanacimiento'	=> Input::get('fechanace'), 
+		'grupoetnico_id'	=> Input::get('grupoetnico'), 
+		'localidad_id'		=> Input::get('localidad'),
+		'estado'			=> 'OAXACA', 
+		'rama_id'			=> Input::get('rama')));
 
 	$artesano = Artesano::create(array(
-		'persona_id' => $personaArtesano->id,
-	    'ine'=> Input::get('ine'),
-		'RFC' => Input::get('RFC'),
-		'estadocivil' => Input::get('civil'),
+		'persona_id' 	=> $personaArtesano->id,
+	    'ine'			=> Input::get('ine'),
+		'RFC' 			=> Input::get('RFC'),
+		'estadocivil' 	=> Input::get('civil'),
 		'fecharegistro' => date('Y-m-d'),
-		'taller' => Input::get('taller'),
-		'tipotelefono' => Input::get('tipoTel'),
+		'taller' 		=> Input::get('taller'),
+		'tipotelefono' 	=> Input::get('tipoTel'),
 		'observaciones' => Input::get('observ'),
 		));
 
@@ -249,10 +250,11 @@ return Response::json($personaArtesano);
 		if (Input::get('producto1') != '') {
 				
 		$producto = Producto::create(array(
-		'artesano_id' => $artesano->id,
-	    'nombre'=> Input::get('producto1'),
-		'produccionmensual' => Input::get('prod1'),
-		'costoaprox' => Input::get('costo1'),));
+				'artesano_id' 		=> $artesano->id,
+			    'nombre'			=> Input::get('producto1'),
+				'produccionmensual' => Input::get('prod1'),
+				'costoaprox' 		=> Input::get('costo1'),
+			));
 		}
 
 		if (Input::get('producto2') != '') {

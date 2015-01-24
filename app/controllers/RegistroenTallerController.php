@@ -34,6 +34,7 @@ $artesano["organizacion"]=$artesano->organizacion;
 		return Response::json($artesano);
 
 	}
+	////////////////////////////No se cual de las dos va////////////////////
 	public function post_personaconcursos(){
 		if(Input::get('idartesano') == "")
 			$objt = Persona::find(Input::get('idpersona'));
@@ -55,6 +56,13 @@ $artesano["organizacion"]=$artesano->organizacion;
 				'fecharegistro' 	=> 	date('Y-m-d'),
 				'observaciones' 	=> 	Input::get('observ')
 				));
+		return Response::json(array('success'=>true));
+	}
+	public function registrar(){
+		$objt = Artesano::find(Input::get('artesanoid'));
+		if(!is_null($objt->Talleres()->where('taller_id','=',Input::get('tallerid'))->first()))
+					return Response::json(array('error'=>true));
+		$objt->Talleres()->attach(Input::get('tallerid'));
 		return Response::json(array('success'=>true));
 	}
 }
