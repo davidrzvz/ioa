@@ -13,7 +13,7 @@
 	        @foreach($ferias as $feria)
 	            <div class="container bg-evento col-md-12">
 	            <div class="col-md-12">
-	           	<p id='idconc' class='hidden'>{{$feria->id}}</p>
+	           	<p id='idferia' class='hidden'>{{$feria->id}}</p>
 		              
 		        <h4><i class="fa fa-chain-broken fa-lg pull-left"></i>{{ $feria->nombre }}</h4>
 		        </div>
@@ -88,38 +88,45 @@
 			</div>
 
 	<div class="col-sm-12 pull-right hidden" id="artesano">
+		{{ Form::open(array('url' => 'ArtesanoEnFeria2','role' => 'form','id' => 'registrar','class' => 'form-horizontal')) }}
 		<div class="bg-orga col-md-12">ARTESANO</div>
 
 		<div class="col-md-12">
 		
 			<h4>
-			<label class="label label-primary">Nombre:</label>
 			<label id="nombre" class="elementos"></label>
 			</h4>
 
 			<h4>
-			<label class="label label-primary">Fecha N:</label>
 			<label id="nace" class="elementos"></label>
 			</h4>
 
 			<h4>
-			<label class="label label-primary">Sexo:</label>
 			<label id="sexo" class="elementos"></label>
 			</h4>
 
 			<h4>
-			<label class="label label-primary">CURP:</label>
 			<label id="curp" class="elementos"></label>
 			</h4>
 
+			<div class="col-sm-2 form-group hidden">
+				{{ Form::label('feriaid', 'fer') }}
+				{{ Form::text('feriaid', null, array('placeholder' => 'Id','class' => 'form-control')) }}
+			</div>
+			<div class="col-sm-2 form-group hidden">
+				{{ Form::label('artesanoid', 'art') }}
+				{{ Form::text('artesanoid', null, array('id'=>'artesanoid','placeholder' => 'Id','class' => 'form-control')) }}
+			</div>
+
 			<div class="form-group" style="top: 13px !important;">
-				<button id="found" type="submit" class="btn btn-ioa pull-right">
+				<button type="submit" class="btn btn-ioa pull-right" id="btnregistrar">
 				<span class="glyphicon glyphicon-ok"></span> 
 						Registrar 
 				</button>
-				</div>
+			</div>
 
 		</div>
+		{{Form::close()}}
 
 </div>
 				
@@ -193,8 +200,7 @@
 
 		        }
 		    })
-
-.on('success.form.bv', function(e) {
+			.on('success.form.bv', function(e) {
 	            e.preventDefault();
 				$.post($(this).attr('action'), $(this).serialize(), function(json) {
 					console.log(json);
@@ -203,43 +209,49 @@
 						$('#nace').text(json.persona.fechanacimiento);
 						$('#sexo').text(json.persona.sexo);
 						$('#curp').text(json.persona.curp);
-						documentos(json.documentos);
+						$('#artesanoid').val(json.id);
+						$('[name=feriaid]').val("");
 				}, 'json').fail(function(){
 					swal('Error','No se encontró el artesano','error');
 				});
 			});
 
-		$('#datetimePicker1').on('dp.change dp.show', function(e) {
+	$('#datetimePicker').on('dp.change dp.show', function(e) {
         $('#buscarartesano').bootstrapValidator('revalidateField', 'fechanace');
     });
 
 
-
-
-$('.bg-evento').click(function(){
-	$('.bg-evento').removeClass('sombreado-evento');
-	$(this).addClass('sombreado-evento');
-	$('[name=ferid]').val($(this).find('#idfer').text());
-	$('#buscarartesano').bootstrapValidator('revalidateField', 'concid');
+$('#registrar').submit( function(e) {
+    e.preventDefault();
+    if($('[name = feriaid').val() == "")
+       	swal('Error', 'Aun no seleccionas una Feria', 'error');
+    else{
+		$.post($(this).attr('action'), $(this).serialize(), function(json) {
+			if(json.error)
+				swal('Error', 'Este artesano ya esta inscrito en esta feria', 'error');
+			else{
+				swal('Operacion completada correctamente', '', 'success');
+				$('#buscarartesano').data('bootstrapValidator').resetForm(true);
+				$('#artesano').addClass("hidden");
+			}
+			$('.bg-evento').removeClass('sombreado-evento');
+		}, 'json');
+	}
+	$('#btnregistrar').prop('disabled','disabled');
 });
-	$('#datetimePicker').on('dp.change dp.show', function(e) {
-    $('#buscarartesano').bootstrapValidator('revalidateField', 'fechanace');
-    });
+
+	$('.bg-evento').click(function(){
+		$('.bg-evento').removeClass('sombreado-evento');
+		$(this).addClass('sombreado-evento');
+		$('[name=feriaid]').val($(this).find('#idferia').text());
+		$('#btnregistrar').removeAttr('disabled',false);
+	});
 
 });
 
-</script>
 
 
-<script>
-function documentos(documents){
-	var html='<div class="bg-orga col-md-12 text-center">DOCUMENTOS DEL ARTESANO</div>';
-	$(documents).each(function(){
-		html += '<div class="container bg-docs col-md-12"><div class="col-md-12"><strong>'+this.nombre+'</strong><div class="col-md-12" style="text-align:center;"><img style="border: 0pt; margin-left: 0px; margin-bottom: 10px; margin-top: 15px; height: 200px; width: 150px;" src="'+this.ruta+'" onClick="window.open('+"'"+this.ruta+"'"+')";></img></div></div></div>';
-	}); 
-	$('#documentos').html(html);
-}
-	
+
 </script>
 
 

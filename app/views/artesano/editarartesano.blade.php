@@ -2,11 +2,10 @@
 	@section('titulo')BÚSQUEDA ARTESANO
 	@endsection
 
-		@section('contenido')
-		<div class="container wellr">
+@section('contenido')
+<div class="container wellr">
 
-			<div class="col-sm-4 wellr">
-		
+	<div class="col-sm-4 wellr">
 		{{ Form::open(array('id' => 'buscarartesano')) }}
 		
 			<div class="col-md-12">
@@ -45,15 +44,11 @@
 						Buscar 
 					</button>
 				</div>
-			
-
 		{{Form::close()}}
 	</div>
 
-<div class="pull-left wellr col-md-3 hidden" id="documentos">      
-</div>
-
-
+	<div class="pull-left wellr col-md-3 hidden" id="documentos">      
+	</div>
 	<div class="col-sm-5 hidden wellr" id="datitos">
 		<div class="bg-orga col-md-12">DATOS DEL ARTESANO</div>
 
@@ -162,13 +157,13 @@
 
 		</div>
 
-</div>
-<div class="hidden anadidos col-sm-4">
-	<div class="bg-orga col-md-12">CONCUROSOS</div>
-	<div id="concursos"></div>
-</div>
-		
-		@endsection
+	</div>
+	<div class="hidden anadidos col-sm-4">
+		<div class="bg-orga col-md-12">CONCUROSOS</div>
+		<div id="concursos"></div>
+	</div>
+</div>		
+@endsection
 
 
 @section('scripts')
