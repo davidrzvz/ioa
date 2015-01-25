@@ -9,8 +9,8 @@ class UsersController extends BaseController{
 	public function getIndex()
 	{
 		$my_id = Auth::user()->id;
-		if(Auth::user()->role_id == 1){	
-			$users = User::where('role_id','<>','1')->where('id','<>',$my_id)->get();
+		if(Auth::user()->role_id == 2){	
+			$users = User::where('role_id','<>','2')->where('id','<>',$my_id)->get();
 			return View::make('usuarios.usuarios')-> with('users',$users);			
 		}
 		else{

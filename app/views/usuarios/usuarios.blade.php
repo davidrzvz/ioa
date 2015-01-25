@@ -66,8 +66,8 @@
               {{ Form::text('nombre', null, array('class' => 'form-control')) }}
             </div>
             <div class="form-group">
-              {{ Form::label('tipo', 'Tipo',array('class' => 'control-label','name' => 'tipo')) }}
-              {{Form::select('tipo', array('' => 'Seleccione','0' => 'Usuario','1' => 'Administrador',), null, array('class' =>'form-control'))}}
+              {{ Form::label('tipo', 'Tipo',array('class' => 'control-label')) }}
+              {{Form::select('tipo', array('0' => 'Seleccione','1' => 'Usuario','2' => 'Administrador',), null, array('class' =>'form-control'))}}
             </div>
         </div>
         <div class="modal-footer">
@@ -102,8 +102,8 @@
               {{ Form::text('nombre_editar', null, array('class' => 'form-control','id' => 'nombre')) }}
             </div>
             <div class="form-group">
-              {{ Form::label('tipo', 'Tipo',array('class' => 'control-label','name' => 'tipo')) }}
-              {{Form::select('tipo_editar', array('' => 'Seleccione','0' => 'Usuario','1' => 'Administrador',), null, array('class' =>'form-control','id' => 'tipo'))}}
+              {{ Form::label('tipo', 'Tipo',array('class' => 'control-label')) }}
+              {{Form::select('tipo_editar', array('0' => 'Seleccione','1' => 'Usuario','2' => 'Administrador',), null, array('class' =>'form-control','id' => 'tipo'))}}
             </div>
         </div>
         <div class="modal-footer">
@@ -136,17 +136,11 @@ $(document).ready(function() {
             },
             tipo: {
                 validators: {
-                    notEmpty: {
-                    }
+                    notEmpty: {}
                 }
             }
         }
     })
-    .on('success.field.bv', function(e, data) {
-            if (data.bv.getSubmitButton()) {
-                data.bv.disableSubmitButtons(false);
-            }
-        })
     .on('success.form.bv', function(e) {
         e.preventDefault();
         $('.fa-refresh').removeClass('hidden');
