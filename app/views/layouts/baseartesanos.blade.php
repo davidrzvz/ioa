@@ -60,6 +60,27 @@
                         <a href="organizacion" class="smcf-link sf-with-ul">REPORTES<span class="sf-sub-indicator"> »</span></a>
                     </li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                      <li id="fat-menu" class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size:20px;">
+                            @if(Auth::id())
+                              {{ Auth::user()->username }}
+                            @endif  
+                              <i class="fa fa-user"></i>
+                              <i class="fa fa-caret-down"></i>
+                          </a>
+
+                          <ul class="dropdown-menu">
+                            @if(Auth::user()->role_id == 2)
+                              <li><a href="{{ URL::to('users'); }}"><i class="fa fa-users"></i> Usuarios</a></li>
+                              <li class="divider"></li>
+                            @endif
+                              <li><a class="visible-phone" href="{{ URL::to('settings'); }}"><i class="fa fa-cogs"></i> Settings</a></li>
+                              <li class="divider"></li>
+                              <li><a href="{{ URL::to('logout'); }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                          </ul>
+                      </li>
+                  </ul>
             </div>
             <div class="izquierda">
                 
