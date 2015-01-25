@@ -60,7 +60,7 @@
                         <a href="organizacion" class="smcf-link sf-with-ul">REPORTES<span class="sf-sub-indicator"> »</span></a>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" style="margin-top: -10px">
                       <li id="fat-menu" class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size:20px;">
                             @if(Auth::id())
