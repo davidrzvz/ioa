@@ -108,6 +108,7 @@
 	<script src="js/es_ES.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			$("#menu-item-48175").addClass("current_page_item ");
 			$('#datetimePicker1').datetimepicker({
 		        language: 'es',
 		        pickTime: false,
