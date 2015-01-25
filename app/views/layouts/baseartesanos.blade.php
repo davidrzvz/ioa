@@ -41,7 +41,7 @@
           
             <div class="menu">
                 <ul id="menu-menu-1" class="sf-menu sf-js-enabled sf-shadow">
-                    <li id="menu-item-48096" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-48096">
+                    <li id="menu-item-48096" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-48096">
                         <a href="inicio" class="sf-with-ul">INICIO<span class="sf-sub-indicator"></span></a>
                     </li>
                     <li id="menu-item-48155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48155">

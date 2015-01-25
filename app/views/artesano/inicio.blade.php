@@ -75,3 +75,10 @@
   
 </div>
 @stop
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-48096").addClass("current_page_item ");
+    });
+</script>
+@stop

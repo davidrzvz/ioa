@@ -341,7 +341,7 @@
 <script src="js/bootstrapValidator.js" type="text/javascript"></script>
 	<script src="js/es_ES.js" type="text/javascript"></script>
 	<script type="text/javascript">
-	
+	$("#menu-item-48155").addClass("current_page_item ");
 		$(".filess").fileinput({
 				showUpload: false,
 				showCaption: false,
