@@ -57,7 +57,7 @@
                         <a href="feria">FERIAS<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li id="menu-item-48188" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48188">
-                        <a href="organizacion" class="smcf-link sf-with-ul">REPORTES<span class="sf-sub-indicator"> »</span></a>
+                        <a href="reportes" class="smcf-link sf-with-ul">REPORTES<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48188">
                         <a href="" title="" class="sf-sub-indicator">?</a>
@@ -78,9 +78,9 @@
                               <li><a href="{{ URL::to('users'); }}"><i class="fa fa-users"></i> Usuarios</a></li>
                               <li class="divider"></li>
                             @endif
-                              <li><a class="visible-phone" href="{{ URL::to('settings'); }}"><i class="fa fa-cogs"></i> Settings</a></li>
+                              <li><a class="visible-phone" href="{{ URL::to('settings'); }}"><i class="fa fa-cogs"></i> Opciones</a></li>
                               <li class="divider"></li>
-                              <li><a href="{{ URL::to('logout'); }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                              <li><a href="{{ URL::to('logout'); }}"><i class="fa fa-sign-out"></i> Salir</a></li>
                           </ul>
                       </li>
                   </ul>

@@ -31,8 +31,8 @@
                             <td>{{ $user->role_id }}</td>
                             <td>
                                 <button type="button" class="btn btn-ioa btn-xs update" title="{{$user->username}}" onclick="update(this)">Editar</button>
-                                <button type="button" class="btn btn-warning btn-xs delete" title="{{$user->username}}" onclick="password(this)">reset password</button>
-                                <button type="button" class="btn btn-danger btn-xs delete" title="{{$user->username}}" onclick="eliminar(this)">eliminar</button>
+                                <button type="button" class="btn btn-warning btn-xs delete" title="{{$user->username}}" onclick="password(this)">Reset password</button>
+                                <button type="button" class="btn btn-danger btn-xs delete" title="{{$user->username}}" onclick="eliminar(this)">Eliminar</button>
                             </td>
                         </tr>
                     @endforeach 
@@ -108,7 +108,7 @@
         </div>
         <div class="modal-footer">
             <button id='bcancelar' type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-            {{ Form::button('<i class="fa fa-floppy-o "></i> Crear',array('class' => 'btn btn-success','id' => 'guardar','type' => 'submit')) }}
+            {{ Form::button('<i class="fa fa-floppy-o "></i> Guardar',array('class' => 'btn btn-success','id' => 'guardar','type' => 'submit')) }}
         </div> 
         {{ Form::close() }}
       </div>
