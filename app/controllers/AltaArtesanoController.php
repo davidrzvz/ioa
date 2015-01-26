@@ -276,8 +276,8 @@ class AltaArtesanoController extends BaseController {
 		}
 
 		//////////////////////////////////////////////////////
-		$artesano = Artesano::find($artesano->id);
-		$artesano->Organizacion()->attach(Input::get('orgid'));
+		//$artesano = Artesano::find($artesano->id);
+		$artesano->organizacion()->attach(Input::get('orgid'));
 			if ((Input::get('cargo')) != '') {
 				$artesano->Comite()->attach(Input::get('comiteid'),array('cargo' => Input::get('cargo'),));	
 				}
@@ -291,7 +291,7 @@ class AltaArtesanoController extends BaseController {
 		$comite = Comite::whereHas('organizacion',function($q) use ($nombre,$telefono){ 
 			$q->where('nombre','like',$nombre.'%','and')
 			->where('telmunicipio','=',$telefono);
-		})->get();
+		})->first();
 		
 		return Response::json($comite);
 

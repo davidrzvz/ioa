@@ -431,17 +431,18 @@
 
             // Use Ajax to submit form data
             $.post($form.attr('action'), $form.serialize(), function(result) {
+            	console.log(result)
             	if (result != ''){
 			    		$('#ok').removeClass('hidden');
 			    		$('#nok').addClass('hidden');
-			    		$('[name=orgid]').val(result[0].organizacion_id);
-               	$('[name=comiteid]').val(result[0].id);
+			    		$('[name=orgid]').val(result.organizacion_id);
+               			$('[name=comiteid]').val(result.id);
 					}
 					else {
 						$('#nok').removeClass('hidden');
 						$('#ok').addClass('hidden');
 						$('[name=orgid]').val('');
-               	$('[name=comiteid]').val('');
+               			$('[name=comiteid]').val('');
 						}
                 
             }, 'json');
