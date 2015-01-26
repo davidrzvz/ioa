@@ -25,7 +25,11 @@ class CredencialesController extends BaseController {
     }
     public function postCredencial(){
         $artesano = Input::get("id");
-        return View::make('credenciales.imprimir')->with('artesanos',array($artesano));
+        //return View::make('credenciales.imprimir')->with('artesanos',array($artesano));
+        $html =  View::make('credenciales.imprimir')->with('artesanos',array($artesano));
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML($html);
+        return $pdf->stream();
     }
     public function postOrganizacion(){
         $Organizacion = Organizacion::where('nombre','=',Input::get('nombreorg'))->where('telmunicipio','=',Input::get('telmun'))->first();
@@ -55,7 +59,11 @@ class CredencialesController extends BaseController {
                 $personas[] = $artesano->persona->id;
             }
         }
-        return View::make('credenciales.imprimir')->with('artesanos',$personas);            
+        //return View::make('credenciales.imprimir')->with('artesanos',$personas);
+        $html =  View::make('credenciales.imprimir')->with('artesanos',$personas);
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML($html);
+        return $pdf->stream();
     }
 }
 ?>

@@ -12,7 +12,7 @@ public function Documentos(){
 return $this->hasMany('Documento');
 }
 public function Grupoetnico(){
-return $this->belongsTo('Grupoetnico');
+return $this->belongsTo('Gruposetnico');
 }
 public function Localidad(){
 return $this->belongsTo('Localidad');
