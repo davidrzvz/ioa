@@ -9,7 +9,7 @@
     <form id="filtros">
         
         <div class="col-md-8 wellr col-md-offset-2">
-            <h3>SELECCIONE 1 O MÁS OPCIONES EN AL MENOS 2 CATEGORÍAS</h3>
+            <h4 style="text-align: center; color: #cc0000;">REPORTE DEL PADRÓN ARTESANAL</h3>
             <div class="bg-orga col-md-12 text-center">REGIONES</div>
 
             <label class="checkbox-inline">
@@ -41,57 +41,63 @@
 
         <div class="row col-md-8 wellr col-md-offset-2">
             <div class="bg-orga col-md-12 text-center">RAMAS ARTESANALES</div>
+            <div class="col-md-4">
             <label class="checkbox-inline">
-              <input name="rama1" type="checkbox" value="1"> <strong>Rama 1
-            </label>
+              <input name="rama2" type="checkbox" value="2"> <strong>Textiles</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama2" type="checkbox" value="2"> <strong>Rama 2</strong>
-            </label>
+              <input name="rama3" type="checkbox" value="3"> <strong>Madera</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama3" type="checkbox" value="3"> <strong>Rama 3</strong>
-            </label>
+              <input name="rama4" type="checkbox" value="4"> <strong>Cerería</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama4" type="checkbox" value="4"> <strong>Rama 4</strong>
-            </label>
+              <input name="rama5" type="checkbox" value="5"> <strong>Metalistería</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama5" type="checkbox" value="5"> <strong>Rama 5</strong>
-            </label>
+              <input name="rama6" type="checkbox" value="6"> <strong>Orfebrería</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama6" type="checkbox" value="6"> <strong>Rama 6</strong>
+              <input name="rama7" type="checkbox" value="7"> <strong>Joyería</strong>
             </label>
+            </div>
+            <div class="col-md-4">
             <label class="checkbox-inline">
-              <input name="rama7" type="checkbox" value="7"> <strong>Rama 7</strong>
-            </label>
+              <input name="rama13" type="checkbox" value="13"> <strong>Arte Huichol</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama8" type="checkbox" value="8"> <strong>Rama 8</strong>
-            </label>
+              <input name="rama15" type="checkbox" value="15"> <strong>Concha y Caracol</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama9" type="checkbox" value="9"> <strong>Rama 9</strong>
-            </label>
+              <input name="rama16" type="checkbox" value="16"> <strong>Vidrio</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama10" type="checkbox" value="10"> <strong>Rama 10</strong>
-            </label>
+              <input name="rama17" type="checkbox" value="17"> <strong>Plumaría</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama11" type="checkbox" value="11"> <strong>Rama 11</strong>
-            </label>
+              <input name="rama11" type="checkbox" value="11"> <strong>Maque y Laca</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama12" type="checkbox" value="12"> <strong>Rama 12</strong>
+              <input name="rama14" type="checkbox" value="14"> <strong>Cuerno y Hueso</strong>
             </label>
+            </div>
+            <div class="col-md-4">
             <label class="checkbox-inline">
-              <input name="rama13" type="checkbox" value="13"> <strong>Rama 13</strong>
-            </label>
+              <input name="rama8" type="checkbox" value="8"> <strong>Fibras Vegetales</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama14" type="checkbox" value="14"> <strong>Rama 14</strong>
-            </label>
+              <input name="rama9" type="checkbox" value="9"> <strong>Cartonería y Papel</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama15" type="checkbox" value="15"> <strong>Rama 15</strong>
-            </label>
+              <input name="rama10" type="checkbox" value="10"> <strong>Talbartería y Peletería</strong>
+            </label><br>
             <label class="checkbox-inline">
-              <input name="rama16" type="checkbox" value="16"> <strong>Rama 16</strong>
+              <input name="rama12" type="checkbox" value="12"> <strong>Lapidaría y Cantería</strong>
+            </label><br>
+             <label class="checkbox-inline">
+              <input name="rama1" type="checkbox" value="1"> <strong>Alfarería y Cerámica</strong>
             </label>
-            <label class="checkbox-inline">
-              <input name="rama17" type="checkbox" value="17"> <strong>Rama 17</strong>
-            </label>
+            </div>
         </div>
 
         <div class="wellr col-sm-2 col-md-offset-5">
@@ -109,12 +115,13 @@
         <button type="button" class="btn btn-ioa" style="margin-top:10px;" onclick="reporte()"><i class="fa fa-line-chart"></i> Generar reporte</button>
         </div>
         </div>
+        <div class="col-md-12"><hr></div>
     </form>
 </div>
 <div class="row">
-            <div id="grafica1" class="col-md-5" style="height: 500px; margin-bottom: 20px;"></div>
-            <div id="grafica2" class="col-md-5 col-md-offset-2" style="height: 500px; margin-bottom: 20px;"></div>
-            <div id="grafica3" class="col-md-8" style="height: 500px; margin-bottom: 20px;"></div>
+            <div id="grafica1" class="col-md-3 col-md-offset-1" style="height: 500px; margin-bottom: 40px;"></div>
+            <div id="grafica2" class="col-md-7 col-md-offset-1" style="height: 500px; margin-bottom: 40px; text-align: center;"></div>
+            <div id="grafica3" class="col-md-8 col-md-offset-2" style="height: 500px; margin-top: 60px; margin-bottom: 40px; text-align: center;"></div>
         </div>
 </div>
 @stop
@@ -133,8 +140,8 @@
                         backgroundColor: '#F7F7F7',
                         labelColor: '#2B2B2B',
                         colors: [
-                            '#00CC00',
-                            '#F50057',
+                            '#0BD318',
+                            '#FF2D55',
                         ],
                     });
                 };
@@ -144,12 +151,9 @@
                         data: data(json.region),
                         xkey: 'label',
                         ykeys: ['value'],
-                        labels: ['Cantidad'],
-                        xLabelAngle: 90,
-                        barColor: [
-                            '#00cc00',
-                            '#3399ff',
-                        ],
+                        labels: ['No. de Artesanos'],
+                        barColors: ['#007AFF'],
+                        gridTextColor: ['#cc0000']
                     });
                 };
                 if (json.rama) {
@@ -158,8 +162,10 @@
                         data: data(json.rama),
                         xkey: 'label',
                         ykeys: ['value'],
-                        labels: ['Cantidad'],
-                        xLabelAngle: 90,
+                        labels: ['No. de Artesanos'],
+                        barColors: ['#FFCC00'],
+                        gridTextColor: ['#000000'],
+                        xLabelAngle: 90
                     });
                 };
             }, 'json');

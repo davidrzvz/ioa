@@ -38,14 +38,20 @@
   margin: 0 auto 4% auto;
 }
 </style>
+<style type="text/css" media="screen">
+  .tok{
+    top: 2px !important;
+    right: 23px !important;
+  }
+</style>
   {{  HTML::script('js/bootstrapValidator.js'); }}
   {{  HTML::script('js/es_ES.js'); }}
   <script type="text/javascript">
     $('#update').bootstrapValidator({
         feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+            valid: 'glyphicon glyphicon-ok tok',
+            invalid: 'glyphicon glyphicon-remove tok',
+            validating: 'glyphicon glyphicon-refresh tok'
         },
         fields: {
             password: {
