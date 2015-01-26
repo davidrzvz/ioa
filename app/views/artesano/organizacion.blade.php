@@ -64,8 +64,8 @@
 <script src="js/bootstrapValidator.js" type="text/javascript"></script>
 	<script src="js/es_ES.js" type="text/javascript"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#altaorg').bootstrapValidator({
+$(document).ready(function() {
+	$('#altaorg').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok tok',
             invalid: 'glyphicon glyphicon-remove tok',

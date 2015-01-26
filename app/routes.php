@@ -35,7 +35,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::controller('users', 'UsersController');
 	Route::get('logout', 'UserLogin@logOut');
 	Route::controller('settings', 'SettingsController');
-
+	Route::controller('credenciales','CredencialesController');
+	 
 	Route::get('artesano','AltaArtesanoController@get_nuevo');
 	Route::post('artesano/registro','AltaArtesanoController@post_nuevo');
 
