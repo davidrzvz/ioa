@@ -105,7 +105,7 @@
     <script>
         function reporte () {
             $.post('reportes/reporte',$('#filtros').serialize(), function(json) {
-                console.log(json);
+                // console.log(json);
                 $('#grafica1').html('');
                 $('#grafica2').html('');
                 $('#grafica3').html('');
@@ -127,8 +127,9 @@
                         data: data(json.region),
                         xkey: 'label',
                         ykeys: ['value'],
-                        labels: ['Cantidad'],
+                        labels: ['Mixteca'],
                         xLabelAngle: 90,
+                        barColors : ['#987543' ,'#826496'],
                     });
                 };
                 if (json.rama) {
@@ -150,6 +151,7 @@
                 var obj = {label:Object.keys(json)[ii++],value:i}
                 data.push(obj);
             });
+            console.log(data);
             return data;
         }
     </script>
