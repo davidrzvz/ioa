@@ -9,7 +9,7 @@ public function Comite(){
 return $this->hasOne('Comite');
 }
 public function Artesanos(){
-return $this->belongsToMany('Artesanos');
+return $this->belongsToMany('Artesano');
 }
 }
 
