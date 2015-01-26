@@ -6,16 +6,16 @@
 @section('contenido')
 <div class="main">
       <div class="login-form text-center" style="width: 30%;!important">
-        <h2 style="font-size: 30px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:15px;"><i class="fa fa-unlock-alt"></i> Password</h2>
+        <h2 style="font-size: 30px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:15px;"><i class="fa fa-unlock-alt"></i> Contraseña</h2>
           {{ Form::open(array('url' => 'settings/update','role' => 'form','id' => 'update','class' => 'form-horizontal')) }}
           <div class="form-group">
-              <label class="col-sm-3 control-label"><strong>Password: </strong></label>
+              <label class="col-sm-3 control-label"><strong>Contraseña: </strong></label>
               <div class="col-sm-9">
                 <input type="password" class="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" name="password" autocomplete="off">
                 </div>  
           </div>
           <div class="form-group">
-              <label class="col-sm-3 control-label"><strong>Password: </strong></label>
+              <label class="col-sm-3 control-label"><strong>Contraseña: </strong></label>
               <div class="col-sm-9">
               <input type="password" class="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" name="password_confirmation" autocomplete="off">
               </div>  

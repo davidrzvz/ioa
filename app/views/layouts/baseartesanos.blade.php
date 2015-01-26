@@ -78,9 +78,9 @@
                               <li><a href="{{ URL::to('users'); }}"><i class="fa fa-users"></i> Usuarios</a></li>
                               <li class="divider"></li>
                             @endif
-                              <li><a class="visible-phone" href="{{ URL::to('settings'); }}"><i class="fa fa-cogs"></i> Settings</a></li>
+                              <li><a class="visible-phone" href="{{ URL::to('settings'); }}"><i class="fa fa-cogs"></i> Opciones</a></li>
                               <li class="divider"></li>
-                              <li><a href="{{ URL::to('logout'); }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                              <li><a href="{{ URL::to('logout'); }}"><i class="fa fa-sign-out"></i> Salir</a></li>
                           </ul>
                       </li>
                   </ul>
