@@ -8,7 +8,7 @@
 		<div class="bg-orga col-md-12">DATOS DEL ARTESANO</div>
 
 		
-			{{ Form::open(array('id' => 'formalta', 'url' => 'artesano/registro', 'files'=>true)) }}
+		{{ Form::open(array('id' => 'formalta', 'url' => 'artesano/registro', 'files'=>true)) }}
 				<div class="col-md-12">
 					
 					
@@ -494,9 +494,15 @@
     				}
     			}
 		        }
-		    }
-		    
-		     )
+		    }).on('success.form.bv', function(e) {
+	            e.preventDefault();
+				$.post($(this).attr('action'), $(this).serialize(), function(json) {
+					if(json.success)
+						swal('','Artesano registrado exitosamente','success');
+				}, 'json').fail(function(){
+					swal('Error','No se registro el artesano','error');
+				});
+			});
 		$('.mayuscula').focusout(function() {
 				$(this).val($(this).val().toUpperCase());
 			});

@@ -481,8 +481,7 @@
 								max: 5,
 								message: 'El CP debe tener 5 dígitos'
 							}
-		                }
-		            },
+		                }},
 		            curp:{
 						validators:{
 		                    stringLength: {
@@ -491,8 +490,7 @@
 		                        message:'Se requieren 18 caracteres para CURP'
 		                    },
 		                    notEmpty:{}
-						}
-		            },
+						}},
 		            RFC: {
 		                validators: {
 		                    stringLength: {
@@ -500,21 +498,18 @@
 		                        max:13,
 		                        message:'Se requieren 13'
 		                    }
-		                }
-		            },
+		                }},
 		            email: {
 		                validators: {
 		                    emailAddress: {}
-		                }
-		            },
+		                }},
 		            fechanace: {
 		                validators: {
 		                    notEmpty: {},
 		                    date: {
 		                        format: 'YYYY-MM-DD'
 		                    }
-		                }
-		            },
+		                }},
 		            tel: {
 		                validators: {
 		                    integer:{}
@@ -526,24 +521,20 @@
 		                        min: 3,
 		                        max: 3,
 		                        message:'Verifica'
-		                }
-		            }
-		            },
+		                	}
+		            	}},
 		            sexo:{
 		            	validators: {
 		            		notEmpty:{}
-		            	}
-		            },
+		            	}},
 		            grupoetnico:{
 		            	validators: {
 		            		notEmpty:{}
-		            	}
-		            },
+		            	}},
 		            civil:{
 		            	validators: {
 		            		notEmpty:{}
-		            	}
-		            },
+		            	}},
 		            ine: {
 		                validators: {
 		                    stringLength: {
@@ -551,8 +542,7 @@
 		                        max:13,
 		                        message:'Se requieren 13'
 		                    }
-		                }
-		            },
+		                }},
 		            tel: {
 		                validators: {
 		                    integer:{}
@@ -560,13 +550,11 @@
 		            rama:{
 		            	validators: {
 		            		notEmpty:{}
-		            	}
-		            },
+		            	}},
 		            taller:{
 		            	validators: {
 		            		notEmpty:{}
-		            	}
-		            },
+		            	}},
 		            fotoperfil:{
 						validators: {
 							file: {
@@ -574,40 +562,44 @@
 								type: 'image/jpg,image/jpeg,image/png,image/gif',
 								maxSize: 2048 * 1024,   // 2 MB
 							}
-						}
-					},
-		        curppic:{
-						validators: {
-							file: {
-								extension: 'jpeg,png,jpg,gif',
-								type: 'image/jpg,image/jpeg,image/png,image/gif',
-								maxSize: 2048 * 1024,   // 2 MB
+						}},
+			        curppic:{
+							validators: {
+								file: {
+									extension: 'jpeg,png,jpg,gif',
+									type: 'image/jpg,image/jpeg,image/png,image/gif',
+									maxSize: 2048 * 1024,   // 2 MB
+								}
+							}
+						},
+			        actapic:{
+							validators: {
+								file: {
+									extension: 'jpeg,png,jpg,gif',
+									type: 'image/jpg,image/jpeg,image/png,image/gif',
+									maxSize: 2048 * 1024,   // 2 MB
+								}
+							}
+						},
+			        inepic:{
+							validators: {
+								file: {
+									extension: 'jpeg,png,jpg,gif',
+									type: 'image/jpg,image/jpeg,image/png,image/gif',
+									maxSize: 2048 * 1024,   // 2 MB
+								}
 							}
 						}
-					},
-		        actapic:{
-						validators: {
-							file: {
-								extension: 'jpeg,png,jpg,gif',
-								type: 'image/jpg,image/jpeg,image/png,image/gif',
-								maxSize: 2048 * 1024,   // 2 MB
-							}
-						}
-					},
-		        inepic:{
-						validators: {
-							file: {
-								extension: 'jpeg,png,jpg,gif',
-								type: 'image/jpg,image/jpeg,image/png,image/gif',
-								maxSize: 2048 * 1024,   // 2 MB
-							}
-						}
-					}
-
-		        }
-		    }
-		    
-		     )
+				}
+		    }).on('success.form.bv', function(e) {
+	            e.preventDefault();
+				$.post($(this).attr('action'), $(this).serialize(), function(json) {
+					if(json.success)
+						swal('','Artesano registrado exitosamente','success');
+				}, 'json').fail(function(){
+					swal('Error','No se registro el artesano','error');
+				});
+			});
 
 $('.mayuscula').focusout(function() {
 				$(this).val($(this).val().toUpperCase());
