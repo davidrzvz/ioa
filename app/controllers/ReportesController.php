@@ -129,12 +129,52 @@ class ReportesController extends BaseController {
 	public function postFerias(){
 		$fechainicio 	= Input::get('inicio');
 		$fechafin 		= Input::get('fin');
+		$tipo 			= Input::get('optionsRadios');
 
-		$ferias = Feria::where('fechainicio','>=',$fechainicio)->where('fechafin','<=',$fechafin)->get();
 		$data = array();
-		foreach ($ferias as $feria) {
-			$data[] = array($feria->nombre,$feria->fechainicio,$feria->fechafin,$feria->tipo,$feria->lugar);
+		if($tipo == "ferias"){
+			$ferias = Feria::where('fechainicio','>=',$fechainicio)->where('fechafin','<=',$fechafin)->get();
+			foreach ($ferias as $feria) {
+				$data[] = array($feria->nombre,$feria->fechainicio,$feria->fechafin,$feria->tipo,$feria->lugar);
+			}
 		}
-		return Response::json($data);
+		if($tipo == "talleres"){
+			$talleres = Taller::where('fechainicio','>=',$fechainicio)->where('fechafin','<=',$fechafin)->get();
+			foreach ($talleres as $taller) {
+				$data[] = array($taller->nombre,$taller->fechainicio,$taller->fechafin,$taller->Artesanos()->count(),$taller->Artesanos()->first()->persona->localidad->municipio->distrito->region->nombre);
+			}
+		}
+		if($tipo == "concursos"){
+			$concursos = Concurso::where('fecha','>=',$fechainicio)->where('fecha','<=',$fechafin)->get();
+			foreach ($concursos as $concurso) {
+				$data[] = array($concurso->nombre,$concurso->fecha,$concurso->premiacion,$concurso->Artesanos()->count()+$concurso->Personas()->count(),$concurso->nivel);
+			}
+		}
+		return Response::json(array("data" => $data, "tipo" => $tipo));
+	}
+	public function postConcursantes(){
+		$nombre = Input::get("nombre");
+		$fecha = Input::get("fecha");
+		$concurso = Concurso::where('nombre','=',$nombre)->where('fecha','=',$fecha)->first();
+		$concursantes = array();
+		foreach ($concurso->Artesanos()->get() as $artesano) {
+			$concursantes[]=array(
+				$artesano->pivot->numregistro,
+				$artesano->persona->nombre,
+				$artesano->pivot->categoria,
+				$artesano->pivot->pieza,
+				$artesano->pivot->premio,
+				);
+		}
+		foreach ($concurso->Personas()->get() as $persona) {
+			$concursantes[]=array(
+				$persona->pivot->numregistro,
+				$persona->nombre,
+				$persona->pivot->categoria,
+				$persona->pivot->pieza,
+				$persona->pivot->premio,
+				);
+		}
+		return Response::json(array("data" => $concursantes));
 	}
 }

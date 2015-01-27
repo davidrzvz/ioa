@@ -22,6 +22,20 @@
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
             </div>
+            <div class="btn-group" role="group">
+                <label>
+                    <input type="radio" name="optionsRadios" value="ferias" checked>
+                    Ferias
+                </label>
+                <label>
+                    <input type="radio" name="optionsRadios" value="talleres">
+                    Talleres
+                </label>
+                <label>
+                    <input type="radio" name="optionsRadios" value="concursos">
+                    Concursos
+                </label>
+            </div>
             <button type="submit" class="btn btn-ioa col-sm-4 col-sm-offset-4" style="margin-top:10px;"><i class="fa fa-line-chart"></i> Generar reporte</button>
         </div>
     {{ Form::close() }}
@@ -29,7 +43,9 @@
     <div class="row">
         <div id="grafica" class="col-md-6 col-md-offset-3 hidden" style="height: 300px; margin-bottom: 50px; margin-top:50px; background-color: rgb(252, 252, 252);"></div>
     </div>
-    <div class="col-sm-8 col-sm-offset-2" id="dtabla">
+    <div class="col-sm-10 col-sm-offset-2" id="dtabla">
+    </div>
+    <div class="col-sm-8 col-sm-offset-2" id="dconcursantes">
     </div>
 </div>
 @stop
@@ -72,31 +88,59 @@
                     },
                 }
             })
+            .on('success.field.bv', function(e, data) {
+                 if (data.bv.getSubmitButton()) {
+                     data.bv.disableSubmitButtons(false);
+                 }
+             })
             .on('success.form.bv', function(e) {
               e.preventDefault();
                 $.post('ferias',$('#ferias').serialize(), function(json) {
                     $('#grafica').html('');
                     $('#grafica').removeClass('hidden');
+                        if(json.tipo == "ferias")
+                            datos=ferias(json.data)
+                        if(json.tipo == "talleres" || json.tipo == "concursos")
+                            datos=talleres(json.data)
                         Morris.Bar({
                             element: 'grafica',
-                            data: data(json),
+                            data: datos,
                             xkey: 'label',
                             ykeys: ['value'],
                             labels: ['No. de Ferias'],
                             barColors: ['rgb(11, 98, 164)'],
                             grid:true,
-                            gridTextColor:['#000']
+                            gridTextColor:['#000'],
+                            xLabelAngle: 80
                         });
                         $('#dtabla').html('<table id="tabla" class="table table-hover table-first-column-number data-table display full"></table>');
+                        if(json.tipo == "ferias")
+                            columns=[
+                                      { "title": "Nombre" },
+                                      { "title": "Fecha Inicio" },
+                                      { "title": "Fecha Fin" },
+                                      { "title": "Tipo" },
+                                      { "title": "lugar" },
+                                  ];
+                        if(json.tipo == "talleres")
+                            columns=[
+                                      { "title": "Nombre" },
+                                      { "title": "Fecha Inicio" },
+                                      { "title": "Fecha Fin" },
+                                      { "title": "participantes" },
+                                      { "title": "Region" },
+                                  ];
+                        if(json.tipo == "concursos")
+                            columns=[
+                                      { "title": "Nombre" },
+                                      { "title": "Fecha" },
+                                      { "title": "Fecha Premiacion" },
+                                      { "title": "participantes" },
+                                      { "title": "nivel" },
+                                  ];
                         $('#tabla').dataTable( {
-                          "data": json,
-                          "columns": [
-                              { "title": "Nombre" },
-                              { "title": "Fecha Inicio" },
-                              { "title": "Fecha Fin" },
-                              { "title": "Tipo" },
-                              { "title": "lugar" },
-                          ],
+                          "data": json.data,
+                          "columns": columns,
                           "language": {
                             "lengthMenu": "Ferias por página _MENU_",
                             "zeroRecords": "No se encontro",
@@ -111,8 +155,15 @@
                               "previous":   "Anterior"
                             },
                         }
-                        } ); 
-                }, 'json');
+                        } );
+                        if(json.tipo == "concursos")
+                            $('#tabla').find('tbody').find('tr').on( 'click', function () {
+                                concurso(this);
+                              } );
+                }, 'json').fail(function(){
+                    $('#grafica').addClass('hidden');
+                    swal('Error','No se encontró','error');
+                });
             });
             $('#datetimePicker').on('dp.change dp.show', function(e) {
                 $('#ferias').bootstrapValidator('revalidateField', 'inicio');
@@ -121,14 +172,13 @@
                 $('#ferias').bootstrapValidator('revalidateField', 'fin');
             });
     });
-    function data (json) {
+    function ferias (json) {
         var data = [];
         var Internacional = 0;
         var Pabellon = 0;
         var Nacional = 0;
         var Regional = 0;
         $.each(json,function(index,val){
-            console.log(val)
             if(val[3] == 'INTERNACIONAL')
                 Internacional++;
             if(val[3] == 'PABELLÓN FONART')
@@ -138,12 +188,53 @@
             if(val[3] == 'REGIONAL')
                 Regional++;
         });
-
         data.push({label:'Internacional',value:Internacional});
         data.push({label:'Pabellon',value:Pabellon});
         data.push({label:'Nacional',value:Nacional});
         data.push({label:'Regional',value:Regional});
         return data;
+    }
+    function talleres (json) {
+        var data = [];
+        $.each(json,function(index,val){
+            data.push({label:val[0],value:val[3]});
+        });
+        return data;
+    }
+    function concurso (tr){
+        var nombre = $(tr).find("td:nth-child(1)").text();
+        var fecha = $(tr).find("td:nth-child(2)").text();
+        $.post('concursantes','nombre='+nombre+'&fecha='+fecha, function(json) {
+            $('#dconcursantes').removeClass('hidden');
+            $('#dconcursantes').html('<table id="concursantes" class="table table-hover table-first-column-number data-table display full"></table>');
+            $('#concursantes').dataTable( {
+              "data": json.data,
+              "columns": [
+                          { "title": "No. Registro" },
+                          { "title": "Nombre" },
+                          { "title": "Categoria" },
+                          { "title": "Pieza" },
+                          { "title": "Premio" },
+                      ],
+              "language": {
+                "lengthMenu": "concursantes por página _MENU_",
+                "zeroRecords": "No se encontro",
+                "info": "Pagina _PAGE_ de _PAGES_",
+                "infoEmpty": "No records available",
+                "infoFiltered": "(Ver _MAX_ total records)",
+                'search': 'Buscar: ',
+                "paginate": {
+                  "first":      "Inicio",
+                  "last":       "Fin",
+                  "next":       "Siguiente",
+                  "previous":   "Anterior"
+                },
+            }
+            } );
+        }, 'json').fail(function(){
+            $('#grafica').addClass('hidden');
+            swal('Error','No se encontró','error');
+        });
     }
     </script>
 @endsection
