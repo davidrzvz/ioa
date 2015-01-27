@@ -123,4 +123,18 @@ class ReportesController extends BaseController {
 		}
 		return $cc;
 	}
+	public function getFerias(){
+		return View::make('reportes.ferias');
+	}
+	public function postFerias(){
+		$fechainicio 	= Input::get('inicio');
+		$fechafin 		= Input::get('fin');
+
+		$ferias = Feria::where('fechainicio','>=',$fechainicio)->where('fechafin','<=',$fechafin)->get();
+		$data = array();
+		foreach ($ferias as $feria) {
+			$data[] = array($feria->nombre,$feria->fechainicio,$feria->fechafin,$feria->tipo,$feria->lugar);
+		}
+		return Response::json($data);
+	}
 }

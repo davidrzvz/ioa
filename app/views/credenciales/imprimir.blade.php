@@ -15,19 +15,21 @@
 	@foreach($artesanos as $key => $artesano)
 		<?php $persona = Persona::find($artesano); ?>
 	<center>
-		<h2>Instituto Oaxacaqueño <br> de las Artesanias</h2>
-		<div >
-			<img src="{{URL::to($persona->documentos()->where('nombre','=','Foto del artesano')->first()->ruta)}}" alt=""><br>
-			{{$persona->nombre}} <br>
-			Rama: <u>{{$persona->rama->nombre}}</u> <br>
-			grupoetnico: <u>{{$persona->grupoetnico->nombre}}</u> <br>
-			INE: <u>{{$persona->artesano->ine}}</u> <br>
-			CUERP: <u>{{$persona->curp}}</u> <br>
-			RFC: <u>{{$persona->artesano->rfc}}</u>
-			<u> </u>
+		<div style="border: 1px solid #000;width: 240px;margin:0 auto;padding:5px 0">
+			<h3>Instituto Oaxacaqueño <br> de las Artesanias</h3>
+			<div >
+				<img src="{{URL::to($persona->documentos()->where('nombre','=','Foto del artesano')->first()->ruta)}}" alt=""><br><br>
+				{{$persona->nombre}} <br>
+				Rama: <u>{{$persona->rama->nombre}}</u> <br>
+				grupoetnico: <u>{{$persona->grupoetnico->nombre}}</u> <br>
+				INE: <u>{{$persona->artesano->ine}}</u> <br>
+				CURP: <u>{{$persona->curp}}</u> <br>
+				RFC: <u>{{$persona->artesano->rfc}}</u>
+				<u> </u>
+			</div>
 		</div>
 	</center>
-		<div style="height:50px;"></div>
+		<div style="height:30px;"></div>
 		@if(($key+1)%3 == 0 && $key+1 < count($artesanos))
 			<div style="page-break-after:always;"></div>
 		@endif

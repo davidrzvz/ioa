@@ -65,5 +65,22 @@ class CredencialesController extends BaseController {
         $pdf->loadHTML($html);
         return $pdf->stream();
     }
+    public function postImprimirregistro(){
+        if(Input::get('registroartesano') != ""){
+            $persona = Artesano::find(Input::get('registroartesano'))->persona;
+            $concurso = Artesano::find(Input::get('registroartesano'))->Concursos()->where('concurso_id','=',Input::get('registroconcid'))->first();
+        }
+        else{
+            $persona = Persona::find(Input::get('registropersona'));
+            $concurso = $persona->Concursos()->where('concurso_id','=',Input::get('registroconcid'))->first();
+        }
+        $html =  View::make('registro.concurso')
+        ->with('persona',$persona)
+        ->with('concurso',$concurso->pivot);
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML($html);
+        return $pdf->stream();
+
+    }
 }
 ?>

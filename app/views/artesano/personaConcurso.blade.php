@@ -279,6 +279,11 @@
 				</div>
 			</div>
 		</div>
+		{{ Form::open(array('url' => 'credenciales/imprimirregistro','role' => 'form','id' => 'imprimir','class' => 'hidden')) }}
+			{{ Form::text('registroartesano', null, array('class' => 'class')) }}
+			{{ Form::text('registropersona', null, array('class' => 'class')) }}
+			{{ Form::text('registroconcid', null, array('class' => 'class')) }}
+		{{ Form::close() }}
 	</div>
 @stop
 
@@ -588,8 +593,26 @@ $(document).ready(function() {
 		$.post($('#inscrito').attr('action'), $('#inscrito').serialize(), function(json) {
 			if(json.error)
 				swal('Error', 'Esta persona ya esta inscrita', 'error');
-			else
-				swal('Operacion completada correctamente', '', 'success');
+			else{
+				$('[name = registroartesano]').val($('[name = idartesano]').val());
+				$('[name = registropersona]').val($('[name = idpersona]').val());
+				$('[name = registroconcid]').val($('[name = concid]').val());
+				swal({
+					title: 'Operacion completada correctamente',
+					text: 'Imprimir registro',
+					type: 'success',
+					showCancelButton: true,
+					confirmButtonColor: '#AEDEF4',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'No',
+					closeOnConfirm: false,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+						$('#imprimir').submit();
+					});
+			}
+				//swal('Operacion completada correctamente', '', 'success');
 			$('#inscrito').data('bootstrapValidator').resetForm(true);
 			$('#inscrito_div').addClass('hidden');
 			$('[name = idartesano]').val("");
