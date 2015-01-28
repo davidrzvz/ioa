@@ -152,7 +152,7 @@
                         xkey: 'label',
                         ykeys: ['value'],
                         labels: ['No. de Artesanos'],
-                        barColors: ['#007AFF'],
+                        barColors: ['#0B62A4'],
                         gridTextColor: ['#cc0000']
                     });
                 };
