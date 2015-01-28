@@ -123,7 +123,7 @@ class ReportesController extends BaseController {
 		}
 		return $cc;
 	}
-	public function getFerias(){
+	public function getEventos(){
 		return View::make('reportes.ferias');
 	}
 	public function postFerias(){
@@ -141,7 +141,10 @@ class ReportesController extends BaseController {
 		if($tipo == "talleres"){
 			$talleres = Taller::where('fechainicio','>=',$fechainicio)->where('fechafin','<=',$fechafin)->get();
 			foreach ($talleres as $taller) {
+				if($taller->Artesanos()->count() > 0)
 				$data[] = array($taller->nombre,$taller->fechainicio,$taller->fechafin,$taller->Artesanos()->count(),$taller->Artesanos()->first()->persona->localidad->municipio->distrito->region->nombre);
+				else
+					$data[] = array($taller->nombre,$taller->fechainicio,$taller->fechafin,0,'-');
 			}
 		}
 		if($tipo == "concursos"){
@@ -159,6 +162,7 @@ class ReportesController extends BaseController {
 		$concursantes = array();
 		foreach ($concurso->Artesanos()->get() as $artesano) {
 			$concursantes[]=array(
+				$concurso->nombre,
 				$artesano->pivot->numregistro,
 				$artesano->persona->nombre,
 				$artesano->pivot->categoria,
@@ -168,6 +172,7 @@ class ReportesController extends BaseController {
 		}
 		foreach ($concurso->Personas()->get() as $persona) {
 			$concursantes[]=array(
+				$concurso->nombre,
 				$persona->pivot->numregistro,
 				$persona->nombre,
 				$persona->pivot->categoria,

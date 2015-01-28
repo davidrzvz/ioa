@@ -43,9 +43,9 @@
     <div class="row">
         <div id="grafica" class="col-md-6 col-md-offset-3 hidden" style="height: 300px; margin-bottom: 50px; margin-top:50px; background-color: rgb(252, 252, 252);"></div>
     </div>
-    <div class="col-sm-10 col-sm-offset-2" id="dtabla">
+    <div class="col-sm-10 col-sm-offset-1" id="dtabla">
     </div>
-    <div class="col-sm-8 col-sm-offset-2" id="dconcursantes">
+    <div class="col-sm-8 col-sm-offset-2 hidden" id="dconcursantes">
     </div>
 </div>
 @stop
@@ -142,7 +142,7 @@
                           "data": json.data,
                           "columns": columns,
                           "language": {
-                            "lengthMenu": "Ferias por página _MENU_",
+                            "lengthMenu": "Elementos por página _MENU_",
                             "zeroRecords": "No se encontro",
                             "info": "Pagina _PAGE_ de _PAGES_",
                             "infoEmpty": "No records available",
@@ -160,6 +160,7 @@
                             $('#tabla').find('tbody').find('tr').on( 'click', function () {
                                 concurso(this);
                               } );
+                        $('#dconcursantes').addClass('hidden');
                 }, 'json').fail(function(){
                     $('#grafica').addClass('hidden');
                     swal('Error','No se encontró','error');
@@ -205,11 +206,16 @@
         var nombre = $(tr).find("td:nth-child(1)").text();
         var fecha = $(tr).find("td:nth-child(2)").text();
         $.post('concursantes','nombre='+nombre+'&fecha='+fecha, function(json) {
-            $('#dconcursantes').removeClass('hidden');
+            console.log(json.data.length)
+            if(json.data.length > 0)
+                $('#dconcursantes').removeClass('hidden');
+            else
+                swal('Error','No se encontró','error');
             $('#dconcursantes').html('<table id="concursantes" class="table table-hover table-first-column-number data-table display full"></table>');
             $('#concursantes').dataTable( {
               "data": json.data,
               "columns": [
+                          { "title": "Concurso" },
                           { "title": "No. Registro" },
                           { "title": "Nombre" },
                           { "title": "Categoria" },
