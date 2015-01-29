@@ -201,6 +201,8 @@ class ReportesController extends BaseController {
 				);
 		}
 		return Response::json(array("total" => $cantidad, "artesanos" => $Artesanos));
-
+	}
+	public function getRegistros(){
+		return View::make('reportes.registros');
 	}
 }
