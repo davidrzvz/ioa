@@ -189,18 +189,16 @@ class ReportesController extends BaseController {
 
 		$artesanos 	= Artesano::where('fecharegistro','<=',$fechafin)
 						->where('fecharegistro','>=',$fechainicio)->get();
-		$cantidad 	= Artesano::where('fecharegistro','<=',$fechafin)
-						->where('fecharegistro','>=',$fechainicio)->count();
 
 		$Artesanos = array();
 		foreach ($artesanos as $artesano){
-			$Artesano[] = array(
+			$Artesanos[] = array(
 				$artesano->persona->nombre,
 				$artesano->persona->sexo,
 				$artesano->persona->rama->nombre,
 				);
 		}
-		return Response::json(array("total" => $cantidad, "artesanos" => $Artesanos));
+		return Response::json($Artesanos);
 	}
 	public function getRegistros(){
 		return View::make('reportes.registros');

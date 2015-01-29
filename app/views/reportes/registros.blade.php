@@ -24,6 +24,7 @@
             <button type="submit" class="btn btn-ioa col-sm-4 col-sm-offset-4" style="margin-top:10px;"><i class="fa fa-line-chart"></i> Generar reporte</button>
         </div>
     {{ Form::close() }}
+    <div id="divelementos" class="row"></div>
     </div>
 @stop
 @section('scripts')
@@ -74,7 +75,29 @@
             .on('success.form.bv', function(e) {
                 e.preventDefault();
                 $.post('inscritos',$('#registros').serialize(), function(json) {
-                    console.log(json);
+                    $('#divelementos').html('<table id="telementos" class="table table-hover table-first-column-number data-table display full"></table>');
+                    $('#telementos').dataTable( {
+                        "data": json,
+                        "columns": [
+                            { "title": "Nombre" },
+                            { "title": "Sexo" },
+                            { "title": "Rama" },
+                        ],
+                        "language": {
+                          "lengthMenu": "Elementos por página _MENU_",
+                          "zeroRecords": "No se encontro",
+                          "info": "Pagina _PAGE_ de _PAGES_",
+                          "infoEmpty": "No records available",
+                          "infoFiltered": "(Ver _MAX_ total records)",
+                          'search': 'Buscar: ',
+                          "paginate": {
+                            "first":      "Inicio",
+                            "last":       "Fin",
+                            "next":       "Siguiente",
+                            "previous":   "Anterior"
+                          },
+                    }
+                    } );
                 }, 'json');
             });
         });
