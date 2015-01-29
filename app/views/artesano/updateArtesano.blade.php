@@ -469,8 +469,12 @@ $('#formupdate').bootstrapValidator({
 	}).on('success.form.bv', function(e) {
         e.preventDefault();
         $('.fa-refresh').removeClass('hidden');
-
-        $("tbody").find('tr').removeClass('danger') .find('button').attr('disabled',false);
+        $.post($(this).attr('action'),$(this).serialize(), function(json) {
+			if(json.success)
+				swal('Elemento actualizado','', "success");
+		}, 'json').fail(function(){
+					swal('Error','ocurrio un error','error');
+				});;
     });
 
 $('#datetimePicker1').on('dp.change dp.show', function(e) {
