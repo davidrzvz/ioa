@@ -147,6 +147,7 @@ class EditarArtesanoController extends BaseController {
 			$documento -> persona_id = $Personartesano->id;
 			$documento -> save();
 		}
+		return Response::json(array('success' => true));
 	}
 
 		public function resizeImagen($ruta, $nombre, $alto, $ancho,$nombreN,$extension,$ppp){

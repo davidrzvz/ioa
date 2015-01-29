@@ -189,7 +189,8 @@ class ReportesController extends BaseController {
 
 		$artesanos 	= Artesano::where('fecharegistro','<=',$fechafin)
 						->where('fecharegistro','>=',$fechainicio)->get();
-		$cantidad 	= count($artesanos);
+		$cantidad 	= Artesano::where('fecharegistro','<=',$fechafin)
+						->where('fecharegistro','>=',$fechainicio)->count();
 
 		$Artesanos = array();
 		foreach ($artesanos as $artesano){

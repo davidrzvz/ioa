@@ -466,7 +466,12 @@ $('#formupdate').bootstrapValidator({
 		}
 	}
 	}
-	})
+	}).on('success.form.bv', function(e) {
+        e.preventDefault();
+        $('.fa-refresh').removeClass('hidden');
+
+        $("tbody").find('tr').removeClass('danger') .find('button').attr('disabled',false);
+    });
 
 $('#datetimePicker1').on('dp.change dp.show', function(e) {
 $('#buscarartesano').bootstrapValidator('revalidateField', 'fechanace');
