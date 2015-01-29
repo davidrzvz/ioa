@@ -40,16 +40,6 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('artesano','AltaArtesanoController@get_nuevo');
 	Route::post('artesano/registro','AltaArtesanoController@post_nuevo');
 
-	Route::get('concurso','RegistroConcursoController@get_nuevo');
-	Route::post('concurso','RegistroConcursoController@post_nuevo');
-
-	Route::get('feria','RegistroFeriaController@get_nuevo');
-	Route::post('feria','RegistroFeriaController@post_nuevo');
-
-	Route::get('taller','RegistroTallerController@get_nuevo');
-	Route::post('taller','RegistroTallerController@post_nuevo');
-	Route::post('taller2','RegistroTallerController@update');
-
 	Route::get('organizacion','RegistroOrganizacionController@get_nuevo');
 	Route::post('organizacion','RegistroOrganizacionController@post_nuevo');
 

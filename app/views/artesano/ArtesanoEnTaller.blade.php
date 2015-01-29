@@ -101,11 +101,11 @@
 					<label id="curp" class="elementos"></label>
 					</h4>
 
-					<div class="col-sm-2 form-group">
+					<div class="col-sm-2 form-group hidden">
 					{{ Form::label('tallerid', 'tall') }}
 					{{ Form::text('tallerid', null, array('placeholder' => 'Id','class' => 'form-control')) }}
 					</div>
-					<div class="col-sm-2 form-group">
+					<div class="col-sm-2 form-group hidden">
 					{{ Form::label('artesanoid', 'art') }}
 					{{ Form::text('artesanoid', null, array('id'=>'artesanoid','placeholder' => 'Id','class' => 'form-control')) }}
 					</div>

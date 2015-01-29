@@ -46,23 +46,23 @@
 <div class="container wellr col-sm-12">
 
     <div class="col-md-12">
-        <div class="bg-orga col-md-12 text-center">REGISTRO DE EVENTOS</div>
+        <div class="bg-orga col-md-12 text-center">REGISTRO A EVENTOS</div>
         <div class="col-sm-4" style="text-align: center; margin: 0 auto;">
-            <a target="_self" href="concurso">
+            <a target="_self" href="{{URL::to('personaConcurso');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/trophy.png"></img><br>
             {{ Form::label('concurso', 'CONCURSOS') }}
             </a>
         </div>
 
         <div class="col-sm-4" style="text-align: center; margin: 0 auto;">
-            <a target="_self" href="feria">
+            <a target="_self" href="{{URL::to('ArtesanoEnFeria');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/ferias.png"></img><br>
             {{ Form::label('feria', 'FERIAS') }}
             </a>
         </div>
 
         <div class="col-sm-4" style="text-align: center; margin: 0 auto;">
-            <a  href="taller">
+            <a  href="{{URL::to('ArtesanoEnTaller');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/grupo.png"></img><br>
             {{ Form::label('taller', 'TALLERES') }}
                            

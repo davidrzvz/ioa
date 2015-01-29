@@ -53,6 +53,7 @@
 <style type="text/css" media="screen">
     .fecha i{
         right: 50px !important;
+        top: 18px !important;
     }
 </style>
 {{HTML::script('js/bootstrapValidator.js');}}
@@ -107,7 +108,7 @@
                             data: datos,
                             xkey: 'label',
                             ykeys: ['value'],
-                            labels: ['No. de Ferias'],
+                            labels: ['No.'],
                             barColors: ['rgb(11, 98, 164)'],
                             grid:true,
                             gridTextColor:['#000'],

@@ -48,13 +48,13 @@
                         <a href="{{URL::to('artesano');}}" class="sf-with-ul">REGISTRO<span class="sf-sub-indicator"></span></a>
                     </li>
                     <li id="menu-item-48164" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48164">
-                        <a href="{{URL::to('taller');}}" class="sf-with-ul">TALLERES<span class="sf-sub-indicator"> »</span></a>
+                        <a href="{{URL::to('editarEventos');}}" class="sf-with-ul">TALLERES<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li id="menu-item-48175" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48175">
-                        <a href="{{URL::to('concurso');}}" class="sf-with-ul">CONCURSOS<span class="sf-sub-indicator"> »</span></a>
+                        <a href="{{URL::to('editarEventos');}}" class="sf-with-ul">CONCURSOS<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li id="menu-item-49489" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-49489">
-                        <a href="{{URL::to('feria');}}">FERIAS<span class="sf-sub-indicator"> »</span></a>
+                        <a href="{{URL::to('editarEventos');}}">FERIAS<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li id="menu-item-48188" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48188">
                         <a href="{{URL::to('reportes');}}" class="smcf-link sf-with-ul">REPORTES<span class="sf-sub-indicator"> »</span></a>
