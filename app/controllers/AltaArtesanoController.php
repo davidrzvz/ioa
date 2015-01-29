@@ -212,7 +212,7 @@ class AltaArtesanoController extends BaseController {
 				$documento -> ruta = 'imgs/perfil/'.$personaArtesano->id.'.'.Input::file('fotoperfil')->guessClientExtension();
 				$documento -> persona_id = $personaArtesano->id;
 				$documento -> save();
-				
+
 				AltaArtesanoController::resizeImagen('', $documento->ruta, 300, 300,$documento->ruta,Input::file('fotoperfil')->guessClientExtension(),75);
 			}
 			else{
