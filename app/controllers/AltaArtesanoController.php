@@ -6,22 +6,22 @@ class AltaArtesanoController extends BaseController {
 
 	public function get_nuevo()
 	{
-		$municipios = Municipio::all();
-		$municipiosArr = array();
+		$municipios 	= Municipio::all();
+		$municipiosArr 	= array();
 		foreach($municipios as $municipio)
 		{
 		$municipiosArr[$municipio->id] = $municipio->nombre;
 		}
 		
-		$grupos = Gruposetnico::all();
-		$gruposArr = array();
+		$grupos 	= Gruposetnico::all();
+		$gruposArr 	= array();
 		foreach($grupos as $grupo)
 		{
 		$gruposArr[$grupo->id] = $grupo->nombre;
 		}
 
-		$ramas = Rama::all();
-		$ramasArr = array();
+		$ramas 		= Rama::all();
+		$ramasArr 	= array();
 		foreach($ramas as $rama)
 		{
 		$ramasArr[$rama->id] = $rama->nombre;
@@ -33,22 +33,22 @@ class AltaArtesanoController extends BaseController {
 	public function get_nuevopor()
 	{
 
-		$municipios = Municipio::all();
-		$municipiosArr = array();
+		$municipios 	= Municipio::all();
+		$municipiosArr 	= array();
 		foreach($municipios as $municipio)
 		{
 		$municipiosArr[$municipio->id] = $municipio->nombre;
 		}
 		
-		$grupos = Gruposetnico::all();
-		$gruposArr = array();
+		$grupos 	= Gruposetnico::all();
+		$gruposArr 	= array();
 		foreach($grupos as $grupo)
 		{
 		$gruposArr[$grupo->id] = $grupo->nombre;
 		}
 
-		$ramas = Rama::all();
-		$ramasArr = array();
+		$ramas 		= Rama::all();
+		$ramasArr 	= array();
 		foreach($ramas as $rama)
 		{
 		$ramasArr[$rama->id] = $rama->nombre;
@@ -106,10 +106,10 @@ class AltaArtesanoController extends BaseController {
 			}
 		
 		$producto = Producto::create(array(
-			'artesano_id' => $artesano->id,
-		    'nombre'=> Input::get('producto1'),
+			'artesano_id' 		=> $artesano->id,
+		    'nombre'			=> Input::get('producto1'),
 			'produccionmensual' => Input::get('prod1'),
-			'costoaprox' => Input::get('costo1'),));
+			'costoaprox' 		=> Input::get('costo1'),));
 
 		if (Input::file("fotoperfil") != '') {
 			$file = Input::file("fotoperfil")->move("imgs/perfil/",$personaArtesano->id.'.'.Input::file('fotoperfil')->guessClientExtension());
@@ -118,6 +118,8 @@ class AltaArtesanoController extends BaseController {
 			$documento -> ruta = 'imgs/perfil/'.$personaArtesano->id.'.'.Input::file('fotoperfil')->guessClientExtension();
 			$documento -> persona_id = $personaArtesano->id;
 			$documento -> save();
+
+			AltaArtesanoController::resizeImagen('', $documento->ruta, 300, 300,$documento->ruta,Input::file('fotoperfil')->guessClientExtension(),75);
 		}
 		else{
 			$documento = new Documento;
@@ -159,28 +161,28 @@ class AltaArtesanoController extends BaseController {
 	{
 		///////////////////////////////////////////////////Artesano
 		$personaArtesano = Persona::create(array(
-			'nombre'=> Input::get('nombre'),
-			'curp' => Input::get('curp'),
-			'sexo'=> Input::get('sexo'), 
-			'cuis'=> Input::get('cuis'),
-			'cp'=> Input::get('cp'), 
-			'telefono'=> Input::get('tel'), 
-			'domicilio'=> Input::get('domicilio'), 
-			'lada'=> Input::get('lada'), 
-			'observaciones'=> Input::get('observ'), 
-			'fechanacimiento'=> Input::get('fechanace'), 
-			'grupoetnico_id'=> Input::get('grupoetnico'), 
-			'localidad_id'=> Input::get('localidad'), 
-			'rama_id'=> Input::get('rama')));
+			'nombre'			=> Input::get('nombre'),
+			'curp' 				=> Input::get('curp'),
+			'sexo'				=> Input::get('sexo'), 
+			'cuis'				=> Input::get('cuis'),
+			'cp'				=> Input::get('cp'), 
+			'telefono'			=> Input::get('tel'), 
+			'domicilio'			=> Input::get('domicilio'), 
+			'lada'				=> Input::get('lada'), 
+			'observaciones'		=> Input::get('observ'), 
+			'fechanacimiento'	=> Input::get('fechanace'), 
+			'grupoetnico_id'	=> Input::get('grupoetnico'), 
+			'localidad_id'		=> Input::get('localidad'), 
+			'rama_id'			=> Input::get('rama')));
 
 		$artesano = Artesano::create(array(
-			'persona_id' => $personaArtesano->id,
-		    'ine'=> Input::get('ine'),
-			'RFC' => Input::get('RFC'),
-			'estadocivil' => Input::get('civil'),
+			'persona_id'	=> $personaArtesano->id,
+		    'ine'			=> Input::get('ine'),
+			'RFC' 			=> Input::get('RFC'),
+			'estadocivil' 	=> Input::get('civil'),
 			'fecharegistro' => date('Y-m-d'),
-			'taller' => Input::get('taller'),
-			'tipotelefono' => Input::get('tipoTel'),
+			'taller' 		=> Input::get('taller'),
+			'tipotelefono' 	=> Input::get('tipoTel'),
 			'observaciones' => Input::get('observ'),
 			));
 
@@ -210,6 +212,8 @@ class AltaArtesanoController extends BaseController {
 				$documento -> ruta = 'imgs/perfil/'.$personaArtesano->id.'.'.Input::file('fotoperfil')->guessClientExtension();
 				$documento -> persona_id = $personaArtesano->id;
 				$documento -> save();
+				
+				AltaArtesanoController::resizeImagen('', $documento->ruta, 300, 300,$documento->ruta,Input::file('fotoperfil')->guessClientExtension(),75);
 			}
 			else{
 				$documento = new Documento;
@@ -259,20 +263,20 @@ class AltaArtesanoController extends BaseController {
 
 		if (Input::get('producto2') != '') {
 				
-			$producto = Producto::create(array(
-			'artesano_id' => $artesano->id,
-		    'nombre'=> Input::get('producto2'),
+			$producto 			= Producto::create(array(
+			'artesano_id'		=> $artesano->id,
+		    'nombre'			=> Input::get('producto2'),
 			'produccionmensual' => Input::get('prod2'),
-			'costoaprox' => Input::get('costo2'),));
+			'costoaprox' 		=> Input::get('costo2'),));
 		}
 
 		if (Input::get('producto1') != '') {
 				
-			$producto = Producto::create(array(
-			'artesano_id' => $artesano->id,
-		    'nombre'=> Input::get('producto3'),
+			$producto 			= Producto::create(array(
+			'artesano_id' 		=> $artesano->id,
+		    'nombre'			=> Input::get('producto3'),
 			'produccionmensual' => Input::get('prod3'),
-			'costoaprox' => Input::get('costo3'),));
+			'costoaprox' 		=> Input::get('costo3'),));
 		}
 
 		//////////////////////////////////////////////////////
@@ -285,8 +289,8 @@ class AltaArtesanoController extends BaseController {
 	}
 
 	public function post_buscorg(){
-		$nombre = Input::get('nombreorg');
-		$telefono = Input::get('telmun');
+		$nombre 	= Input::get('nombreorg');
+		$telefono 	= Input::get('telmun');
 
 		$comite = Comite::whereHas('organizacion',function($q) use ($nombre,$telefono){ 
 			$q->where('nombre','like',$nombre.'%','and')
@@ -294,7 +298,42 @@ class AltaArtesanoController extends BaseController {
 		})->first();
 		
 		return Response::json($comite);
-
-		
 	}
+
+	public function resizeImagen($ruta, $nombre, $alto, $ancho,$nombreN,$extension,$ppp){
+        $rutaImagenOriginal = $ruta.$nombre;
+        if($extension == 'GIF' || $extension == 'gif'){
+        $img_original = imagecreatefromgif($rutaImagenOriginal);
+        }
+        if($extension == 'jpg' || $extension == 'JPG'){
+        $img_original = imagecreatefromjpeg($rutaImagenOriginal);
+        }
+        if($extension == 'png' || $extension == 'PNG'){
+        $img_original = imagecreatefrompng($rutaImagenOriginal);
+        }
+        if($extension == 'jpeg' || $extension == 'JPEG'){
+        $img_original = imagecreatefromjpeg($rutaImagenOriginal);
+        }
+        $max_ancho = $ancho;
+        $max_alto = $alto;
+        list($ancho,$alto)=getimagesize($rutaImagenOriginal);
+        $x_ratio = $max_ancho / $ancho;
+        $y_ratio = $max_alto / $alto;
+        if( ($ancho <= $max_ancho) && ($alto <= $max_alto) ){//Si ancho 
+        $ancho_final = $ancho;
+            $alto_final = $alto;
+        } elseif (($x_ratio * $alto) < $max_alto){
+            $alto_final = ceil($x_ratio * $alto);
+            $ancho_final = $max_ancho;
+        } else{
+            $ancho_final = ceil($y_ratio * $ancho);
+            $alto_final = $max_alto;
+        }
+        $tmp=imagecreatetruecolor($ancho_final,$alto_final);
+        imagecopyresampled($tmp,$img_original,0,0,0,0,$ancho_final, $alto_final,$ancho,$alto);
+        imagedestroy($img_original);
+        $calidad=$ppp;
+        imagejpeg($tmp,$ruta.$nombreN,$calidad);
+        
+    }
 }
