@@ -119,7 +119,17 @@
     </form>
 </div>
 <div class="row">
-            <div id="grafica1" class="col-md-3 col-md-offset-1" style="height: 500px; margin-bottom: 40px;"></div>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span id="conteo1" class="col-md-3 pull-left"></span>
+                    <span id="conteo2" class="col-md-3 pull-left"></span>
+                    <span id="conteo3" class="col-md-3 pull-left"></span>
+                </div>
+            </div>
+            <div id="grafica1" class="row col-md-3 col-md-offset-1" style="height: 250px; margin-bottom: 40px;"></div>
+            
+        </div>
             <div id="grafica2" class="col-md-7 col-md-offset-1" style="height: 500px; margin-bottom: 40px; text-align: center;"></div>
             <div id="grafica3" class="col-md-8 col-md-offset-2" style="height: 500px; margin-top: 60px; margin-bottom: 40px; text-align: center;"></div>
         </div>
@@ -134,6 +144,9 @@
                 $('#grafica2').html('');
                 $('#grafica3').html('');
                 if (json.sexo) {
+                    $('#conteo1').html('<label> -No. total: '+(json.sexo.hombres+json.sexo.mujeres)+'</label>');
+                    $('#conteo2').html('<label>Mujeres: '+((json.sexo.hombres+json.sexo.mujeres)/(json.sexo.mujeres))*100+'</label>');
+                    $('#conteo3').html('<label>Hombres: '+(json.sexo.hombres)+'</label>');
                     Morris.Donut({
                         element: 'grafica1',
                         data: data(json.sexo),
