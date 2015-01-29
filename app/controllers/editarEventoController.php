@@ -31,7 +31,7 @@ class EditarEventoController extends BaseController {
 		$feria=Feria::find(Input::get("id"))->update(array(
 			"nombre"  => Input::get("ferianombre"),
 			"tipo"  => Input::get("tipo"),
-			"lugar"  => Input::get("lugar"),
+			"lugar"  => Input::get("ferialugar"),
 			"fechainicio"  => Input::get("fecha1"),
 			"fechafin"  => Input::get("fecha2"),
 

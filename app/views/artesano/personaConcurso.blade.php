@@ -403,16 +403,14 @@ $(document).ready(function() {
 					}
 	            }
 	        },
-	        curp:{
+	       curp:{
 				validators:{
-	                stringLength: {
-	                    min: 18,
-	                    max:18,
-	                    message:'Se requieren 18 caracteres para CURP'
-	                },
-	                notEmpty:{}
-				}
-	        },
+                    notEmpty:{},
+                    regexp: {
+                        regexp:/^[a-zA-Z]{4}((\d{2}((0[13578]|1[02])(0[1-9]|[12]\d|3[01])|(0[13456789]|1[012])(0[1-9]|[12]\d|30)|02(0[1-9]|1\d|2[0-8])))|([02468][048]|[13579][26])0229)(H|M|h|m)(AS|as|BC|bc|BS|bs|CC|cc|CL|cl|CM|cm|CS|cs|CH|ch|DF|df|DG|dg|GT|gt|GR|gr|HG|hg|JC|jc|MC|mc|MN|mn|MS|ms|NT|nt|NL|nl|OC|oc|PL|pl|QT|qt|QR|qr|SP|sp|SL|sl|SR|sr|TC|tc|TS|ts|TL|tl|VZ|vz|YN|yn|ZS|zs|SM|sm|NE|ne)([a-zA-Z]{3})([a-zA-Z0-9\s]{1})\d{1}$/,
+                        message: 'Por favor verifica el campo'
+					}
+		            }},
 	        RFC: {
 	            validators: {
 	                stringLength: {

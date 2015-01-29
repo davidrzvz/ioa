@@ -1,10 +1,10 @@
 @extends('layouts.baseartesanos')
-	@section('titulo')EDITAR EVENTOS
+	@section('titulo')REGISTRAR EVENTOS
 	@endsection
 
 		@section('contenido')
 		<div class="container wellr"> 
-			<div class="col-sm-12 bg-titulo">EDITAR EVENTOS</div>
+			<div class="col-sm-12 bg-titulo">REGISTRAR EVENTOS</div>
 		
 			<div class="col-sm-5 col-md-offset-1 wellr">
 
@@ -24,9 +24,9 @@
 		
 		
 		
-			<div class="col-md-12 hidden" id="updateTaller">
-				{{ Form::open(array('id' =>'formupdateTaller')) }}
-				<div class="bg-orga col-md-12">UPDATE DE TALLER</div>
+			<div class="col-md-12 hidden" id="registroTaller">
+				{{ Form::open(array('id' =>'formregistroTaller', 'URL'=>'registrarEventos/taller')) }}
+				<div class="bg-orga col-md-12">REGISTRO DE TALLER</div>
 				<input type="text" name="id" class="hidden">
 				<div class="col-md-12 form-group">
 					{{ Form::label ('tallernombre', 'NOMBRE DEL TALLER') }}
@@ -56,8 +56,8 @@
 			
 				<div class="form-group" style="top: 13px !important;">
 				<button id="found" type="submit" class="btn btn-ioa pull-right">
-				<span class="glyphicon glyphicon-floppy-disk"></span> 
-					Guardar 
+				<span class="glyphicon glyphicon-ok"></span> 
+					Registrar 
 				</button>
 				</div>
 	
@@ -65,9 +65,9 @@
 			
 			</div>
 	
-			<div class="col-md-12" id="updateFeria">
-				{{ Form::open(array('id' =>'formupdateFeria')) }}
-				<div class="bg-orga col-md-12">UPDATE DE FERIA</div>
+			<div class="col-md-12" id="registroFeria">
+				{{ Form::open(array('id' =>'formregistroFeria','URL'=>'registrarEventos/feria')) }}
+				<div class="bg-orga col-md-12">REGISTRO DE FERIA</div>
 				<input type="text" name="id" class="hidden">
 				<div class="col-md-12 form-group">
 				{{ Form::label('ferianombre', 'NOMBRE DE LA FERIA',array('class' => 'control-label')) }}
@@ -101,8 +101,8 @@
 
 		        <div class="form-group" style="top: 13px !important;">
 		        	<button id="found" type="submit" class="btn btn-ioa pull-right">
-		        	<span class="glyphicon glyphicon-floppy-disk"></span> 
-		        		Guardar 
+		        	<span class="glyphicon glyphicon-ok"></span> 
+		        		Registrar 
 		        	</button>
 		        	</div>
 				{{Form::close()}}
@@ -111,13 +111,13 @@
 
 
 		
-			<div class="col-md-12 hidden" id="updateConcurso">
-				{{ Form::open(array('id' =>'formupdateConcurso')) }}
-				<div class="bg-orga col-md-12">UPDATE DE CONCURSO</div>
+			<div class="col-md-12 hidden" id="registroConcurso">
+				{{ Form::open(array('id' =>'formregistroConcurso','URL'=>'registrarEventos/concurso')) }}
+				<div class="bg-orga col-md-12">REGISTRO DE CONCURSO</div>
 				<input type="text" name="id" class="hidden">
 				<div class="col-md-12 form-group">
 				{{ Form::label('concurnombre', 'NOMBRE DEL CONCURSO',array('class' => 'control-label')) }}
-				{{ Form::text('concurnombre', null, array('placeholder' => 'Introduce el nombre del concurso','class' => 'form-control mayuscula')) }}
+				{{ Form::text('concursonombre', null, array('placeholder' => 'Introduce el nombre del concurso','class' => 'form-control mayuscula')) }}
 				</div>
 
 				<div class="col-md-12 form-group">
@@ -142,8 +142,8 @@
 
 			    <div class="form-group" style="top: 13px !important;">
 			    	<button id="found" type="submit" class="btn btn-ioa pull-right">
-			    	<span class="glyphicon glyphicon-floppy-disk"></span> 
-			    		Guardar 
+			    	<span class="glyphicon glyphicon-ok"></span> 
+			    		Registrar 
 			    	</button>
 			    	</div>
 			 	{{Form::close()}}
@@ -253,7 +253,7 @@ $('#datetimePicker1 , #datetimePicker2 , #datetimePicker3, #datetimePicker4, #da
 	pickTime: false
 		    });
 
-$('#formupdateTaller').bootstrapValidator({
+$('#formregistroTaller').bootstrapValidator({
     // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok tok',
@@ -297,18 +297,32 @@ $('#formupdateTaller').bootstrapValidator({
     }
 }).on('success.form.bv', function(e) {
     e.preventDefault();
-	$.post("{{URL::to('editarEventos/taller');}}", $(this).serialize(), function(json) {
+	$.post("{{URL::to('registrarEventos/taller');}}", $(this).serialize(), function(json) {
 		if(json.success){
-			swal('Taller actualizado',null,'success');
-			$('#formupdateTaller').data('bootstrapValidator').resetForm(true);
-			location.reload();
+			swal({
+				title: 'Taller registrado',
+				text: '(:',
+				type: 'success',
+				showCancelButton: false,
+				confirmButtonColor: '#AEDEF4',
+				confirmButtonText: 'Ok',
+				cancelButtonText: '',
+				closeOnConfirm: false,
+				closeOnCancel: false
+			},
+			function(isConfirm){
+				if (isConfirm){
+					//location.reload();
+					console.log('adadasd');
+				}
+			});
 		}
 		else
-			swal('Error','No se actualizo','error');	
+			swal('Error','Error al registrar','error');	
 	}, 'json').fail(function(){
 	});
 });
-$('#formupdateFeria').bootstrapValidator({
+$('#formregistroFeria').bootstrapValidator({
     // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok tok',
@@ -353,21 +367,21 @@ $('#formupdateFeria').bootstrapValidator({
     }
 }).on('success.form.bv', function(e) {
     e.preventDefault();
-	$.post("{{URL::to('editarEventos/feria');}}", $(this).serialize(), function(json) {
+	$.post("{{URL::to('registrarEventos/feria');}}", $(this).serialize(), function(json) {
 		if(json.success){
-			swal('Feria actualizada',null,'success');
-			$('#formupdateFeria').data('bootstrapValidator').resetForm(true);
+			swal('Feria registrada',null,'success');
+			$('#formregistroFeria').data('bootstrapValidator').resetForm(true);
 			location.reload();
 		}
 		else
-			swal('Error','No se actualizo','error');	
+			swal('Error','Error al registrar','error');	
 	}, 'json').fail(function(){
 	});
 });
 
 }
     );
-$('#formupdateConcurso').bootstrapValidator({
+$('#formregistroConcurso').bootstrapValidator({
     // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok tok',
@@ -410,17 +424,21 @@ $('#formupdateConcurso').bootstrapValidator({
     }
 }).on('success.form.bv', function(e) {
     e.preventDefault();
-	$.post("{{URL::to('editarEventos/concurso');}}", $(this).serialize(), function(json) {
+	$.post("{{URL::to('registrarEventos/concurso');}}", $(this).serialize(), function(json) {
 		if(json.success){
-			swal('Concurso actualizado',null,'success');
-			$('#formupdateConcurso').data('bootstrapValidator').resetForm(true);
+			swal('Concurso registrado',null,'success');
+			$('#formregistroConcurso').data('bootstrapValidator').resetForm(true);
 			location.reload();
 		}
 		else
-			swal('Error','No se actualizo','error');	
+			swal('Error','Error al registrar','error');	
 	}, 'json').fail(function(){
 	});
+
 });
+$('.mayuscula').focusout(function() {
+				$(this).val($(this).val().toUpperCase());
+			});
 	</script>
 
 <script>
@@ -455,55 +473,51 @@ $('.taller').click(function(){
 });
 
 $('#btnferias').click(function(){
-	$('#updateFeria').removeClass('hidden');
+	$('#registroFeria').removeClass('hidden');
 	$('.ferias').removeClass('hidden');
-	$('#updateConcurso').addClass('hidden');
-	$('#updateTaller').addClass('hidden');
+	$('#registroConcurso').addClass('hidden');
+	$('#registroTaller').addClass('hidden');
 	$('#concursos').addClass('hidden');
 	$('.talleres').addClass('hidden');
-	$('#formupdateFeria').data('bootstrapValidator').resetForm(true);
+	$('#formregistroFeria').data('bootstrapValidator').resetForm(true);
 });
 $('#btnconcursos').click(function(){
-	$('#updateConcurso').removeClass('hidden');
+	$('#registroConcurso').removeClass('hidden');
 	$('#concursos').removeClass('hidden');
-	$('#updateTaller').addClass('hidden');
-	$('#updateFeria').addClass('hidden');
+	$('#registroTaller').addClass('hidden');
+	$('#registroFeria').addClass('hidden');
 	$('.ferias').addClass('hidden');
 	$('.talleres').addClass('hidden');
-	$('#formupdateConcurso').data('bootstrapValidator').resetForm(true);
+	$('#formregistroConcurso').data('bootstrapValidator').resetForm(true);
 });
 $('#btntalleres').click(function(){
-	$('#updateTaller').removeClass('hidden');
+	$('#registroTaller').removeClass('hidden');
 	$('.talleres').removeClass('hidden');
-	$('#updateFeria').addClass('hidden');
-	$('#updateConcurso').addClass('hidden');
+	$('#registroFeria').addClass('hidden');
+	$('#registroConcurso').addClass('hidden');
 	$('.ferias').addClass('hidden');
 	$('#concursos').addClass('hidden');
-	$('#formupdateTaller').data('bootstrapValidator').resetForm(true);
+	$('#formregistroTaller').data('bootstrapValidator').resetForm(true);
 });
-	
-
 $('#datetimePicker1').on('dp.change dp.show', function(e) {
-        $('#formupdateTaller').bootstrapValidator('revalidateField', 'fecha1');
+        $('#formregistroTaller').bootstrapValidator('revalidateField', 'fecha1');
     });
 $('#datetimePicker2').on('dp.change dp.show', function(e) {
-        $('#formupdateTaller').bootstrapValidator('revalidateField', 'fecha2');
+        $('#formregistroTaller').bootstrapValidator('revalidateField', 'fecha2');
     });
 $('#datetimePicker5').on('dp.change dp.show', function(e) {
-        $('#formupdateConcurso').bootstrapValidator('revalidateField', 'fecha1');
+        $('#formregistroConcurso').bootstrapValidator('revalidateField', 'fecha1');
     });
 $('#datetimePicker6').on('dp.change dp.show', function(e) {
-        $('#formupdateConcurso').bootstrapValidator('revalidateField', 'fecha2');
+        $('#formregistroConcurso').bootstrapValidator('revalidateField', 'fecha2');
     });
 $('#datetimePicker3').on('dp.change dp.show', function(e) {
-        $('#formupdateFeria').bootstrapValidator('revalidateField', 'fecha1');
+        $('#formregistroFeria').bootstrapValidator('revalidateField', 'fecha1');
     });
 $('#datetimePicker4').on('dp.change dp.show', function(e) {
-        $('#formupdateFeria').bootstrapValidator('revalidateField', 'fecha2');
+        $('#formregistroFeria').bootstrapValidator('revalidateField', 'fecha2');
     });
-$('.mayuscula').focusout(function() {
-				$(this).val($(this).val().toUpperCase());
-			});
+
 
 </script>
 @stop 

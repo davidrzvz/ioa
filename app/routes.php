@@ -90,6 +90,12 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('ArtesanoEnTaller2','RegistroenTallerController@registrar');
 
 	Route::controller('reportes', 'ReportesController');
+	Route::get('registrarEventos','RegistrarEventosController@get_nuevo');
+	Route::post('registrarEventos/feria','RegistrarEventosController@feria');
+	Route::post('registrarEventos/concurso','RegistrarEventosController@concurso');
+	Route::post('registrarEventos/taller','RegistrarEventosController@taller');
+
+
 
 
     
