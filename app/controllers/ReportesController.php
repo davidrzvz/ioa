@@ -182,4 +182,24 @@ class ReportesController extends BaseController {
 		}
 		return Response::json(array("data" => $concursantes));
 	}
+
+	public function postInscritos(){
+		$fechainicio 	= Input::get('inicio');
+		$fechafin 		= Input::get('fin');
+
+		$artesanos 	= Artesano::where('fecharegistro','<=',$fechafin)
+						->where('fecharegistro','>=',$fechainicio)->get();
+		$cantidad 	= count($artesanos);
+
+		$Artesanos = array();
+		foreach ($artesanos as $artesano){
+			$Artesano[] = array(
+				$artesano->persona->nombre,
+				$artesano->persona->sexo,
+				$artesano->persona->rama->nombre,
+				);
+		}
+		return Response::json(array("total" => $cantidad, "artesanos" => $Artesanos));
+
+	}
 }
