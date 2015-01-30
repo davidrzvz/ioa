@@ -11,7 +11,14 @@
 		{{ Form::open(array('id' => 'formalta', 'url' => 'artesano/registro', 'files'=>true)) }}
 				<div class="col-md-12">
 					
+				<div class="col-md-12">
 					
+						<div class="col-md-4 form-group">	
+							{{ Form::label('curp', 'CURP') }}
+							{{ Form::text('curp', null, array('placeholder' => 'Ingrese CURP','class' => 'form-control mayuscula')) }}
+						</div>
+					</div>
+
 					<div class="col-md-12">	
 						
 						<div class="col-md-6 form-group">
@@ -55,10 +62,7 @@
 					</div>	
 
 					<div class="col-md-12">
-						<div class="col-md-4 form-group">	
-							{{ Form::label('curp', 'CURP') }}
-							{{ Form::text('curp', null, array('placeholder' => 'Ingrese CURP','class' => 'form-control mayuscula')) }}
-						</div>
+						
 
 						<div class="col-md-3 form-group">	
 							{{ Form::label('RFC', 'RFC') }}
