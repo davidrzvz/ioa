@@ -58,8 +58,8 @@
         top: 18px !important;
     }
 </style>
-{{HTML::script('js/bootstrapValidator.js');}}
-{{HTML::script('js/es_ES.js');}}
+    {{HTML::script('js/bootstrapValidator.js');}}
+    {{HTML::script('js/es_ES.js');}}
     <script>
     $(document).ready(function() {
             $('#datetimePicker ,#datetimePicker2').datetimepicker({
@@ -137,7 +137,7 @@
                             columns=[
                                       { "title": "Nombre" },
                                       { "title": "Fecha" },
-                                      { "title": "Fecha Premiacion" },
+                                      { "title": "Fecha Premiación" },
                                       { "title": "participantes" },
                                       { "title": "nivel" },
                                   ];
@@ -157,7 +157,20 @@
                               "next":       "Siguiente",
                               "previous":   "Anterior"
                             },
-                        }
+                        },
+                        dom: 'T<"clear">lfrtip',
+                        tableTools : {
+                            "sSwfPath": "{{URL::to('swf/copy_csv_xls_pdf.swf')}}",
+                            aButtons: [
+                                "copy",
+                                "xls",
+                                {
+                                    "sExtends": "pdf",
+                                    "sPdfOrientation": "landscape",
+                                    "sPdfMessage": 'PDF'
+                                },
+                            ]
+                        },
                         } );
                         if(json.tipo == "concursos")
                             $('#tabla').find('tbody').find('tr').on( 'click', function () {
@@ -226,19 +239,32 @@
                           { "title": "Premio" },
                       ],
               "language": {
-                "lengthMenu": "concursantes por página _MENU_",
-                "zeroRecords": "No se encontro",
-                "info": "Pagina _PAGE_ de _PAGES_",
-                "infoEmpty": "No records available",
-                "infoFiltered": "(Ver _MAX_ total records)",
-                'search': 'Buscar: ',
-                "paginate": {
-                  "first":      "Inicio",
-                  "last":       "Fin",
-                  "next":       "Siguiente",
-                  "previous":   "Anterior"
+                    "lengthMenu": "concursantes por página _MENU_",
+                    "zeroRecords": "No se encontro",
+                    "info": "Pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No records available",
+                    "infoFiltered": "(Ver _MAX_ total records)",
+                    'search': 'Buscar: ',
+                    "paginate": {
+                          "first":      "Inicio",
+                          "last":       "Fin",
+                          "next":       "Siguiente",
+                          "previous":   "Anterior"
+                    },
                 },
-            }
+                dom: 'T<"clear">lfrtip',
+                tableTools : {
+                    "sSwfPath": "{{URL::to('swf/copy_csv_xls_pdf.swf')}}",
+                    aButtons: [
+                        "copy",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": 'PDF'
+                        },
+                    ]
+                },
             } );
         }, 'json').fail(function(){
             $('#grafica').addClass('hidden');
