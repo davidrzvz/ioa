@@ -6,6 +6,8 @@
 
 <div class="container wellr">
     <div class="col-sm-12">
+        <h4 style="text-align: center; color: #cc0000;">REPORTE POR EVENTOS</h4>
+
     {{ Form::open(array('url' => 'reportes/ferias','role' => 'form','id' => 'ferias','class' => 'class')) }}
         <div class="col-sm-6 col-sm-offset-3">
             <div class="col-sm-6 form-group fecha">

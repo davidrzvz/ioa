@@ -283,4 +283,9 @@ function documentos(documents){
 }
 	
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-48175").addClass("current_page_item ");
+    });
+</script>
 @stop 

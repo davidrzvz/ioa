@@ -3,6 +3,9 @@
 class ReportesController extends BaseController {
 
 
+	public function get_menu(){
+		return View::make('reportes/reportesmenu');
+	}
 
 	public function getIndex()
 	{
@@ -115,7 +118,7 @@ class ReportesController extends BaseController {
 	public function get_artesanos_ramas($id)
 	{
 		$cc = 0;
-		$personas = Rama::find($id) -> personas() -> get();
+		$personas = Rama::find($id) -> Personas() -> get();
 		foreach ($personas as $persona) {
 			if ($persona -> artesano) {
 				$cc++;

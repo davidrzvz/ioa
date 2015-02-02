@@ -44,7 +44,7 @@
 					</div>
 			{{Form::close()}}
 			<div id="imp_artesano" class="hidden col-sm-12">
-				<h3>Imprimir credencial</h3>
+				<h3>Pulsa imprimir para generar credencial</h3>
 				{{ Form::open(array('url' => 'credenciales/credencial','role' => 'form','id' => 'credencial','class' => 'class')) }}
 					{{ Form::text('id', null, array('class' => 'hidden form-control')) }}
 					<div class="form-group" style="top: 13px !important;">
@@ -277,5 +277,10 @@ function creartabla(json){
 		$(this).toggleClass('success');
 	} );	 
 }
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-49489").addClass("current_page_item ");
+    });
 </script>
 @stop

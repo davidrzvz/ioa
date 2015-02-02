@@ -70,6 +70,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('editarEventos/feria','editarEventoController@updateFeria');
 	Route::post('editarEventos/concurso','editarEventoController@updateConcurso');
 	Route::post('editarEventos/taller','editarEventoController@updateTaller');
+	Route::get('reportes/reportesmenu','ReportesController@get_menu');
+
 
 
 	Route::get('ArtesanoEnFeria','ArtesanoEnFeriaController@get_ArtesanoEnFeria');

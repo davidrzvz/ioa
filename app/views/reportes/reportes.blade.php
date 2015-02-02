@@ -9,7 +9,7 @@
     <form id="filtros">
         
         <div class="col-md-8 wellr col-md-offset-2">
-            <h4 style="text-align: center; color: #cc0000;">REPORTE DEL PADRÓN ARTESANAL</h3>
+            <h4 style="text-align: center; color: #cc0000;">REPORTE DEL PADRÓN ARTESANAL</h4>
             <div class="bg-orga col-md-12 text-center">REGIONES</div>
 
             <label class="checkbox-inline">
@@ -89,7 +89,7 @@
               <input name="rama9" type="checkbox" value="9"> <strong>Cartonería y Papel</strong>
             </label><br>
             <label class="checkbox-inline">
-              <input name="rama10" type="checkbox" value="10"> <strong>Talbartería y Peletería</strong>
+              <input name="rama10" type="checkbox" value="10"> <strong>Talabartería y Peletería</strong>
             </label><br>
             <label class="checkbox-inline">
               <input name="rama12" type="checkbox" value="12"> <strong>Lapidaría y Cantería</strong>
@@ -123,6 +123,10 @@
             <div class="row">
                 <div class="col-md-6">
                     <span id="titulo" class="col-md-11 text-center"></span>
+
+                </div>
+                <div class="col-md-6">  
+                    <span id="titulo2" class="col-md-11 text-center"></span>
                 </div>
             </div>
             <div class="row">
@@ -134,9 +138,14 @@
             <div id="grafica1" class="row col-md-3 col-md-offset-1" style="height: 250px; margin-bottom: 40px;"></div>
             
         </div>
-            <div id="grafica2" class="col-md-7 col-md-offset-1" style="height: 300px; margin-bottom: 40px; text-align: center;"></div>
-            <div id="grafica3" class="col-md-8 col-md-offset-2" style="height: 300px; margin-top: 60px; margin-bottom: 40px; text-align: center;"></div>
-        </div>
+            <div id="grafica2" class="col-md-7 col-md-offset-1" style="height: 300px; margin-bottom: 40px; text-align: center;">  
+            </div>
+            <div class="col-md-12">  
+                <span id="titulo3" class="col-md-12 text-center"></span>
+            </div>
+            <div id="grafica3" class="col-md-8 col-md-offset-2" style="height: 300px; margin-top: 60px; margin-bottom: 40px; text-align: center;">
+            </div>
+</div>
 </div>
 @stop
 @section('scripts')
@@ -163,6 +172,7 @@
                     });
                 };
                 if (json.region) {
+                    $('#titulo2').html('<label><h3>Total de artesanos por región</h3></label>');
                     Morris.Bar({
                         element: 'grafica2',
                         data: data(json.region),
@@ -174,6 +184,7 @@
                     });
                 };
                 if (json.rama) {
+                    $('#titulo3').html('<label><h3>Total de artesanos por rama artesanal</h3></label>');
                     Morris.Bar({
                         element: 'grafica3',
                         data: data(json.rama),

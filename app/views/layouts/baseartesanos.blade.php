@@ -16,14 +16,13 @@
     {{HTML::style('css/bootstrap-datetimepicker.min.css');}}
     {{HTML::script('js/sweet-alert.js');}}
     {{HTML::style('css/sweet-alert.css');}}
-    <!-- Añadí estos -->
     {{  HTML::script('js/chart/morris.min.js')}}
     {{  HTML::script('js/chart/raphael-min.js')}}
     {{  HTML::script('js/tables/jquery.dataTables.min.js')}}
     {{  HTML::script('js/dataTables.tableTools.min.js')}}
     {{  HTML::style('css/jquery.dataTables.css')}}
     {{  HTML::style('css/dataTables.tableTools.css')}}
-    <!-- Dave -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -42,25 +41,25 @@
             <div class="menu">
                 <ul id="menu-menu-1" class="sf-menu sf-js-enabled sf-shadow">
                     <li id="menu-item-48096" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-48096">
-                        <a href="{{URL::to('inicio');}}" class="sf-with-ul">INICIO<span class="sf-sub-indicator"></span></a>
+                        <a title="Inicio" href="{{URL::to('inicio');}}" class="sf-with-ul">INICIO<span class="sf-sub-indicator"></span></a>
                     </li>
                     <li id="menu-item-48155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48155">
-                        <a href="{{URL::to('artesano');}}" class="sf-with-ul">REGISTRO<span class="sf-sub-indicator"></span></a>
+                        <a title="Registro único" href="{{URL::to('artesano');}}" class="sf-with-ul">REGISTRO<span class="sf-sub-indicator"></span></a>
                     </li>
                     <li id="menu-item-48164" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48164">
-                        <a href="{{URL::to('editarEventos');}}" class="sf-with-ul">TALLERES<span class="sf-sub-indicator"> »</span></a>
+                        <a title="Registro de eventos" href="{{URL::to('editarEventos');}}" class="sf-with-ul">EVENTOS<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li id="menu-item-48175" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48175">
-                        <a href="{{URL::to('editarEventos');}}" class="sf-with-ul">CONCURSOS<span class="sf-sub-indicator"> »</span></a>
+                        <a title="Datos de artesanos" href="{{URL::to('verArtesano');}}" class="sf-with-ul">CONSULTA<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li id="menu-item-49489" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-49489">
-                        <a href="{{URL::to('editarEventos');}}">FERIAS<span class="sf-sub-indicator"> »</span></a>
+                        <a title="Credenciales" href="{{URL::to('credenciales');}}">CREDENCIAL<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li id="menu-item-48188" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48188">
-                        <a href="{{URL::to('reportes');}}" class="smcf-link sf-with-ul">REPORTES<span class="sf-sub-indicator"> »</span></a>
+                        <a title="Reportes" href="{{URL::to('reportes/reportesmenu');}}" class="smcf-link sf-with-ul">REPORTES<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48188">
-                        <a href="" title="" class="sf-sub-indicator">?</a>
+                        <a title="Ayuda" class="sf-sub-indicator" onClick="window.open('{{URL::to('help/user.pdf');}}')";>?</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="margin-top: -10px">

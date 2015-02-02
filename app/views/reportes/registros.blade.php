@@ -28,6 +28,12 @@
     </div>
 @stop
 @section('scripts')
+<style type="text/css" media="screen">
+    .fecha i{
+        right: 50px !important;
+        top: 18px !important;
+    }
+</style>
     {{HTML::script('js/bootstrapValidator.js');}}
     {{HTML::script('js/es_ES.js');}}
     <script>

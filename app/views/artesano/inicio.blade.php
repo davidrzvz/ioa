@@ -1,6 +1,6 @@
 
 @extends('layouts.baseartesanos')
-@section('titulo') INSTITUTO OAXAQUEÑO DE LAS ARTESANÑIAS
+@section('titulo') INSTITUTO OAXAQUEÑO DE LAS ARTESANÍAS
 @endsection 
 
 @section('contenido')
