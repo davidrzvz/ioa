@@ -642,5 +642,10 @@ $( "#selectmun" ).change(function () {
 		}, 'json');
 	})
 	</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-48155").addClass("current_page_item ");
+    });
+</script>
 
 @stop

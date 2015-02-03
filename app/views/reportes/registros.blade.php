@@ -6,6 +6,8 @@
 
     <div class="container wellr">
     {{ Form::open(array('url' => 'reportes/registros','role' => 'form','id' => 'registros','class' => 'class')) }}
+        <div class="bg-orga text-center col-md-12">REPORTE DE REGISTROS DE ARTESANOS</div>
+
         <div class="col-sm-6 col-sm-offset-3">
             <div class="col-sm-6 form-group fecha">
                 {{ Form::label('birthday', 'Fecha de inicio') }}
@@ -24,7 +26,7 @@
             <button type="submit" class="btn btn-ioa col-sm-4 col-sm-offset-4" style="margin-top:10px;"><i class="fa fa-line-chart"></i> Generar reporte</button>
         </div>
     {{ Form::close() }}
-    <div id="divelementos" class="row"></div>
+    <div id="divelementos" class="col-sm-12"></div>
     </div>
 @stop
 @section('scripts')
@@ -102,10 +104,28 @@
                             "next":       "Siguiente",
                             "previous":   "Anterior"
                           },
-                    }
+                        },
+                     dom: 'T<"clear">lfrtip',
+                    tableTools : {
+                        "sSwfPath": "{{URL::to('swf/copy_csv_xls_pdf.swf')}}",
+                        aButtons: [
+                        "copy",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": 'PDF'
+                        },
+                    ]
+                },
                     } );
                 }, 'json');
             });
         });
     </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-48188").addClass("current_page_item ");
+    });
+</script>
 @endsection

@@ -209,4 +209,9 @@
             return data;
         }
     </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-48188").addClass("current_page_item ");
+    });
+</script>
 @endsection

@@ -520,4 +520,9 @@ $('#datetimePicker4').on('dp.change dp.show', function(e) {
 
 
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-48164").addClass("current_page_item ");
+    });
+</script>
 @stop 

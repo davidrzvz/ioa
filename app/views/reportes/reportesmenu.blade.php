@@ -10,9 +10,9 @@
 <div class="container wellr col-sm-12">
 
     <div class="col-md-12">
-        <div class="bg-orga col-md-12 text-center">REPORTES</div>
+        <div class="bg-orga col-md-12 text-center">TIPOS DE REPORTE</div>
         <div class="col-sm-4" style="text-align: center; margin: 0 auto;">
-            <a target="_self" href="{{URL::to('personaConcurso');}}">
+            <a target="_self" href="{{URL::to('reportes');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="../imgs/trophy.png"></img><br>
             {{ Form::label('concurso', 'DEL PADRÓN') }}
             </a>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="col-sm-4" style="text-align: center; margin: 0 auto;">
-            <a  href="{{URL::to('ArtesanoEnTaller');}}">
+            <a  href="{{URL::to('reportes/registros');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="../imgs/grupo.png"></img><br>
             {{ Form::label('registro', 'DE REGISTROS') }}
                            

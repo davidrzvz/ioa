@@ -6,7 +6,7 @@
 
 <div class="container wellr">
     <div class="col-sm-12">
-        <h4 style="text-align: center; color: #cc0000;">REPORTE POR EVENTOS</h4>
+        <div class="bg-orga text-center col-md-12">REPORTE POR EVENTOS</div>
 
     {{ Form::open(array('url' => 'reportes/ferias','role' => 'form','id' => 'ferias','class' => 'class')) }}
         <div class="col-sm-6 col-sm-offset-3">
@@ -272,4 +272,9 @@
         });
     }
     </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-48188").addClass("current_page_item ");
+    });
+</script>
 @endsection

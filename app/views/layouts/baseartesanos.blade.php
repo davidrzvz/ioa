@@ -47,7 +47,7 @@
                         <a title="Registro único" href="{{URL::to('artesano');}}" class="sf-with-ul">REGISTRO<span class="sf-sub-indicator"></span></a>
                     </li>
                     <li id="menu-item-48164" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48164">
-                        <a title="Registro de eventos" href="{{URL::to('editarEventos');}}" class="sf-with-ul">EVENTOS<span class="sf-sub-indicator"> »</span></a>
+                        <a title="Registro de eventos" href="{{URL::to('registrarEventos');}}" class="sf-with-ul">EVENTOS<span class="sf-sub-indicator"> »</span></a>
                     </li>
                     <li id="menu-item-48175" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48175">
                         <a title="Datos de artesanos" href="{{URL::to('verArtesano');}}" class="sf-with-ul">CONSULTA<span class="sf-sub-indicator"> »</span></a>

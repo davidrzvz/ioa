@@ -9,14 +9,14 @@
     <div class="col-md-6 wellr">
         <div class="bg-orga col-md-12 text-center">REGISTRO DE ARTESANOS EN EL IOA</div>
         <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
-            <a target="_self" href="artesano">
+            <a target="_self" href="{{URL::to('artesano');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/userr.png"></img><br>
             {{ Form::label('pororg', 'REGISTRO ÚNICO') }}
             </a>
         </div>
 
         <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
-            <a  href="por">
+            <a  href="{{URL::to('por');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/users.png"></img><br>
             {{ Form::label('pororg', 'POR ORGANIZACIÓN') }}
                            
@@ -27,14 +27,14 @@
  <div class="col-md-6 wellr">
         <div class="bg-orga col-md-12 text-center">MÁS ACCIONES</div>
         <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
-            <a target="_self" href="reportes">
+            <a target="_self" href="{{URL::to('reportes');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/report.png"></img><br>
             {{ Form::label('reportes', 'REPORTES') }}
             </a>
         </div>
 
         <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
-            <a  href="organizacion">
+            <a  href="{{URL::to('organizacion');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/orga.png"></img><br>
             {{ Form::label('org', 'REG. ORGANIZACIÓN') }}
                            
@@ -70,6 +70,28 @@
         </div>
     </div>    
       
+</div>
+
+
+<div class="container wellr col-sm-6 col-sm-offset-3">
+
+    <div class="col-md-12">
+        <div class="bg-orga col-md-12 text-center">EDICIÓN DE DATOS</div>
+        <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
+            <a target="_self" href="{{URL::to('editarArtesano');}}">
+            <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/editaruser.png"></img><br>
+            {{ Form::label('reportes', 'EDITAR ARTESANO') }}
+            </a>
+        </div>
+
+        <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
+            <a  href="{{URL::to('editarEventos');}}">
+            <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/editarevento.png"></img><br>
+            {{ Form::label('org', 'EDITAR EVENTOS') }}
+                           
+            </a>
+        </div>
+    </div>
 </div>
 
   

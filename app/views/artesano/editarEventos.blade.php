@@ -506,4 +506,9 @@ $('.mayuscula').focusout(function() {
 			});
 
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#menu-item-48164").addClass("current_page_item ");
+    });
+</script>
 @stop 
