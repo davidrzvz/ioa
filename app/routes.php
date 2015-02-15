@@ -87,8 +87,20 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('registrarEventos/concurso','RegistrarEventosController@concurso');
 	Route::post('registrarEventos/taller','RegistrarEventosController@taller');
 
+	Route::get('ramas','CatalogosController@Ramas');
+	Route::post('ramas/nuevarama','CatalogosController@NuevaRama');
+	Route::post('ramas/updaterama','CatalogosController@UpdateRama');
+	Route::post('ramas/delete','CatalogosController@EliminarRama');
 
+	Route::get('gruposetnicos','CatalogosController@Grupos');
+	Route::post('gruposetnicos/nuevogrupo','CatalogosController@NuevoGrupo');
+	Route::post('gruposetnicos/updategrupo','CatalogosController@UpdateGrupo');
+	Route::post('gruposetnicos/delete','CatalogosController@DeleteGrupo');
 
+	Route::get('comprasyventas','CatalogosController@comprasyventas');
+	Route::post('comprasyventas/nueva','CatalogosController@Nuevacv');
+	Route::post('comprasyventas/update','CatalogosController@Updatecv');
+	Route::post('comprasyventas/delete','CatalogosController@Eliminarcv');
 
     
 });

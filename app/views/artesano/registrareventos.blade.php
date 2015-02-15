@@ -443,35 +443,6 @@ $('.mayuscula').focusout(function() {
 
 <script>
 
-$('.concurso').click(function(){
-	$('.bg-evento').removeClass('sombreado-evento');
-	$(this).addClass('sombreado-evento');
-	$('[name=id]').val($(this).find('#idconcurso').text());
-	$('[name=concurnombre]').val($(this).find('#nombconc').text());
-	$('[name=nivel] option[value='+$(this).find('#nive').text()+']').attr('selected', true);
-	$('[name=fecha1]').val($(this).find('#fech').text());
-	$('[name=fecha2]').val($(this).find('#prem').text());
-});
-$('.feria').click(function(){
-	$('.bg-evento').removeClass('sombreado-evento');
-	$(this).addClass('sombreado-evento');
-	$('[name=id]').val($(this).find('#idferia').text());
-	$('[name=ferianombre]').val($(this).find('#nombre').text());
-	$('[name=ferialugar]').val($(this).find('#lugar').text());
-	$('[name=tipo] option[value="'+$(this).find('#tipo').text()+'"]').attr('selected', true);
-	$('[name=fecha1]').val($(this).find('#fechainicio').text());
-	$('[name=fecha2]').val($(this).find('#fechafin').text());
-});
-$('.taller').click(function(){
-	$('.bg-evento').removeClass('sombreado-evento');
-	$(this).addClass('sombreado-evento');
-	$('[name=id]').val($(this).find('#id').text());
-	$('[name=fecha1]').val($(this).find('#inicio').text());
-	$('[name=fecha2]').val($(this).find('#fin').text());
-	$('[name=tallernombre]').val($(this).find('#nombre').text());
-	$('[name=maestro]').val($(this).find('#maestro').text());
-});
-
 $('#btnferias').click(function(){
 	$('#registroFeria').removeClass('hidden');
 	$('.ferias').removeClass('hidden');

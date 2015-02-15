@@ -159,7 +159,7 @@
 
 	</div>
 	<div class="hidden anadidos col-sm-4">
-		<div class="bg-orga col-md-12">CONCUROSOS</div>
+		<div class="bg-orga col-md-12">CONCURSOS</div>
 		<div id="concursos"></div>
 	</div>
 </div>		

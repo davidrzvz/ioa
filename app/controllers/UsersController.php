@@ -59,7 +59,7 @@ class UsersController extends BaseController{
 		return Response::json(array('success' => true));
 	}
 
-	//controlador para actualizar datos del usurio
+	//controlador para actualizar datos del usuario
 	public function postUpdate()
 	{
 		$rules = array(

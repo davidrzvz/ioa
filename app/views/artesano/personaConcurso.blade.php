@@ -585,7 +585,7 @@ $(document).ready(function() {
 	})
 	.on('success.form.bv', function(e) {
         e.preventDefault();
-        if($('[name = concid').val() == "")
+        if($('[name = concid]').val() == "")
         	swal('Error', 'Aun no seleccionas un concurso', 'error');
         else
 		$.post($('#inscrito').attr('action'), $('#inscrito').serialize(), function(json) {
