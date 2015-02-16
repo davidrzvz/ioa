@@ -101,6 +101,11 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('comprasyventas/nueva','CatalogosController@Nuevacv');
 	Route::post('comprasyventas/update','CatalogosController@Updatecv');
 	Route::post('comprasyventas/delete','CatalogosController@Eliminarcv');
+	
+	Route::get('organizaciones','OrganizacionesController@Organizaciones');
+	Route::post('organizaciones/nueva','OrganizacionesController@NuevaOrg');
+	Route::post('organizaciones/update','OrganizacionesController@UpdateOrg');
+	Route::post('organizaciones/delete','OrganizacionesController@EliminarOrg');
 
     
 });

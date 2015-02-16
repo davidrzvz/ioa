@@ -3,7 +3,7 @@
 class Artesano extends Eloquent {
 public $timestamps = false;
 protected $table = 'artesanos';
-protected $fillable = array('RFC', 'estadocivil', 'fecharegistro', 'ine', 'taller', 'tipotelefono', 'persona_id');
+protected $fillable = array('RFC', 'estadocivil', 'fecharegistro', 'ine', 'taller', 'persona_id');
 
 public function persona(){
 return $this->belongsTo('Persona');

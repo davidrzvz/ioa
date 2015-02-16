@@ -1,5 +1,5 @@
 @extends('layouts.baseartesanos')
-@section('titulo') Grupos Etnicos
+@section('titulo') Organizaciones
 @endsection 
  
 @section('contenido')
@@ -7,30 +7,32 @@
         
         <div class="col-md-12">
             <div class="col-md-8">
-            <h3 style="margin-bottom:20px;"><i class="fa  fa-sitemap"></i><strong> Grupos Étnicos</strong></h3>
+            <h3 style="margin-bottom:20px;"><i class="fa  fa-sitemap"></i><strong> Organizaciones</strong></h3>
             </div>
             <div class="col-md-2" style="margin-top:10px;">
-            <button type="button" class="btn btn-success" id="bnuevo"><i class="fa fa-plus fa-lg"></i> Nuevo</button>
+            <button type="button" class="btn btn-success" id="bnuevo"><i class="fa fa-plus fa-lg"></i> Nueva</button>
             </div> 
         </div>
         <div class="col-md-9 col-md-offset-1 wellr">
-        <table id='grupos'class="table table-hover table-first-column-number data-table display full">
+        <table id='orgs'class="table table-hover table-first-column-number data-table display full">
             <thead>
                 <tr>
                     <th><i class="fa fa-sort-desc"></i></th>
-                    <th>Nombre de la grupo <i class="fa fa-sort-desc"></i></th>
-                    <th>Editar</th>
+                    <th>Nombre de la organización <i class="fa fa-sort-desc"></i></th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @if(isset($grupos))
-                    @foreach($grupos as $grupo)
+                @if(isset($organizaciones))
+                    @foreach($organizaciones as $organizacion)
                     <tr>
-                    <td>{{ $grupo->id }}</td>
-                    <td>{{ $grupo->nombre }}</td>
+                    <td>{{ $organizacion->id }}</td>
+                    <td>{{ $organizacion->nombre }}</td>
+                    <td>{{ $organizacion->telmunicipio }}</td>
                     <td>
                         <button type="button" onclick="editar(this)" class="btn btn-ioa select btn-xs">Editar</button>
-                        <button type="button" class="btn btn-danger btn-xs delete" title="{{$grupo->nombre}}" onclick="eliminar(this)">Eliminar</button> 
+                        <button type="button" class="btn btn-danger btn-xs delete" title="{{$organizacion->nombre}}" onclick="eliminar(this)">Eliminar</button> 
                     </td>
                     </tr>  
                     @endforeach 
@@ -46,19 +48,23 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="grupo">
-            <i class="fa fa-pencil-square-o fa-lg"></i> grupo
+          <h4 class="modal-title" id="org">
+            <i class="fa fa-pencil-square-o fa-lg"></i> Organización
           </h4>
         </div>
-        {{ Form::open(array('url' => 'gruposetnicos/nuevogrupo','role' => 'form','id' => 'nuevo-grupo','class' => '')) }}
+        {{ Form::open(array('url' => 'organizaciones/nueva','role' => 'form','id' => 'nueva-org','class' => '')) }}
         <div class="modal-body">
             <center>
-            <h2 name="name"><i class="fa fa-pencil"></i> Nuevo grupo</h2>
+            <h2 name="name"><i class="fa fa-pencil"></i> Nueva organización</h2>
             <i class="fa fa-refresh fa-spin hidden fa-2x"></i>
             </center>            
             <div class="form-group">  
               {{ Form::label('nombre', 'Nombre',array('class' => 'control-label')) }}
               {{ Form::text('nombre', null, array('placeholder' => 'introduce nombre','class' => 'form-control')) }}
+            </div>
+            <div class="form-group">  
+              {{ Form::label('tel', 'Teléfono',array('class' => 'control-label')) }}
+              {{ Form::text('tel', null, array('placeholder' => 'No telefono (10 digitos)','class' => 'form-control')) }}
             </div>
         </div>
         <div class="modal-footer">
@@ -77,13 +83,13 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4 class="modal-title" id="examen">
-            <i class="fa fa-pencil-square-o fa-lg"></i> grupo
+            <i class="fa fa-pencil-square-o fa-lg"></i> Organización
           </h4>
         </div>
-        {{ Form::open(array('url' => 'gruposetnicos/updategrupo','role' => 'form','id' => 'edit','class' => '')) }}
+        {{ Form::open(array('url' => 'organizaciones/update','role' => 'form','id' => 'edit','class' => '')) }}
         <div class="modal-body">
             <center>
-            <h2 name="name"><i class="fa fa-pencil"></i> grupo</h2>
+            <h2 name="name"><i class="fa fa-pencil"></i> Organización</h2>
             <i class="fa fa-refresh fa-spin hidden fa-2x"></i>
             </center>      
             {{ Form::text('id', null, array('class' => 'hidden')) }}      
@@ -91,6 +97,11 @@
               {{ Form::label('nombre', 'Nombre',array('class' => 'control-label')) }}
               {{ Form::text('nombre', null, array('placeholder' => 'introduce nombre','class' => 'form-control')) }}
             </div>
+            <div class="form-group">  
+              {{ Form::label('tel', 'Teléfono',array('class' => 'control-label')) }}
+              {{ Form::text('tel', null, array('placeholder' => 'No telefono (10 digitos)','class' => 'form-control')) }}
+            </div>
+
 
         </div>
         <div class="modal-footer">
@@ -125,9 +136,9 @@
 {{  HTML::script('js/es_ES.js'); }}
 {{  HTML::script('js/sweet-alert.js'); }}
 <script type="text/javascript">
-    $('#grupos').dataTable( {
+    $('#orgs').dataTable( {
         "language": {
-            "lengthMenu": "grupos por página _MENU_",
+            "lengthMenu": "Elementos por página _MENU_",
             "zeroRecords": "No se encontro",
             "info": "Pagina _PAGE_ de _PAGES_",
             "infoEmpty": "No records available",
@@ -144,7 +155,7 @@
 </script>
     <script type="text/javascript">
 $(document).ready(function() {
-    $('#nuevo-grupo').bootstrapValidator({
+    $('#nueva-org').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok nombre',
             invalid: 'glyphicon glyphicon-remove nombre',
@@ -166,7 +177,7 @@ $(document).ready(function() {
     .on('success.form.bv', function(e) {
         e.preventDefault();
         $('.fa-refresh').removeClass('hidden');
-        $.post($('#nuevo-grupo').attr('action'),$('#nuevo-grupo').serialize(), function(json) {
+        $.post($('#nueva-org').attr('action'),$('#nueva-org').serialize(), function(json) {
                 $('#nuevo').modal('hide');
                 if(json.success)
                     swal({
@@ -184,7 +195,7 @@ $(document).ready(function() {
                         window.location.reload();
                     });
                 if(json.ocupado)
-                    swal('Error','Ya existe un grupo con ese nombre', "error");
+                    swal('Error','Ya existe una organización con ese nombre', "error");
             $('.fa-refresh').addClass('hidden');    
             }, 'json');
     });
@@ -234,7 +245,7 @@ $(document).ready(function() {
                         window.location.reload();
                     });
                 if(json.ocupado)
-                    swal('Error','Ya existe un grupo con ese nombre', "error");
+                    swal('Error','Ya existe una organización con ese nombre', "error");
             $('.fa-refresh').addClass('hidden');    
             }, 'json');
     });
@@ -242,17 +253,17 @@ $(document).ready(function() {
 $('#bnuevo').click(function(){
     $('#nuevo').modal('show');
     $("tbody").find('tr').removeClass('danger').find('button').attr('disabled',false);
-    $('[name = name]').html('<i class="fa fa-pencil"></i> Nuevo grupo');
+    $('[name = name]').html('<i class="fa fa-pencil"></i> Nueva organización');
     $('[name = nombre]').val('');
 });
 $('#nuevo').on('hide.bs.modal', function() {
-    $('#nuevo-grupo').bootstrapValidator('resetForm', true);
+    $('#nueva-org').bootstrapValidator('resetForm', true);
 });
 $('#editar').on('hide.bs.modal', function() {
     $('#edit').bootstrapValidator('resetForm', true);
     $("tbody").find('tr').removeClass('danger').find('button').attr('disabled',false);
 });
-$('#grupos, #2grupos').addClass('active');
+$('#orgs, #2orgs').addClass('active');
 function editar(btn){
     $(btn).closest("tbody").find('tr').removeClass('danger').find('button').attr('disabled',false);
     $(btn).attr('disabled',true).closest("tr").addClass('danger');
@@ -262,10 +273,10 @@ function editar(btn){
     $('[name = nombre]').val($(btn).closest("tr").find("td:nth-child(2)").text());
 }
 function eliminar(btn) {
-    swal({   title: "Estás completamente seguro?",   text: "Se borrarán todos los artesanos pertenecientes a este grupo, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
-    $.post('{{URL::to("gruposetnicos/delete");}}', {grupo:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
+    swal({   title: "Estás completamente seguro?",   text: "Se borrarán todos los artesanos pertenecientes a esta organización, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+        $.post('{{URL::to("organizaciones/delete");}}', {org:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
             if(json.success){
-                swal('Grupo eliminado', null, "success");
+                swal('Organización eliminada', null, "success");
                 $(btn).closest("tr").remove();
                 location.reload();
             }
@@ -275,6 +286,5 @@ function eliminar(btn) {
     });
 }
 </script>
-
 
 @stop

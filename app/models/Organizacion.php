@@ -3,7 +3,7 @@
 class Organizacion extends Eloquent {
 public $timestamps = false;
 protected $table = 'organizaciones';
-protected $fillable = array('nombre', 'telmunicipio');
+protected $fillable = array('nombre', 'telefono');
 
 public function Comite(){
 return $this->hasOne('Comite');

@@ -184,7 +184,7 @@ $(document).ready(function() {
                         window.location.reload();
                     });
                 if(json.ocupado)
-                    swal('Error','Ya existe un cuerpo con ese nombre', "error");
+                    swal('Error','Ya existe una rama con ese nombre', "error");
             $('.fa-refresh').addClass('hidden');    
             }, 'json');
     });
@@ -234,7 +234,7 @@ $(document).ready(function() {
                         window.location.reload();
                     });
                 if(json.ocupado)
-                    swal('Error','Ya existe un cuerpo con ese nombre', "error");
+                    swal('Error','Ya existe una rama con ese nombre', "error");
             $('.fa-refresh').addClass('hidden');    
             }, 'json');
     });
@@ -262,16 +262,18 @@ function editar(btn){
 	$('[name = nombre]').val($(btn).closest("tr").find("td:nth-child(2)").text());
 }
 function eliminar(btn) {
-    $.post('{{URL::to("ramas/delete");}}', {rama:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
+    swal({   title: "Estás completamente seguro?",   text: "Se borrarán todos los artesanos pertenecientes a esta rama, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+        $.post('{{URL::to("ramas/delete");}}', {rama:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
             if(json.success){
                 swal('Rama eliminada', null, "success");
                 $(btn).closest("tr").remove();
+                location.reload();
             }
             else
                 swal('Error', 'Ocurrio un error', "error");
         }, 'json');
+    });
 }
 </script>
-
 
 @stop

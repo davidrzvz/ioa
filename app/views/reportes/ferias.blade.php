@@ -226,7 +226,7 @@
             if(json.data.length > 0)
                 $('#dconcursantes').removeClass('hidden');
             else
-                swal('Error','No se encontró','error');
+                swal('Error','No se encontraron registros','error');
             $('#dconcursantes').html('<table id="concursantes" class="table table-hover table-first-column-number data-table display full"></table>');
             $('#concursantes').dataTable( {
               "data": json.data,

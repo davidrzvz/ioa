@@ -267,6 +267,7 @@ $.post('{{URL::to("comprasyventas/delete");}}', {comprasyventa:$(btn).closest("t
             if(json.success){
                 swal('Elemento eliminado', null, "success");
                 $(btn).closest("tr").remove();
+                location.reload();
             }
             else
                 swal('Error', 'Ocurrio un error', "error");
