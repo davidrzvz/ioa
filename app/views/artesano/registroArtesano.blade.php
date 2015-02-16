@@ -491,20 +491,26 @@
 		                    notEmpty: {}
 		                }
 		            },
-		            tel: {
+		             tel: {
 		                validators: {
-		                    integer:{}
+		                    integer:{},
+		                    notEmpty: {},
+		                    stringLength: {
+		                        min: 7,
+		                        max: 7,
+		                        message:'Verifica el no. de digitos'
+		                }
 		                }},
 		                lada: {
 		                validators: {
 		                    integer: {},
+		                    notEmpty: {},
 		                    stringLength: {
 		                        min: 3,
 		                        max: 3,
-		                        message:'Verifica'
+		                        message:'Verifica el no. de digitos'
 		                }
-		            }
-		            },
+		            }},
                     fotoperfil:{
         				validators: {
         					file: {
