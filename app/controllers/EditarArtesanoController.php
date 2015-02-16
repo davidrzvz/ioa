@@ -75,17 +75,19 @@ class EditarArtesanoController extends BaseController {
 	{
 		$nombre 	= Input::get('artesanombre');
 		$paterno 	= Input::get('artesapaterno');
-		$materno 	= Input::get('artesamaterno');
-		$fecha 		= Input::get('fechanace');
-		$artesano 	= Artesano::whereHas('persona',function($q) use ($nombre,$paterno,$materno,$fecha)
+		$artesano 	= Artesano::whereHas('persona',function($q) use ($nombre,$paterno)
 		{
 			$q->where('nombre','like','%'.$nombre.'%','and')
-			->where('paterno','like','%'.$paterno.'%','and')
-			->where('materno','like','%'.$materno.'%')
-			->where('fechanacimiento','=',$fecha);
+			->where('paterno','like','%'.$paterno.'%','and');
 		})
-		->first();
+		->get();
+		return Response::json($artesano);
 
+	}
+
+	public function encontrado()
+	{
+		$artesano 	= Artesano::find(Input::get('id'));
 		$artesano["persona"]["localidad_id"]	= Localidad::find($artesano->persona->localidad_id)->id;
 		$artesano["persona"]["grupoetnico_id"]	= Gruposetnico::find($artesano->persona->grupoetnico_id)->id;
 		$artesano["persona"]["rama_id"]	= Rama::find($artesano->persona->rama_id)->id;
@@ -95,7 +97,6 @@ class EditarArtesanoController extends BaseController {
 		$artesano->persona->Direccion;
 		$artesano->persona->Telefono;
 		return Response::json($artesano);
-
 	}
 
 	public function update() 

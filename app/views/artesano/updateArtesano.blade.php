@@ -30,16 +30,9 @@
 			</div>
 
 			<div class="col-md-12 form-group">
-				<div class="form-group col-sm-12 fecha">
-		         	{{ Form::label('fechanace', 'Fecha de Nacimiento',array('class' => 'control-label')) }}
-		          	<div class="input-group date" id="datetimePicker1">
-		            {{ Form::text('fechanace', null, array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
-		            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-		          	</div>
-				</div>
 
 				<div class="form-group" style="top: 13px !important;">
-					<button id="found" type="submit" class="btn btn-ioa pull-right">
+					<button id="found" type="submit" class="btn btn-ioa pull-right" data-toggle="modal" data-target="#myModal">
 						<span class="glyphicon glyphicon-search"></span> 
 						Buscar 
 					</button>
@@ -48,7 +41,35 @@
 
 		{{Form::close()}}
 	</div>
-
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 class="modal-title">Artesanos</h3>
+				</div>
+				<div class="modal-body">
+					<h5 class="text-center">Elige una opción</h5>
+					<table class="table table-hover">
+					<thead id="tblHead">
+					<tr>
+					<th>Nombre</th>
+					<th>Paterno</th>
+					<th>Materno</th>
+					<th>Fecha Nacimiento</th>
+					<th>Seleccionar</th>
+					</tr>
+					</thead>
+					<tbody id="elementobody">
+					</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 	<div class="col-sm-8 pull-right hidden" id="datitos">
 		{{ Form::open(array('url'=> 'editarArtesano/update','id' => 'formupdate','class' => 'class','files'=>true)) }}
@@ -254,6 +275,40 @@
 <script src="js/es_ES.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+function encontrado (id) {
+	console.log(id);
+	$.post('encontradoupdate',{id:id}, function(json) {
+		$('#datitos, #documentos').removeClass("hidden");
+		$('#persona_id').val(json.persona_id);
+		$('#nombre').val(json.persona.nombre);
+		$('#paterno').val(json.persona.paterno);
+		$('#materno').val(json.persona.materno);
+		$('#nace').val(json.persona.fechanacimiento);
+		$('#curp').val(json.persona.curp);
+		$('#cuis').val(json.persona.cuis);
+		$('#cp').val(json.persona.direccion.cp);
+		$('#calle').val(json.persona.direccion.calle);
+		$('#numero').val(json.persona.direccion.num);
+		$('#colonia').val(json.persona.direccion.colonia);
+		$('#tel').val(json.persona.telefono.numero);
+		$('#domicilio').val(json.persona.domicilio);
+		$('#edo').val(json.persona.estado);
+		$('#lada').val(json.persona.telefono.lada);
+		$('#observ').val(json.persona.observaciones);
+		$('#localidad').val(json.persona.localidad_id);
+		$('#rfc').val(json.rfc);
+		$('#fecha').val(json.fecharegistro);
+		$('#ine').val(json.ine);
+		$('[name = tipoTel] option[value='+json.persona.telefono.tipo+']').attr('selected', true);
+		$('[name = sexo] option[value='+json.persona.sexo+']').attr('selected', true);
+		$('[name = civil] option[value='+json.estadocivil+']').attr('selected', true);
+		$('[name = taller] option[value='+json.taller+']').attr('selected', true);
+		$('[name = grupoetnico] option[value='+json.persona.grupoetnico_id+']').attr('selected', true);
+		$('[name = municipio] option[value='+json.municipio+']').attr('selected', true);
+		$('[name = rama] option[value='+json.persona.rama_id+']').attr('selected', true);
+		documentos(json.documentos);
+	}, 'json');
+}
 $(".filess").fileinput({
 				showUpload: false,
 				showCaption: false,
@@ -314,40 +369,22 @@ $('#buscarartesano').bootstrapValidator({
 })
 .on('success.form.bv', function(e) {
     e.preventDefault();
-	$.post($(this).attr('action'), $(this).serialize(), function(json) {
-		$('#datitos, #documentos').removeClass("hidden");
-			$('#persona_id').val(json.persona_id);
-			$('#nombre').val(json.persona.nombre);
-			$('#paterno').val(json.persona.paterno);
-			$('#materno').val(json.persona.materno);
-			$('#nace').val(json.persona.fechanacimiento);
-			$('#curp').val(json.persona.curp);
-			$('#cuis').val(json.persona.cuis);
-			$('#cp').val(json.persona.direccion.cp);
-			$('#calle').val(json.persona.direccion.calle);
-			$('#numero').val(json.persona.direccion.num);
-			$('#colonia').val(json.persona.direccion.colonia);
-			$('#tel').val(json.persona.telefono.numero);
-			$('#domicilio').val(json.persona.domicilio);
-			$('#edo').val(json.persona.estado);
-			$('#lada').val(json.persona.telefono.lada);
-			$('#observ').val(json.persona.observaciones);
-			$('#localidad').val(json.persona.localidad_id);
-			$('#rfc').val(json.rfc);
-			$('#fecha').val(json.fecharegistro);
-			$('#ine').val(json.ine);
-			$('[name = tipoTel] option[value='+json.persona.telefono.tipo+']').attr('selected', true);
-			$('[name = sexo] option[value='+json.persona.sexo+']').attr('selected', true);
-			$('[name = civil] option[value='+json.estadocivil+']').attr('selected', true);
-			$('[name = taller] option[value='+json.taller+']').attr('selected', true);
-			$('[name = grupoetnico] option[value='+json.persona.grupoetnico_id+']').attr('selected', true);
-			$('[name = municipio] option[value='+json.municipio+']').attr('selected', true);
-			$('[name = rama] option[value='+json.persona.rama_id+']').attr('selected', true);
-			documentos(json.documentos);
+	$.post('verArtesano', $(this).serialize(), function(json) {
+		console.log(json);
+		$.each(json,function(index,artesano){
+			$('#elementobody').append('<tr>'+
+			'<td>'+artesano.nombre+'</td>'+
+			'<td>'+artesano.paterno+'</td>'+
+			'<td>'+artesano.materno+'</td>'+
+			'<td>'+artesano.cumple+'</td>'+
+			'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
+		});
+		
 	}, 'json').fail(function(){
 		swal('Error','No se encontró el artesano','error');
 	});
 });
+
 $('#formupdate').bootstrapValidator({
 	// To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
 	feedbackIcons: {

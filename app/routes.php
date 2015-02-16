@@ -56,6 +56,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('editarArtesano','EditarArtesanoController@editar');
 	Route::post('editarArtesano/update','EditarArtesanoController@update');
 	Route::post('editarArtesano','EditarArtesanoController@buscar2');
+	Route::post('encontradoupdate','EditarArtesanoController@encontrado');
 
 
 	Route::post('buscaConcurso','RegistroenConcursoController@buscaConcurso');
