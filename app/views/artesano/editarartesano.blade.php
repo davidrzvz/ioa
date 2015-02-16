@@ -37,35 +37,34 @@
 		{{Form::close()}}
 	</div>
 	<div class="modal fade" id="myModal">
-<div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 class="modal-title">Artesanos</h3>
-        </div>
-        <div class="modal-body">
-		  <h5 class="text-center">Elige una opción</h5>
-          <table class="table table-hover">
-            <thead id="tblHead">
-              <tr>
-                <th>Nombre</th>
-                <th>Paterno</th>
-                <th>Materno</th>
-                <th>Fecha Nacimiento</th>
-                <th>Seleccionar</th>
-              </tr>
-            </thead>
-            <tbody id="elementobody">
-            </tbody>
-          </table>
-		</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
-        </div>
-				
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 class="modal-title">Artesanos</h3>
+				</div>
+				<div class="modal-body">
+					<h5 class="text-center">Elige una opción</h5>
+					<table class="table table-hover">
+					<thead id="tblHead">
+					<tr>
+					<th>Nombre</th>
+					<th>Paterno</th>
+					<th>Materno</th>
+					<th>Fecha Nacimiento</th>
+					<th>Seleccionar</th>
+					</tr>
+					</thead>
+					<tbody id="elementobody">
+					</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 	<div class="pull-left wellr col-md-3 hidden" id="documentos">      
 	</div>
