@@ -311,7 +311,7 @@ class AltaArtesanoController extends BaseController {
 
 		$comite = Comite::whereHas('organizacion',function($q) use ($nombre,$telefono){ 
 			$q->where('nombre','like',$nombre.'%','and')
-			->where('telefono','=',$telefono);
+			->where('telmunicipio','=',$telefono);
 		})->first();
 		
 		return Response::json($comite);

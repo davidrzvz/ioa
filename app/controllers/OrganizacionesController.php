@@ -29,9 +29,8 @@ class OrganizacionesController extends BaseController {
 	public function UpdateOrg(){
 		$rules = array(
 			'nombre' 		=>	'required',
-			'id'			=>	'integer|required'
-			'telmunicipio' 	=>	'integer|required'
-			);
+			'id'			=>	'integer|required',
+			'tel' 			=>	'integer|required');
 		
 		$validation = Validator::make(Input::all(), $rules);
 		if($validation->fails())
@@ -45,7 +44,7 @@ class OrganizacionesController extends BaseController {
 			$org = Organizacion::find(Input::get('id'));
 			$org->update(array(
 				'nombre' 	=> Input::get('nombre'),
-				'telmunicipio' 	=> Input::get('nombre'),
+				'telefono' 	=> Input::get('tel'),
 				));
 		return Response::json(array('success' => true));
 	}

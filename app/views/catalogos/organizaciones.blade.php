@@ -29,7 +29,7 @@
                     <tr>
                     <td>{{ $organizacion->id }}</td>
                     <td>{{ $organizacion->nombre }}</td>
-                    <td>{{ $organizacion->telmunicipio }}</td>
+                    <td>{{ $organizacion->telefono }}</td>
                     <td>
                         <button type="button" onclick="editar(this)" class="btn btn-ioa select btn-xs">Editar</button>
                         <button type="button" class="btn btn-danger btn-xs delete" title="{{$organizacion->nombre}}" onclick="eliminar(this)">Eliminar</button> 
@@ -238,7 +238,7 @@ $(document).ready(function() {
                         confirmButtonColor: '#AEDEF4',
                         confirmButtonText: 'OK',
                         cancelButtonText: 'No, regresar a revisar',
-                        closeOnConfirm: false,
+                        closeOnConfirm: true,
                         closeOnCancel: false
                     },
                     function(isConfirm){
@@ -271,6 +271,7 @@ function editar(btn){
     $('[name = name]').text($(btn).closest("tr").find("td:nth-child(2)").text());
     $('[name = id]').val($(btn).closest("tr").find("td:nth-child(1)").text());
     $('[name = nombre]').val($(btn).closest("tr").find("td:nth-child(2)").text());
+    $('[name = tel]').val($(btn).closest("tr").find("td:nth-child(3)").text());
 }
 function eliminar(btn) {
     swal({   title: "Estás completamente seguro?",   text: "Se borrarán todos los artesanos pertenecientes a esta organización, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
