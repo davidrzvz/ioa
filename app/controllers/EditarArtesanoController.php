@@ -33,8 +33,8 @@ class EditarArtesanoController extends BaseController {
 		$artesano 	= Artesano::whereHas('persona',function($q) use ($nombre,$paterno,$materno,$fecha)
 		{
 			$q->where('nombre','like','%'.$nombre.'%','and')
-			->where('nombre','like','%'.$paterno.'%','and')
-			->where('nombre','like','%'.$materno.'%')
+			->where('paterno','like','%'.$paterno.'%','and')
+			->where('materno','like','%'.$materno.'%')
 			->where('fechanacimiento','=',$fecha);
 		})
 		->first();
@@ -46,6 +46,8 @@ class EditarArtesanoController extends BaseController {
 		$artesano["compras"]		=	$artesano->comprasyventas()->get();
 		$artesano["organizacion"]	=	$artesano->organizacion;
 		$artesano["concursos"]		=	$artesano->concursos()->get();
+		$artesano["ferias"]		=	$artesano->ferias()->get();
+		$artesano["talleres"]		=	$artesano->talleres()->get();
 
 		return Response::json($artesano);
 

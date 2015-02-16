@@ -158,9 +158,13 @@
 		</div>
 
 	</div>
-	<div class="hidden anadidos col-sm-4">
+	<div class="wellr hidden anadidos col-sm-4">
 		<div class="bg-orga col-md-12">CONCURSOS</div>
 		<div id="concursos"></div>
+		<div class="bg-orga col-md-12">FERIAS</div>
+		<div id="ferias"></div>
+		<div class="bg-orga col-md-12">TALLERES</div>
+		<div id="talleres"></div>
 	</div>
 </div>		
 @endsection
@@ -235,9 +239,15 @@
 				$.post($(this).attr('action'), $(this).serialize(), function(json) {
 					$('#buscarartesano').closest(".wellr").addClass('hidden');
 					$(".anadidos").removeClass('hidden')
-						console.log(json.concursos);
+						console.log(json.ferias);
 						$.each(json.concursos,function(index,concurso){
 							$('#concursos').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4></div>');
+						});
+						$.each(json.talleres,function(index,taller){
+							$('#talleres').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+taller.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+taller.fechainicio+' al '+taller.fechafin+'</strong></label></h4><h4><label class="elementos">Maestro: <strong>'+taller.maestro+'</strong></label></h4></div>');
+						});
+						$.each(json.ferias,function(index,feria){
+							$('#ferias').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+feria.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+feria.fechainicio+' al '+feria.fechafin+'</strong></label></h4><h4><label class="elementos">Ubicación: <strong>'+feria.lugar+'</strong></label></h4></div>');
 						});
 						$('#datitos, #documentos').removeClass("hidden");
 						$('#nombre').text(json.persona.nombre);
