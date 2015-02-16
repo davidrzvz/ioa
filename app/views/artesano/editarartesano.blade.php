@@ -95,8 +95,16 @@
 			</h4>
 
 			<h4>
-			<label class="elementos">Domicilio: </label>
-			<label id="domicilio" class="label btn-ioa"></label>
+			<label class="elementos">Calle: </label>
+			<label id="calle" class="label btn-ioa"></label>
+			</h4>
+			<h4>
+			<label class="elementos">Número: </label>
+			<label id="numero" class="label btn-ioa"></label>
+			</h4>
+			<h4>
+			<label class="elementos">Colonia: </label>
+			<label id="colonia" class="label btn-ioa"></label>
 			</h4>
 
 			<h4>
@@ -257,7 +265,9 @@
 						$('#cuis').text(json.persona.cuis);
 						$('#cp').text(json.persona.direccion.cp);
 						$('#telefono').text(json.persona.telefono.numero);
-						$('#domicilio').html(json.persona.direccion.calle +' #'+json.persona.direccion.num+',<br> '+ json.persona.direccion.colonia);
+						$('#calle').html(json.persona.direccion.calle);
+						$('#numero').text(json.persona.direccion.num);
+						$('#colonia').text(json.persona.direccion.colonia);
 						$('#edo').text('Oaxaca');
 						$('#lada').text(json.persona.telefono.lada);
 						$('#observ').text(json.persona.observaciones);
