@@ -39,6 +39,18 @@
                 @endif  
             </tbody>
         </table>
+
+    </div>
+    <div class="col-md-10 col-md-offset-1 wellr hidden" id="datos">
+            <div id="organizacion">
+                
+            </div>
+            <div  id="comite">
+                
+            </div>
+            <div id="artesanos">
+                
+            </div>
     </div>
 
 
@@ -250,6 +262,9 @@ $(document).ready(function() {
             }, 'json');
     });
 });
+$('#orgs').find('tbody').find('tr').on( 'click', function () {
+    datos(this);
+} );
 $('#bnuevo').click(function(){
     $('#nuevo').modal('show');
     $("tbody").find('tr').removeClass('danger').find('button').attr('disabled',false);
@@ -285,6 +300,101 @@ function eliminar(btn) {
                 swal('Error', 'Ocurrio un error', "error");
         }, 'json');
     });
+}
+function datos(tr){
+    var id = $(tr).find("td:nth-child(1)").text();
+    $('#organizacion').html('<h1>Organización: '+$(tr).find("td:nth-child(2)").text()+'</h1><h2>Telefono: '+$(tr).find("td:nth-child(3)").text()+'</h2>');
+    $.post('{{URL::to("organizaciones/comite");}}','id='+id, function(json) {
+            if(json.comite.length > 0)
+                $('#datos').removeClass('hidden');
+            else
+                swal('Error','No se encontraron registros','error');
+            $('#comite').html('<table id="tcomite" class="table table-hover table-first-column-number data-table display full"></table>');
+            $('#tcomite').dataTable( {
+              "data": json.comite,
+              "columns": [
+                          { "title": "Nombre" },
+                          { "title": "Apellido paterno" },
+                          { "title": "Apellido materno" },
+                          { "title": "Fecha nace" },
+                          { "title": "Sexo" },
+                          { "title": "Cuis" },
+                          { "title": "Telefono" },
+                          { "title": "Cargo" },
+                      ],
+              "language": {
+                    "lengthMenu": "concursantes por página _MENU_",
+                    "zeroRecords": "No se encontro",
+                    "info": "Pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No records available",
+                    "infoFiltered": "(Ver _MAX_ total records)",
+                    'search': 'Buscar: ',
+                    "paginate": {
+                          "first":      "Inicio",
+                          "last":       "Fin",
+                          "next":       "Siguiente",
+                          "previous":   "Anterior"
+                    },
+                },
+                dom: 'T<"clear">lfrtip',
+                tableTools : {
+                    "sSwfPath": "{{URL::to('swf/copy_csv_xls_pdf.swf')}}",
+                    aButtons: [
+                        "copy",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": 'PDF'
+                        },
+                    ]
+                },
+            } );
+///
+            $('#artesanos').html('<table id="tartesanos" class="table table-hover table-first-column-number data-table display full"></table>');
+            $('#tartesanos').dataTable( {
+              "data": json.artesanos,
+              "columns": [
+                          { "title": "Nombre" },
+                          { "title": "Apellido paterno" },
+                          { "title": "Apellido materno" },
+                          { "title": "Fecha nace" },
+                          { "title": "Sexo" },
+                          { "title": "Cuis" },
+                          { "title": "Telefono" },
+                      ],
+              "language": {
+                    "lengthMenu": "concursantes por página _MENU_",
+                    "zeroRecords": "No se encontro",
+                    "info": "Pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No records available",
+                    "infoFiltered": "(Ver _MAX_ total records)",
+                    'search': 'Buscar: ',
+                    "paginate": {
+                          "first":      "Inicio",
+                          "last":       "Fin",
+                          "next":       "Siguiente",
+                          "previous":   "Anterior"
+                    },
+                },
+                dom: 'T<"clear">lfrtip',
+                tableTools : {
+                    "sSwfPath": "{{URL::to('swf/copy_csv_xls_pdf.swf')}}",
+                    aButtons: [
+                        "copy",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": 'PDF'
+                        },
+                    ]
+                },
+            } );
+        }, 'json').fail(function(){
+            $('#grafica').addClass('hidden');
+            swal('Error','No se encontró','error');
+        });
 }
 </script>
 
