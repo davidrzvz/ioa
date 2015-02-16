@@ -42,6 +42,8 @@ class EditarArtesanoController extends BaseController {
 		$artesano["persona"]["localidad_id"] 	= Localidad::find($artesano->persona->localidad_id)->nombre;
 		$artesano["persona"]["grupoetnico_id"] 	= Gruposetnico::find($artesano->persona->grupoetnico_id)->nombre;
 		$artesano["persona"]["rama_id"]	=	Rama::find($artesano->persona->rama_id)->nombre;
+		$artesano["persona"]["direccion"]	=	$artesano -> persona -> direccion;
+		$artesano["persona"]["telefono"]	=	$artesano -> persona -> telefono;
 		$artesano["documentos"]		=	Documento::where('persona_id','=',$artesano->persona_id)->get();
 		$artesano["compras"]		=	$artesano->comprasyventas()->get();
 		$artesano["organizacion"]	=	$artesano->organizacion;

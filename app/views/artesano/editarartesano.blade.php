@@ -239,7 +239,7 @@
 				$.post($(this).attr('action'), $(this).serialize(), function(json) {
 					$('#buscarartesano').closest(".wellr").addClass('hidden');
 					$(".anadidos").removeClass('hidden')
-						console.log(json.ferias);
+						console.log(json.persona.telefono);
 						$.each(json.concursos,function(index,concurso){
 							$('#concursos').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4></div>');
 						});
@@ -255,21 +255,21 @@
 						$('#sexo').text(json.persona.sexo);
 						$('#curp').text(json.persona.curp);
 						$('#cuis').text(json.persona.cuis);
-						$('#cp').text(json.persona.cp);
-						$('#telefono').text(json.persona.telefono);
-						$('#domicilio').text(json.persona.domicilio);
-						$('#edo').text(json.persona.estado);
-						$('#lada').text(json.persona.lada);
+						$('#cp').text(json.persona.direccion.cp);
+						$('#telefono').text(json.persona.telefono.numero);
+						$('#domicilio').html(json.persona.direccion.calle +' #'+json.persona.direccion.num+',<br> '+ json.persona.direccion.colonia);
+						$('#edo').text('Oaxaca');
+						$('#lada').text(json.persona.telefono.lada);
 						$('#observ').text(json.persona.observaciones);
 						$('#grupo').text(json.persona.grupoetnico_id);
 						$('#localidad').text(json.persona.localidad_id);
 						$('#rama').text(json.persona.rama_id);
-						$('#rfc').text(json.RFC);
+						$('#rfc').text(json.rfc);
 						$('#civil').text(json.estadocivil);
 						$('#fecha').text(json.fecharegistro);
 						$('#ine').text(json.ine);
 						$('#taller').text(json.taller);
-						$('#tipotel').text(json.tipotelefono);
+						$('#tipotel').text(json.persona.telefono.tipo);
 						documentos(json.documentos);
 				}, 'json').fail(function(){
 					swal('Error','No se encontró el artesano','error');
