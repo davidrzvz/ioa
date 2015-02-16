@@ -108,5 +108,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('organizaciones/update','OrganizacionesController@UpdateOrg');
 	Route::post('organizaciones/delete','OrganizacionesController@EliminarOrg');
 
+	Route::post('organizaciones/comite','OrganizacionesController@Comite');
+
     
 });

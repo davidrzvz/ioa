@@ -2,8 +2,7 @@
  
 class OrganizacionesController extends BaseController {
  	
-    public function Organizaciones(){
-       
+    public function Organizaciones(){  
        return View::make('catalogos/organizaciones')->with('organizaciones',Organizacion::all());
     }
 
@@ -29,7 +28,7 @@ class OrganizacionesController extends BaseController {
 	public function UpdateOrg(){
 		$rules = array(
 			'nombre' 		=>	'required',
-			'id'			=>	'integer|required'
+			'id'			=>	'integer|required',
 			'telmunicipio' 	=>	'integer|required'
 			);
 		
@@ -64,7 +63,43 @@ class OrganizacionesController extends BaseController {
 			return Response::json(array('success' => true));
 		}
 
-	
+	public function Comite(){
+		$comite = Comite::where('organizacion_id','=',Input::get('id'))->first();
+		$artesanos = $comite->Artesanos()->get();
+		$comite = array();
+		foreach ($artesanos as $artesano) {
+			$tel='';
+			if(!is_null($artesano->persona->telefono))
+				$tel = $artesano->persona->telefono->numero;
+			$comite[] = array(
+				$artesano->persona->nombre,
+				$artesano->persona->paterno,
+				$artesano->persona->materno,
+				$artesano->persona->fechanacimiento,
+				$artesano->persona->sexo,
+				$artesano->persona->cuis,
+				$tel,
+				$artesano->pivot->cargo
+				);
+		}
+		$organizacion = Organizacion::find(Input::get('id'));
+		$artesanos = array();
+		foreach ($organizacion->Artesanos()->get() as $persona) {
+			$tel='';
+			if(!is_null($persona->persona->telefono))
+				$tel = $persona->persona->telefono->numero;
+			$artesanos[] = array(
+				$persona->persona->nombre,
+				$persona->persona->paterno,
+				$persona->persona->materno,
+				$persona->persona->fechanacimiento,
+				$persona->persona->sexo,
+				$persona->persona->cuis,
+				$tel
+				); 
+		}
+		return Response::json(array('comite' => $comite,'artesanos' => $artesanos));
+	}
 }
 
 
