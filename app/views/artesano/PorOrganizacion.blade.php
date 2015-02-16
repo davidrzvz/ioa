@@ -29,7 +29,7 @@
 
 			<div class="col-md-2 hidden" id="ok">
 				 <a target="_self">
-                <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" alt="No se encontró" src="./imgs/success_tick.png"></img></a>
+                <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" alt="No se encontró" src="./imgs/ok2.png"></img></a>
 			</div>
 
 			<div class="col-md-2 hidden" id="nok">

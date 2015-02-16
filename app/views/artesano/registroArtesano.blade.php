@@ -21,11 +21,23 @@
 
 					<div class="col-md-12">	
 						
-						<div class="col-md-6 form-group">
+						<div class="col-md-3 form-group">
 							
 							{{ Form::label ('nombre', 'Nombre Completo',array('class' => 'control-label')) }}
-							{{ Form::text('nombre', null, array('placeholder' => 'Nombre -- Apellido Paterno -- Apellido Materno','class' => 'form-control mayuscula')) }}
-							</div>
+							{{ Form::text('nombre', null, array('placeholder' => 'Ingrese nombre','class' => 'form-control mayuscula')) }}
+						</div>
+
+						<div class="col-md-3 form-group">
+							
+							{{ Form::label ('paterno', 'Apellido Paterno',array('class' => 'control-label')) }}
+							{{ Form::text('paterno', null, array('placeholder' => 'Apellido Paterno','class' => 'form-control mayuscula')) }}
+						</div>
+
+						<div class="col-md-3 form-group">
+							
+							{{ Form::label ('materno', 'Apellido Materno',array('class' => 'control-label')) }}
+							{{ Form::text('materno', null, array('placeholder' => 'Apellido Materno','class' => 'form-control mayuscula')) }}
+						</div>
 
 						<div class="form-group col-md-3 fecha">
 				          {{ Form::label('fechanace', 'Fecha de nacimiento',array('class' => 'control-label')) }}
@@ -77,21 +89,32 @@
 
 					<div class="col-md-12">
 						<div class="col-md-4 form-group">
-							{{ Form::label('domicilio', 'Domicilio') }}
+							{{ Form::label('colonia', 'Colonia') }}
 							<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-home"></i></div>
-							{{ Form::text('domicilio', null, array('placeholder' => 'introduce calle y número','class' => 'form-control')) }}
+							{{ Form::text('colonia', null, array('placeholder' => 'Nombre de la colonia','class' => 'form-control')) }}
+							</div>
 						</div>
+						<div class="col-md-4 form-group">
+							{{ Form::label('calle', 'Calle') }}
+							<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-home"></i></div>
+							{{ Form::text('calle', null, array('placeholder' => 'Nombre de la calle','class' => 'form-control')) }}
 							</div>
-						
-							<div class="form-group col-md-2">
-							{{ Form::label('cp', 'C.P.') }}
-							{{ Form::text('cp', null, array('placeholder' => 'Ingrese CP','class' => 'form-control')) }}
-							</div>
+						</div>
+						<div class="col-md-2 form-group">
+							{{ Form::label('numero', 'Número') }}
+							{{ Form::text('numero', null, array('placeholder' => 'No.','class' => 'form-control')) }}
+						</div>
 		
 					</div>
 
 					<div class="col-md-12">
+						<div class="form-group col-md-2">
+						{{ Form::label('cp', 'C.P.') }}
+						{{ Form::text('cp', null, array('placeholder' => 'Ingrese CP','class' => 'form-control')) }}
+						</div>
+
 						<div class="col-md-4 form-group">
 							{{ Form::label('municipio', 'Municipio') }}
 							{{ Form::select('municipio',$municipios, null, array('class' => 'form-control','id'=>'selectmun')) }} 
@@ -362,7 +385,9 @@
 
 			$('#datetimePicker').datetimepicker({
 		        language: 'es',
-		        pickTime: false
+		        pickTime: false,
+		        defaultDate: moment().subtract(8, 'y'),
+ 				maxDate: moment().subtract(6, 'y')
 		    });
 
 		    $('#formalta').bootstrapValidator({
@@ -381,6 +406,21 @@
 		                        message: 'Por favor verifica el campo'
 		                    }
 		                    }},
+		                    paterno: {
+		                validators: {
+		                    notEmpty: {},
+		                	regexp:{
+		                    regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+		                        message: 'Por favor verifica el campo'
+		                    }
+		                    }},
+		                    materno: {
+		                validators: {
+		                	regexp:{
+		                    regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+		                        message: 'Por favor verifica el campo'
+		                    }
+		                    }},
 		            cp:{
 		                validators: {
 		                    integer: {},
@@ -389,6 +429,12 @@
 								max: 5,
 								message: 'El CP debe tener 5 dígitos'
 							}
+		                }
+		            },
+		            numero:{
+		                validators: {
+		                    integer: {},
+		                    notEmpty: {},
 		                }
 		            },
 		            curp:{
