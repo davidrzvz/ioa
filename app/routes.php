@@ -52,6 +52,7 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('verArtesano','EditarArtesanoController@ver');
 	Route::post('verArtesano','EditarArtesanoController@buscar');
+	Route::post('encontrado','EditarArtesanoController@buscarmodal');
 	Route::get('editarArtesano','EditarArtesanoController@editar');
 	Route::post('editarArtesano/update','EditarArtesanoController@update');
 	Route::post('editarArtesano','EditarArtesanoController@buscar2');

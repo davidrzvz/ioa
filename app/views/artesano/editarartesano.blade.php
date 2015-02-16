@@ -28,24 +28,44 @@
 				</div>
 			</div>
 
-			<div class="col-md-12 form-group">
-				<div class="form-group col-sm-12 fecha">
-		         	{{ Form::label('fechanace', 'Fecha de Nacimiento',array('class' => 'control-label')) }}
-		          	<div class="input-group date" id="datetimePicker1">
-		            {{ Form::text('fechanace', '2014-11-16', array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
-		            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-		          	</div>
-				</div>
-			</div>
-
 				<div class="form-group" style="top: 13px !important;">
-					<button id="found" type="submit" class="btn btn-ioa pull-right">
+					<button id="found" type="submit" class="btn btn-ioa pull-right" data-toggle="modal" data-target="#myModal">
 						<span class="glyphicon glyphicon-search"></span> 
 						Buscar 
 					</button>
 				</div>
 		{{Form::close()}}
 	</div>
+	<div class="modal fade" id="myModal">
+<div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title">Artesanos</h3>
+        </div>
+        <div class="modal-body">
+		  <h5 class="text-center">Elige una opción</h5>
+          <table class="table table-hover">
+            <thead id="tblHead">
+              <tr>
+                <th>Nombre</th>
+                <th>Paterno</th>
+                <th>Materno</th>
+                <th>Fecha Nacimiento</th>
+                <th>Seleccionar</th>
+              </tr>
+            </thead>
+            <tbody id="elementobody">
+            </tbody>
+          </table>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+        </div>
+				
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 	<div class="pull-left wellr col-md-3 hidden" id="documentos">      
 	</div>
@@ -245,52 +265,72 @@
 			.on('success.form.bv', function(e) {
 	            e.preventDefault();
 				$.post($(this).attr('action'), $(this).serialize(), function(json) {
-					$('#buscarartesano').closest(".wellr").addClass('hidden');
-					$(".anadidos").removeClass('hidden')
-						console.log(json.persona.telefono);
-						$.each(json.concursos,function(index,concurso){
-							$('#concursos').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4></div>');
-						});
-						$.each(json.talleres,function(index,taller){
-							$('#talleres').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+taller.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+taller.fechainicio+' al '+taller.fechafin+'</strong></label></h4><h4><label class="elementos">Maestro: <strong>'+taller.maestro+'</strong></label></h4></div>');
-						});
-						$.each(json.ferias,function(index,feria){
-							$('#ferias').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+feria.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+feria.fechainicio+' al '+feria.fechafin+'</strong></label></h4><h4><label class="elementos">Ubicación: <strong>'+feria.lugar+'</strong></label></h4></div>');
-						});
-						$('#datitos, #documentos').removeClass("hidden");
-						$('#nombre').text(json.persona.nombre);
-						$('#nace').text(json.persona.fechanacimiento);
-						$('#sexo').text(json.persona.sexo);
-						$('#curp').text(json.persona.curp);
-						$('#cuis').text(json.persona.cuis);
-						$('#cp').text(json.persona.direccion.cp);
-						$('#telefono').text(json.persona.telefono.numero);
-						$('#calle').html(json.persona.direccion.calle);
-						$('#numero').text(json.persona.direccion.num);
-						$('#colonia').text(json.persona.direccion.colonia);
-						$('#edo').text('Oaxaca');
-						$('#lada').text(json.persona.telefono.lada);
-						$('#observ').text(json.persona.observaciones);
-						$('#grupo').text(json.persona.grupoetnico_id);
-						$('#localidad').text(json.persona.localidad_id);
-						$('#rama').text(json.persona.rama_id);
-						$('#rfc').text(json.rfc);
-						$('#civil').text(json.estadocivil);
-						$('#fecha').text(json.fecharegistro);
-						$('#ine').text(json.ine);
-						$('#taller').text(json.taller);
-						$('#tipotel').text(json.persona.telefono.tipo);
-						documentos(json.documentos);
+					console.log(json);
+					$.each(json,function(index,artesano){
+							$('#elementobody').append('<tr>'+
+							'<td>'+artesano.nombre+'</td>'+
+							'<td>'+artesano.paterno+'</td>'+
+							'<td>'+artesano.materno+'</td>'+
+							'<td>'+artesano.cumple+'</td>'+
+							'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
+					});
+					// encontrado(json);
 				}, 'json').fail(function(){
 					swal('Error','No se encontró el artesano','error');
 				});
 			});
+		$('#myModal').on('hide.bs.modal', function() {
+		    $('#elementobody').html('');
+		});
 		$('#datetimePicker1').on('dp.change dp.show', function(e) {
         $('#buscarartesano').bootstrapValidator('revalidateField', 'fechanace');
+        
     });
 
 
 });
+    function encontrado (id) {
+    	$.post('encontrado', {id:id}, function(json) {
+			$('#buscarartesano').closest(".wellr").addClass('hidden');
+			$(".anadidos").removeClass('hidden')
+			console.log(json.persona.telefono);
+			$.each(json.concursos,function(index,concurso){
+				$('#concursos').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4></div>');
+			});
+			$.each(json.talleres,function(index,taller){
+				$('#talleres').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+taller.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+taller.fechainicio+' al '+taller.fechafin+'</strong></label></h4><h4><label class="elementos">Maestro: <strong>'+taller.maestro+'</strong></label></h4></div>');
+			});
+			$.each(json.ferias,function(index,feria){
+				$('#ferias').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+feria.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+feria.fechainicio+' al '+feria.fechafin+'</strong></label></h4><h4><label class="elementos">Ubicación: <strong>'+feria.lugar+'</strong></label></h4></div>');
+			});
+			$('#datitos, #documentos').removeClass("hidden");
+			$('#nombre').text(json.persona.nombre+' '+json.persona.paterno+' '+json.persona.materno);
+			$('#nace').text(json.persona.fechanacimiento);
+			$('#sexo').text(json.persona.sexo);
+			$('#curp').text(json.persona.curp);
+			$('#cuis').text(json.persona.cuis);
+			$('#cp').text(json.persona.direccion.cp);
+			$('#telefono').text(json.persona.telefono.numero);
+			$('#calle').html(json.persona.direccion.calle);
+			$('#numero').text(json.persona.direccion.num);
+			$('#colonia').text(json.persona.direccion.colonia);
+			$('#edo').text('Oaxaca');
+			$('#lada').text(json.persona.telefono.lada);
+			$('#observ').text(json.persona.observaciones);
+			$('#grupo').text(json.persona.grupoetnico_id);
+			$('#localidad').text(json.persona.localidad_id);
+			$('#rama').text(json.persona.rama_id);
+			$('#rfc').text(json.rfc);
+			$('#civil').text(json.estadocivil);
+			$('#fecha').text(json.fecharegistro);
+			$('#ine').text(json.ine);
+			$('#taller').text(json.taller);
+			$('#tipotel').text(json.persona.telefono.tipo);
+			documentos(json.documentos);
+		}, 'json').fail(function(){
+			swal('Error','No se encontró el artesano','error');
+		});
+    }
 	</script>
 
 <script>
