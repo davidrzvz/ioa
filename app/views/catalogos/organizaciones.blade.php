@@ -41,14 +41,14 @@
         </table>
 
     </div>
-    <div class="col-md-9 col-md-offset-1 wellr" id="datos">
+    <div class="col-md-10 col-md-offset-1 wellr hidden" id="datos">
             <div id="organizacion">
                 
             </div>
-            <div class="col-md-12" id="comite">
+            <div  id="comite">
                 
             </div>
-            <div class="col-md-12" id="artesanos">
+            <div id="artesanos">
                 
             </div>
     </div>
