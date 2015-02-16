@@ -307,14 +307,21 @@ class AltaArtesanoController extends BaseController {
 
 	public function post_buscorg(){
 		$nombre 	= Input::get('nombreorg');
-		$telefono 	= Input::get('telmun');
 
-		$comite = Comite::whereHas('organizacion',function($q) use ($nombre,$telefono){ 
-			$q->where('nombre','like',$nombre.'%','and')
-			->where('telmunicipio','=',$telefono);
-		})->first();
+		$comite = Comite::whereHas('organizacion',function($q) use ($nombre){ 
+			$q->where('nombre','like',$nombre.'%','and');
+		})->get();
+		$dato = array();
+		foreach ($comite as $com) {
+			$dato[] = array(
+				'id' => $com -> id,
+				'organizacion_id' => $com -> organizacion_id,
+				'nombre' => Organizacion::find($com -> organizacion_id) -> nombre,
+				'telefono' => Organizacion::find($com -> organizacion_id) -> telefono,
+			);
+		}
 		
-		return Response::json($comite);
+		return Response::json($dato);
 	}
 
 	public function resizeImagen($ruta, $nombre, $alto, $ancho,$nombreN,$extension,$ppp){

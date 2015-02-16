@@ -15,14 +15,14 @@
 			<div class="col-xs-4 col-md-6 form-group">
 				{{ Form::label ('organización', 'NOMBRE ORGANIZACIÓN') }}
 				{{ Form::text('nombreorg', null, array('placeholder' => 'Escriba el nombre de la organización','class' => 'form-control')) }} 
-			</div>
+			</div><!-- 
 			<div class="col-md-3 form-group">
 				{{ Form::label ('tel', 'TELÉFONO DEL MUNICIPIO') }}
 				{{ Form::text('telmun', null, array('placeholder' => 'Escriba el número de telefono','class' => 'form-control')) }} 
-			</div>
+			</div> -->
 
 			<div class="col-md-1 form-group" style="top: 17px !important; ">
-				<button type="submit" class="btn btn-ioa">
+				<button type="submit" class="btn btn-ioa" data-toggle="modal" data-target="#myModal">
 			 	Buscar 
 				</button>
 			</div>
@@ -371,6 +371,33 @@
 		{{Form::close()}}
 	</div>
 	</div>
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 class="modal-title">Artesanos</h3>
+				</div>
+				<div class="modal-body">
+					<h5 class="text-center">Elige una opción</h5>
+					<table class="table table-hover">
+						<thead id="tblHead">
+							<tr>
+								<th>Organización</th>
+								<th>Teléfono</th>
+								<th>Seleccionar</th>
+							</tr>
+						</thead>
+						<tbody id="elementobody">
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 @stop
 
 @section('scripts')
@@ -436,23 +463,33 @@
             // Use Ajax to submit form data
             $.post($form.attr('action'), $form.serialize(), function(result) {
             	console.log(result)
-            	if (result != ''){
-			    		$('#ok').removeClass('hidden');
-			    		$('#nok').addClass('hidden');
-			    		$('[name=orgid]').val(result.organizacion_id);
-               			$('[name=comiteid]').val(result.id);
-					}
-					else {
-						$('#nok').removeClass('hidden');
-						$('#ok').addClass('hidden');
-						$('[name=orgid]').val('');
-               			$('[name=comiteid]').val('');
-						}
+            	$.each(result,function(index,org){
+					$('#elementobody').append('<tr>'+
+					'<td>'+org.nombre+'</td>'+
+					'<td>'+org.telefono+'</td>'+
+					'<td><button class="btn-ioa btn-xs" onClick="encontrado('+org.id+','+org.organizacion_id+')" data-dismiss="modal">Seleccionar</button></td>');
+				});
                 
             }, 'json');
     });
 		});
-
+		function encontrado (id,organizacion_id) {
+        	if (id != ''){
+	    		$('#ok').removeClass('hidden');
+	    		$('#nok').addClass('hidden');
+	    		$('[name=orgid]').val(organizacion_id);
+       			$('[name=comiteid]').val(id);
+			}
+			else {
+				$('#nok').removeClass('hidden');
+				$('#ok').addClass('hidden');
+				$('[name=orgid]').val('');
+       			$('[name=comiteid]').val('');
+			}
+		}
+		$('#myModal').on('hide.bs.modal', function() {
+		    $('#elementobody').html('');
+		});
 	</script>
 
 <script type="text/javascript">
