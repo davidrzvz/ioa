@@ -2,7 +2,7 @@
 	@section('titulo')BÚSQUEDA ARTESANO
 	@endsection
 
-		@section('contenido')
+@section('contenido')
 		<div class="container wellr">
 
 			<div class="col-sm-4 wellr">
@@ -32,7 +32,7 @@
 			<div class="col-md-12 form-group">
 
 				<div class="form-group" style="top: 13px !important;">
-					<button id="found" type="submit" class="btn btn-ioa pull-right" data-toggle="modal" data-target="#myModal">
+					<button id="found" type="submit" class="btn btn-ioa pull-right">
 						<span class="glyphicon glyphicon-search"></span> 
 						Buscar 
 					</button>
@@ -370,15 +370,23 @@ $('#buscarartesano').bootstrapValidator({
 .on('success.form.bv', function(e) {
     e.preventDefault();
 	$.post('verArtesano', $(this).serialize(), function(json) {
-		console.log(json);
-		$.each(json,function(index,artesano){
-			$('#elementobody').append('<tr>'+
-			'<td>'+artesano.nombre+'</td>'+
-			'<td>'+artesano.paterno+'</td>'+
-			'<td>'+artesano.materno+'</td>'+
-			'<td>'+artesano.cumple+'</td>'+
-			'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
-		});
+		artesanos = '';
+		if(json.length > 1){
+			$.each(json,function(index,artesano){
+				artesanos += '<tr>'+
+				'<td>'+artesano.nombre+'</td>'+
+				'<td>'+artesano.paterno+'</td>'+
+				'<td>'+artesano.materno+'</td>'+
+				'<td>'+artesano.cumple+'</td>'+
+				'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>';	
+			});
+			$('#elementobody').html(artesanos);
+			$("#myModal").modal('show');
+		}
+		else if(json.length == 1)
+			encontrado(json[0].id)
+		else
+			swal('Error','No se encontró el artesano','error');
 		
 	}, 'json').fail(function(){
 		swal('Error','No se encontró el artesano','error');
