@@ -262,8 +262,14 @@ $(document).ready(function() {
             }, 'json');
     });
 });
-$('#orgs').find('tbody').find('tr').on( 'click', function () {
-    datos(this);
+$('#orgs').find('tbody').find('tr').find("td:nth-child(1)").on( 'click', function () {
+    datos($(this).closest("tr"));
+} );
+$('#orgs').find('tbody').find('tr').find("td:nth-child(2)").on( 'click', function () {
+    datos($(this).closest("tr"));
+} );
+$('#orgs').find('tbody').find('tr').find("td:nth-child(3)").on( 'click', function () {
+    datos($(this).closest("tr"));
 } );
 $('#bnuevo').click(function(){
     $('#nuevo').modal('show');
