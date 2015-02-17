@@ -29,7 +29,7 @@
 			</div>
 
 				<div class="form-group" style="top: 13px !important;">
-					<button id="found" type="submit" class="btn btn-ioa pull-right" data-toggle="modal" data-target="#myModal">
+					<button id="found" type="submit" class="btn btn-ioa pull-right">
 						<span class="glyphicon glyphicon-search"></span> 
 						Buscar 
 					</button>
@@ -264,18 +264,24 @@
 			.on('success.form.bv', function(e) {
 	            e.preventDefault();
 				$.post($(this).attr('action'), $(this).serialize(), function(json) {
-					console.log(json);
-					$.each(json,function(index,artesano){
-							$('#elementobody').append('<tr>'+
-							'<td>'+artesano.nombre+'</td>'+
-							'<td>'+artesano.paterno+'</td>'+
-							'<td>'+artesano.materno+'</td>'+
-							'<td>'+artesano.cumple+'</td>'+
-							'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
-					});
-					// encontrado(json);
+					if(json.length > 1){
+						$.each(json,function(index,artesano){
+								$('#elementobody').append('<tr>'+
+								'<td>'+artesano.nombre+'</td>'+
+								'<td>'+artesano.paterno+'</td>'+
+								'<td>'+artesano.materno+'</td>'+
+								'<td>'+artesano.cumple+'</td>'+
+								'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
+						});
+						$("#myModal").modal('show');
+					}
+					else if(json.length == 1)
+						encontrado(json[0].id);
+					else
+						al('Error','No se encontró el artesano','error');
 				}, 'json').fail(function(){
-					swal('Error','No se encontró el artesano','error');
+					sw
+					al('Error','No se encontró el artesano','error');
 				});
 			});
 		$('#myModal').on('hide.bs.modal', function() {
