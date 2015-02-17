@@ -307,17 +307,17 @@ class AltaArtesanoController extends BaseController {
 
 	public function post_buscorg(){
 		$nombre 	= Input::get('nombreorg');
-
-		$comite = Comite::whereHas('organizacion',function($q) use ($nombre){ 
-			$q->where('nombre','like',$nombre.'%','and');
-		})->get();
+		$organizaciones = Organizacion::where('nombre','like',$nombre.'%','and')->get();
+		// $comite = Comite::whereHas('organizacion',function($q) use ($nombre){ 
+		// 	$q->where('nombre','like',$nombre.'%','and');
+		// })->get();
 		$dato = array();
-		foreach ($comite as $com) {
+		foreach ($organizaciones as $organizacion) {
 			$dato[] = array(
-				'id' => $com -> id,
-				'organizacion_id' => $com -> organizacion_id,
-				'nombre' => Organizacion::find($com -> organizacion_id) -> nombre,
-				'telefono' => Organizacion::find($com -> organizacion_id) -> telefono,
+				'id' 				=> $organizacion -> Comite -> id,
+				'organizacion_id' 	=> $organizacion -> id,
+				'nombre' 			=> $organizacion -> nombre,
+				'telefono' 			=> $organizacion -> telefono,
 			);
 		}
 		

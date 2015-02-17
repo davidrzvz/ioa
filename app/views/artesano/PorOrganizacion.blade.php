@@ -22,7 +22,7 @@
 			</div> -->
 
 			<div class="col-md-1 form-group" style="top: 17px !important; ">
-				<button type="submit" class="btn btn-ioa" data-toggle="modal" data-target="#myModal">
+				<button type="submit" class="btn btn-ioa">
 			 	Buscar 
 				</button>
 			</div>
@@ -491,12 +491,17 @@
             // Use Ajax to submit form data
             $.post($form.attr('action'), $form.serialize(), function(result) {
             	console.log(result)
-            	$.each(result,function(index,org){
-					$('#elementobody').append('<tr>'+
-					'<td>'+org.nombre+'</td>'+
-					'<td>'+org.telefono+'</td>'+
-					'<td><button class="btn-ioa btn-xs" onClick="encontrado('+org.id+','+org.organizacion_id+')" data-dismiss="modal">Seleccionar</button></td>');
-				});
+            	if(result.length >= 1){
+	            	$.each(result,function(index,org){
+						$('#elementobody').append('<tr>'+
+						'<td>'+org.nombre+'</td>'+
+						'<td>'+org.telefono+'</td>'+
+						'<td><button class="btn-ioa btn-xs" onClick="encontrado('+org.id+','+org.organizacion_id+')" data-dismiss="modal">Seleccionar</button></td>');
+					});
+					$("#myModal").modal('show');
+				}
+				else
+					swal('Error','No se registro la organizacion','error');
                 
             }, 'json');
     });
