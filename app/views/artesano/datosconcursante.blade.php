@@ -101,7 +101,7 @@
 
 			<h4>
 			<label class="grupo">Grupo Étnico: </label>
-			<label id="nace" class="label btn-ioa"></label>
+			<label id="grupo" class="label btn-ioa"></label>
 			</h4>
 
 			<h4>
@@ -176,22 +176,25 @@
 		    })
 			.on('success.form.bv', function(e) {
 	            e.preventDefault();
-				$.post($(this).attr('action'), $(this).serialize(), function(json) {
-					if(json.length > 1){
-						$.each(json,function(index,artesano){
+				$.post('ArtesanoEnFeria', $(this).serialize(), function(json) {
+					console.log(json);
+					$('#artesano').removeClass("hidden");
+						if(json.length == 0){
+							swal('Error', 'Persona no encontrada', 'error');
+							$('#inscrito_div').addClass('hidden');
+						}
+						else{
+							$.each(json,function(index,artesano){
 								$('#elementobody').append('<tr>'+
-								'<td>'+artesano.nombre+'</td>'+
-								'<td>'+artesano.paterno+'</td>'+
-								'<td>'+artesano.materno+'</td>'+
-								'<td>'+artesano.cumple+'</td>'+
+								'<td>'+artesano.persona.nombre+'</td>'+
+								'<td>'+artesano.persona.paterno+'</td>'+
+								'<td>'+artesano.persona.materno+'</td>'+
+								'<td>'+artesano.persona.fechanacimiento+'</td>'+
+								'<td>'+artesano.persona.rama.nombre+'</td>'+
 								'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
-						});
-						$("#myModal").modal('show');
-					}
-					else if(json.length == 1)
-						encontrado(json[0].id);
-					else
-						swal('Error','No se encontró el artesano','error');
+								$("#myModal").modal('show');
+							});
+						}
 				}, 'json').fail(function(){
 					swal('Error','No se encontró el artesano','error');
 				});
@@ -217,7 +220,7 @@
 			$('#grupo').text(json.persona.grupoetnico_id);
 			$('#localidad').text(json.persona.localidad_id);
 			$('#rama').text(json.persona.rama_id);
-			$('#fecha').text(json.fecharegistro);
+			$('#fecharegistro').text(json.fecharegistro);
 		}, 'json').fail(function(){
 			swal('Error','No se encontró el artesano','error');
 		});
