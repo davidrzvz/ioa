@@ -592,7 +592,24 @@ $(document).ready(function() {
         else
 		$.post($(this).attr('action'), $(this).serialize(), function(json) {
 			console.log(json);
-			swal('Operacion completada correctamente', '', 'success');
+			$('[name = registroartesano]').val("");
+			$('[name = registropersona]').val(json.id);
+			$('[name = registroconcid]').val($('[name = concid]').val());
+			swal({
+					title: 'Operacion completada correctamente',
+					text: 'Imprimir registro',
+					type: 'success',
+					showCancelButton: true,
+					confirmButtonColor: '#AEDEF4',
+					confirmButtonText: 'Si',
+					cancelButtonText: 'No',
+					closeOnConfirm: false,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+						if(isConfirm)
+							$('#imprimir').submit();
+					});
 					$('#formalta').data('bootstrapValidator').resetForm(true);
 		}, 'json');
 
@@ -678,7 +695,7 @@ $(document).ready(function() {
 					},
 					function(isConfirm){
 						if(isConfirm)
-						$('#imprimir').submit();
+							$('#imprimir').submit();
 					});
 			}
 				//swal('Operacion completada correctamente', '', 'success');
