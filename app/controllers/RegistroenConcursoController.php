@@ -127,14 +127,15 @@ class RegistroenConcursoController extends BaseController {
 	public function post_buscaconcursante(){
 		$nombre = Input::get('artesanombre');
 		$paterno = Input::get('artesapaterno');
-		$materno = Input::get('artesamaterno');
-		$fecha= Input::get('fechanace');
 
-		$persona = Persona::where('nombre','like','%'.$nombre.'%','and')
+		$personas = Persona::where('nombre','like','%'.$nombre.'%','and')
 		->where('paterno','like','%'.$paterno.'%','and')
 		->get();
-		if($persona){
-			return Response::json($persona);
+		if($personas){
+			foreach ($personas as $persona) {
+				$persona->Rama;
+			}
+			return Response::json($personas);
 		}
 		else
 			return Response::json(array('error'=>true));

@@ -437,6 +437,7 @@ $(document).ready(function() {
 					'<td>'+artesano.paterno+'</td>'+
 					'<td>'+artesano.materno+'</td>'+
 					'<td>'+artesano.fechanacimiento+'</td>'+
+					'<td>'+artesano.rama.nombre+'</td>'+
 					'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
 					$("#myModal").modal('show');
 				});
