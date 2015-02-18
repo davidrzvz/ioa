@@ -104,7 +104,6 @@ class RegistroenConcursoController extends BaseController {
 		->where('paterno','like','%'.$paterno.'%','and')
 		->get();
 		if($persona){
-			// $persona->artesano;
 			return Response::json($persona);
 		}
 		else
@@ -112,6 +111,7 @@ class RegistroenConcursoController extends BaseController {
 	}
 	public function post_buscaconcursante2(){
 		$persona = Persona::find(Input::get('id'));
+			$persona->artesano;
 		return Response::json($persona);
 	}
 	

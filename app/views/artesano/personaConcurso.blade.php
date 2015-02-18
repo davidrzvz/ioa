@@ -402,7 +402,7 @@ $(document).ready(function() {
 					'<td>'+artesano.nombre+'</td>'+
 					'<td>'+artesano.paterno+'</td>'+
 					'<td>'+artesano.materno+'</td>'+
-					'<td>'+artesano.cumple+'</td>'+
+					'<td>'+artesano.fechanacimiento+'</td>'+
 					'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
 					$("#myModal").modal('show');
 				});
