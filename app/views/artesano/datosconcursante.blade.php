@@ -191,10 +191,9 @@
 					else if(json.length == 1)
 						encontrado(json[0].id);
 					else
-						al('Error','No se encontró el artesano','error');
+						swal('Error','No se encontró el artesano','error');
 				}, 'json').fail(function(){
-					sw
-					al('Error','No se encontró el artesano','error');
+					swal('Error','No se encontró el artesano','error');
 				});
 			});
 		$('#myModal').on('hide.bs.modal', function() {
@@ -219,7 +218,6 @@
 			$('#localidad').text(json.persona.localidad_id);
 			$('#rama').text(json.persona.rama_id);
 			$('#fecha').text(json.fecharegistro);
-			documentos(json.documentos);
 		}, 'json').fail(function(){
 			swal('Error','No se encontró el artesano','error');
 		});

@@ -29,7 +29,7 @@ class DatosConcursanteController extends BaseController {
 			);
 		}
 
-		return Response::json($datos);
+		return Response::json($artesano);
 
 	}
 
