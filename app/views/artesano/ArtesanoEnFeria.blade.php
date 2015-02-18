@@ -215,10 +215,9 @@
 	            e.preventDefault();
 				$.post($(this).attr('action'), $(this).serialize(), function(json) {
 					console.log(json);
-					$('#artesano').removeClass("hidden");
 						if(json.length == 0){
 							swal('Error', 'Persona no encontrada', 'error');
-							$('#inscrito_div').addClass('hidden');
+							$('#artesano').addClass("hidden");
 						}
 						else{
 							$.each(json,function(index,artesano){
@@ -234,6 +233,7 @@
 						}
 				}, 'json').fail(function(){
 					swal('Error','No se encontró el artesano','error');
+					$('#artesano').addClass("hidden");
 				});
 			});
 
@@ -271,7 +271,20 @@ $('#myModal').on('hide.bs.modal', function() {
 	});
 
 });
-
+function encontrado (id) {
+	$.post('buscaconcursante2', {id:id}, function(json) {
+		console.log(json);
+		$('#artesano').removeClass("hidden");
+						$('#nombre').text(json.nombre);
+						$('#nace').text(json.fechanacimiento);
+						$('#sexo').text(json.sexo);
+						$('#curp').text(json.curp);
+						$('#artesanoid').val(json.artesano.id);
+						$('[name=feriaid]').val("");
+	}, 'json').fail(function(){
+		swal('Error','No se encontró el artesano','error');
+	});
+}
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
