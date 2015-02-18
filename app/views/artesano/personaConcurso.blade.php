@@ -191,13 +191,13 @@
 							{{ Form::label('artesapaterno', 'Apellido paterno') }}
 							{{ Form::text('artesapaterno', null, array('placeholder' => 'introduce apellido paterno','class' => 'form-control')) }}
 						</div>
-						<div class="form-group col-sm-6 fecha">
+<!-- 						<div class="form-group col-sm-6 fecha">
 				         	{{ Form::label('fechanace', 'Fecha de Nacimiento',array('class' => 'control-label')) }}
 				          	<div class="input-group date" id="datetimePicker1">
 					            {{ Form::text('fechanace', null, array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
 					            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 				          	</div>
-						</div>
+						</div> -->
 						<div class="col-sm-6 form-group">
 							{{ Form::label('artesamaterno', 'Apellido materno') }}
 							{{ Form::text('artesamaterno', null, array('placeholder' => 'introduce apellido materno','class' => 'form-control')) }}
@@ -211,6 +211,35 @@
 					</div>
 				{{Form::close()}}
 			</div>
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="modal-title">Artesanos</h3>
+						</div>
+						<div class="modal-body">
+							<h5 class="text-center">Elige una opción</h5>
+							<table class="table table-hover">
+							<thead id="tblHead">
+							<tr>
+							<th>Nombre</th>
+							<th>Paterno</th>
+							<th>Materno</th>
+							<th>Fecha Nacimiento</th>
+							<th>Seleccionar</th>
+							</tr>
+							</thead>
+							<tbody id="elementobody">
+							</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 			<div id="inscrito_div" class="col-sm-12 wellr hidden">
 				<h4>DATOS DE LA PIEZA</h4>
 				<div class="col-sm-12">
@@ -325,6 +354,7 @@ $(document).ready(function() {
         fields: {
             artesanombre: {
                 validators: {
+                	notEmpty: {},
                     regexp:{
                     regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
                         message: 'Por favor verifica el campo'
@@ -359,24 +389,30 @@ $(document).ready(function() {
     })
 	.on('success.form.bv', function(e) {
         e.preventDefault();
-		$.post($(this).attr('action'), $(this).serialize(), function(json) {
+		$.post('verArtesano', $(this).serialize(), function(json) {
+			console.log(json);
 			$('#inscrito_div').removeClass('hidden');
-			if(json.error){
+			if(json.length == 0){
 				swal('Error', 'Persona no encontrada', 'error');
 				$('#inscrito_div').addClass('hidden');
 			}
 			else{
-				$('#inscrito').data('bootstrapValidator').resetForm(true);
-				$('[name = idpersona]').val(json.id);
-				if(json.artesano)
-					$('[name = idartesano]').val(json.artesano.id);
-				else
-					$('[name = idartesano]').val("");
-				$('[name = concid]').val("");
-				$('.bg-evento').removeClass('sombreado-evento');
+				$.each(json,function(index,artesano){
+					$('#elementobody').append('<tr>'+
+					'<td>'+artesano.nombre+'</td>'+
+					'<td>'+artesano.paterno+'</td>'+
+					'<td>'+artesano.materno+'</td>'+
+					'<td>'+artesano.cumple+'</td>'+
+					'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
+					$("#myModal").modal('show');
+				});
 			}
 		}, 'json');
 	});
+	$('#myModal').on('hide.bs.modal', function() {
+		$('#elementobody').html('');
+	});
+
 	$('#formalta').bootstrapValidator({
 	    // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
 	    feedbackIcons: {
@@ -666,6 +702,20 @@ $( "#selectmun" ).change(function () {
 		});
 	}, 'json');
 }).change();
+function encontrado (id) {
+	$.post('encontrado', {id:id}, function(json) {
+		$('#inscrito').data('bootstrapValidator').resetForm(true);
+		$('[name = idpersona]').val(json.id);
+		if(json.artesano)
+			$('[name = idartesano]').val(json.artesano.id);
+		else
+			$('[name = idartesano]').val("");
+		$('[name = concid]').val("");
+		$('.bg-evento').removeClass('sombreado-evento');
+	}, 'json').fail(function(){
+		swal('Error','No se encontró el artesano','error');
+	});
+}
 </script>
 
 <script>
