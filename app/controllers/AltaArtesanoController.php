@@ -61,19 +61,29 @@ class AltaArtesanoController extends BaseController {
 	///////////////////////////////////////////////////Artesano
 		$personaArtesano = Persona::create(array(
 			'nombre'			=> Input::get('nombre'),
+			'paterno'			=> Input::get('paterno'),
+			'materno'			=> Input::get('materno'),
 			'curp' 				=> Input::get('curp'),
 			'sexo'				=> Input::get('sexo'), 
 			'cuis'				=> Input::get('cuis'),
 			'cp'				=> Input::get('cp'), 
-			'telefono'			=> Input::get('tel'), 
-			'domicilio'			=> Input::get('domicilio'), 
-			'lada'				=> Input::get('lada'), 
 			'observaciones'		=> Input::get('observ'), 
 			'fechanacimiento'	=> Input::get('fechanace'), 
 			'grupoetnico_id'	=> Input::get('grupoetnico'), 
-			'localidad_id'		=> Input::get('localidad'),
-			'estado'			=> 'OAXACA', 
+			'localidad_id'		=> Input::get('localidad'), 
 			'rama_id'			=> Input::get('rama')));
+
+		$telefono = Telefono::create(array(
+			'persona_id' 	=> $personaArtesano->id,
+		    'numero'		=> Input::get('numero'),
+			'lada' 			=> Input::get('lada'),
+			'tipo' 			=> Input::get('tipoTel'),));
+		$direccion = Direccion::create(array(
+			'persona_id' 	=> $personaArtesano->id,
+		    'calle'			=> Input::get('calle'),
+			'num' 		=> Input::get('numero'),
+			'cp' 			=> Input::get('cp'),
+			'colonia' 		=> Input::get('colonia'),));
 
 		$artesano = Artesano::create(array(
 			'persona_id' 	=> $personaArtesano->id,
@@ -82,8 +92,6 @@ class AltaArtesanoController extends BaseController {
 			'estadocivil' 	=> Input::get('civil'),
 			'fecharegistro' => date('Y-m-d'),
 			'taller' 		=> Input::get('taller'),
-			'tipotelefono' 	=> Input::get('tipoTel'),
-			'observaciones' => Input::get('observ'),
 			));
 
 			$checks = array();
@@ -104,7 +112,7 @@ class AltaArtesanoController extends BaseController {
 					$artesano->comprasyventas()->attach($check);	
 				}
 			}
-		
+
 		$producto = Producto::create(array(
 			'artesano_id' 		=> $artesano->id,
 		    'nombre'			=> Input::get('producto1'),
@@ -160,30 +168,39 @@ class AltaArtesanoController extends BaseController {
 	public function post_nuevopor()
 	{
 		///////////////////////////////////////////////////Artesano
-		$personaArtesano = Persona::create(array(
+	$personaArtesano = Persona::create(array(
 			'nombre'			=> Input::get('nombre'),
+			'paterno'			=> Input::get('paterno'),
+			'materno'			=> Input::get('materno'),
 			'curp' 				=> Input::get('curp'),
 			'sexo'				=> Input::get('sexo'), 
 			'cuis'				=> Input::get('cuis'),
 			'cp'				=> Input::get('cp'), 
-			'telefono'			=> Input::get('tel'), 
-			'domicilio'			=> Input::get('domicilio'), 
-			'lada'				=> Input::get('lada'), 
 			'observaciones'		=> Input::get('observ'), 
 			'fechanacimiento'	=> Input::get('fechanace'), 
 			'grupoetnico_id'	=> Input::get('grupoetnico'), 
 			'localidad_id'		=> Input::get('localidad'), 
 			'rama_id'			=> Input::get('rama')));
 
+		$telefono = Telefono::create(array(
+			'persona_id' 	=> $personaArtesano->id,
+		    'numero'		=> Input::get('numero'),
+			'lada' 			=> Input::get('lada'),
+			'tipo' 			=> Input::get('tipoTel'),));
+		$direccion = Direccion::create(array(
+			'persona_id' 	=> $personaArtesano->id,
+		    'calle'			=> Input::get('calle'),
+			'num' 		=> Input::get('numero'),
+			'cp' 			=> Input::get('cp'),
+			'colonia' 		=> Input::get('colonia'),));
+
 		$artesano = Artesano::create(array(
-			'persona_id'	=> $personaArtesano->id,
+			'persona_id' 	=> $personaArtesano->id,
 		    'ine'			=> Input::get('ine'),
 			'RFC' 			=> Input::get('RFC'),
 			'estadocivil' 	=> Input::get('civil'),
 			'fecharegistro' => date('Y-m-d'),
 			'taller' 		=> Input::get('taller'),
-			'tipotelefono' 	=> Input::get('tipoTel'),
-			'observaciones' => Input::get('observ'),
 			));
 
 			$checks = array();
@@ -290,17 +307,17 @@ class AltaArtesanoController extends BaseController {
 
 	public function post_buscorg(){
 		$nombre 	= Input::get('nombreorg');
-
-		$comite = Comite::whereHas('organizacion',function($q) use ($nombre){ 
-			$q->where('nombre','like',$nombre.'%','and');
-		})->get();
+		$organizaciones = Organizacion::where('nombre','like',$nombre.'%','and')->get();
+		// $comite = Comite::whereHas('organizacion',function($q) use ($nombre){ 
+		// 	$q->where('nombre','like',$nombre.'%','and');
+		// })->get();
 		$dato = array();
-		foreach ($comite as $com) {
+		foreach ($organizaciones as $organizacion) {
 			$dato[] = array(
-				'id' => $com -> id,
-				'organizacion_id' => $com -> organizacion_id,
-				'nombre' => Organizacion::find($com -> organizacion_id) -> nombre,
-				'telefono' => Organizacion::find($com -> organizacion_id) -> telefono,
+				'id' 				=> $organizacion -> Comite -> id,
+				'organizacion_id' 	=> $organizacion -> id,
+				'nombre' 			=> $organizacion -> nombre,
+				'telefono' 			=> $organizacion -> telefono,
 			);
 		}
 		

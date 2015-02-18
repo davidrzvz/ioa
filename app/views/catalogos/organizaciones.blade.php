@@ -29,7 +29,7 @@
                     <tr>
                     <td>{{ $organizacion->id }}</td>
                     <td>{{ $organizacion->nombre }}</td>
-                    <td>{{ $organizacion->telmunicipio }}</td>
+                    <td>{{ $organizacion->telefono }}</td>
                     <td>
                         <button type="button" onclick="editar(this)" class="btn btn-ioa select btn-xs">Editar</button>
                         <button type="button" class="btn btn-danger btn-xs delete" title="{{$organizacion->nombre}}" onclick="eliminar(this)">Eliminar</button> 
@@ -39,6 +39,18 @@
                 @endif  
             </tbody>
         </table>
+
+    </div>
+    <div class="col-md-10 col-md-offset-1 wellr hidden" id="datos">
+            <div id="organizacion">
+                
+            </div>
+            <div  id="comite">
+                
+            </div>
+            <div id="artesanos">
+                
+            </div>
     </div>
 
 
@@ -238,7 +250,7 @@ $(document).ready(function() {
                         confirmButtonColor: '#AEDEF4',
                         confirmButtonText: 'OK',
                         cancelButtonText: 'No, regresar a revisar',
-                        closeOnConfirm: false,
+                        closeOnConfirm: true,
                         closeOnCancel: false
                     },
                     function(isConfirm){
@@ -250,6 +262,15 @@ $(document).ready(function() {
             }, 'json');
     });
 });
+$('#orgs').find('tbody').find('tr').find("td:nth-child(1)").on( 'click', function () {
+    datos($(this).closest("tr"));
+} );
+$('#orgs').find('tbody').find('tr').find("td:nth-child(2)").on( 'click', function () {
+    datos($(this).closest("tr"));
+} );
+$('#orgs').find('tbody').find('tr').find("td:nth-child(3)").on( 'click', function () {
+    datos($(this).closest("tr"));
+} );
 $('#bnuevo').click(function(){
     $('#nuevo').modal('show');
     $("tbody").find('tr').removeClass('danger').find('button').attr('disabled',false);
@@ -271,6 +292,7 @@ function editar(btn){
     $('[name = name]').text($(btn).closest("tr").find("td:nth-child(2)").text());
     $('[name = id]').val($(btn).closest("tr").find("td:nth-child(1)").text());
     $('[name = nombre]').val($(btn).closest("tr").find("td:nth-child(2)").text());
+    $('[name = tel]').val($(btn).closest("tr").find("td:nth-child(3)").text());
 }
 function eliminar(btn) {
     swal({   title: "Estás completamente seguro?",   text: "Se borrarán todos los artesanos pertenecientes a esta organización, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
@@ -284,6 +306,101 @@ function eliminar(btn) {
                 swal('Error', 'Ocurrio un error', "error");
         }, 'json');
     });
+}
+function datos(tr){
+    var id = $(tr).find("td:nth-child(1)").text();
+    $('#organizacion').html('<h1>Organización: '+$(tr).find("td:nth-child(2)").text()+'</h1><h2>Telefono: '+$(tr).find("td:nth-child(3)").text()+'</h2>');
+    $.post('{{URL::to("organizaciones/comite");}}','id='+id, function(json) {
+            if(json.comite.length > 0)
+                $('#datos').removeClass('hidden');
+            else
+                swal('Error','No se encontraron registros','error');
+            $('#comite').html('<table id="tcomite" class="table table-hover table-first-column-number data-table display full"></table>');
+            $('#tcomite').dataTable( {
+              "data": json.comite,
+              "columns": [
+                          { "title": "Nombre" },
+                          { "title": "Apellido paterno" },
+                          { "title": "Apellido materno" },
+                          { "title": "Fecha nace" },
+                          { "title": "Sexo" },
+                          { "title": "Cuis" },
+                          { "title": "Telefono" },
+                          { "title": "Cargo" },
+                      ],
+              "language": {
+                    "lengthMenu": "concursantes por página _MENU_",
+                    "zeroRecords": "No se encontro",
+                    "info": "Pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No records available",
+                    "infoFiltered": "(Ver _MAX_ total records)",
+                    'search': 'Buscar: ',
+                    "paginate": {
+                          "first":      "Inicio",
+                          "last":       "Fin",
+                          "next":       "Siguiente",
+                          "previous":   "Anterior"
+                    },
+                },
+                dom: 'T<"clear">lfrtip',
+                tableTools : {
+                    "sSwfPath": "{{URL::to('swf/copy_csv_xls_pdf.swf')}}",
+                    aButtons: [
+                        "copy",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": 'PDF'
+                        },
+                    ]
+                },
+            } );
+///
+            $('#artesanos').html('<table id="tartesanos" class="table table-hover table-first-column-number data-table display full"></table>');
+            $('#tartesanos').dataTable( {
+              "data": json.artesanos,
+              "columns": [
+                          { "title": "Nombre" },
+                          { "title": "Apellido paterno" },
+                          { "title": "Apellido materno" },
+                          { "title": "Fecha nace" },
+                          { "title": "Sexo" },
+                          { "title": "Cuis" },
+                          { "title": "Telefono" },
+                      ],
+              "language": {
+                    "lengthMenu": "concursantes por página _MENU_",
+                    "zeroRecords": "No se encontro",
+                    "info": "Pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No records available",
+                    "infoFiltered": "(Ver _MAX_ total records)",
+                    'search': 'Buscar: ',
+                    "paginate": {
+                          "first":      "Inicio",
+                          "last":       "Fin",
+                          "next":       "Siguiente",
+                          "previous":   "Anterior"
+                    },
+                },
+                dom: 'T<"clear">lfrtip',
+                tableTools : {
+                    "sSwfPath": "{{URL::to('swf/copy_csv_xls_pdf.swf')}}",
+                    aButtons: [
+                        "copy",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": 'PDF'
+                        },
+                    ]
+                },
+            } );
+        }, 'json').fail(function(){
+            $('#grafica').addClass('hidden');
+            swal('Error','No se encontró','error');
+        });
 }
 </script>
 

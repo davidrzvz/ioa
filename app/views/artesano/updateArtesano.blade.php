@@ -2,7 +2,7 @@
 	@section('titulo')BÚSQUEDA ARTESANO
 	@endsection
 
-		@section('contenido')
+@section('contenido')
 		<div class="container wellr">
 
 			<div class="col-sm-4 wellr">
@@ -30,13 +30,6 @@
 			</div>
 
 			<div class="col-md-12 form-group">
-				<div class="form-group col-sm-12 fecha">
-		         	{{ Form::label('fechanace', 'Fecha de Nacimiento',array('class' => 'control-label')) }}
-		          	<div class="input-group date" id="datetimePicker1">
-		            {{ Form::text('fechanace', null, array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
-		            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-		          	</div>
-				</div>
 
 				<div class="form-group" style="top: 13px !important;">
 					<button id="found" type="submit" class="btn btn-ioa pull-right">
@@ -48,10 +41,38 @@
 
 		{{Form::close()}}
 	</div>
-
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 class="modal-title">Artesanos</h3>
+				</div>
+				<div class="modal-body">
+					<h5 class="text-center">Elige una opción</h5>
+					<table class="table table-hover">
+					<thead id="tblHead">
+					<tr>
+					<th>Nombre</th>
+					<th>Paterno</th>
+					<th>Materno</th>
+					<th>Fecha Nacimiento</th>
+					<th>Seleccionar</th>
+					</tr>
+					</thead>
+					<tbody id="elementobody">
+					</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 	<div class="col-sm-8 pull-right hidden" id="datitos">
-		{{ Form::open(array('role' => 'form','url'=> 'editarArtesano/update','id' => 'formupdate','class' => 'class','data-toggle' => 'validator', 'files'=>true)) }}
+		{{ Form::open(array('url'=> 'editarArtesano/update','id' => 'formupdate','class' => 'class','files'=>true)) }}
 		<div class="bg-orga col-md-12">EDITAR DATOS DEL ARTESANO</div>
 
 		<div class="col-md-2 hidden">
@@ -61,74 +82,78 @@
 		</div>
 			
 			<div class="col-md-12">			
-			<div class="col-md-7 form-group">
-				{{ Form::label ('nombre', 'Nombre Completo',array('class' => 'control-label')) }}
+			<div class="col-md-4 form-group">
+				{{ Form::label ('nombre', 'Nombre',array('class' => 'control-label')) }}
 				{{ Form::text('nombre', null, array('id'=>'nombre','class' => 'form-control mayuscula')) }}
 			</div>
+			<div class="col-md-4 form-group">
+				{{ Form::label ('paterno', 'Apellido paterno',array('class' => 'control-label')) }}
+				{{ Form::text('paterno', null, array('id'=>'paterno','class' => 'form-control mayuscula')) }}
+			</div>
+			<div class="col-md-4 form-group">
+				{{ Form::label ('materno', 'Apellido materno',array('class' => 'control-label')) }}
+				{{ Form::text('materno', null, array('id'=>'materno','class' => 'form-control mayuscula')) }}
+			</div>
+		</div>
 
-			<div class="form-group col-md-5 fecha">
+		<div class="col-md-12">
+			<div class="form-group col-md-4 fecha">
 	          {{ Form::label('fechanace', 'Fecha de nacimiento',array('class' => 'control-label')) }}
 	        <div class="input-group date" id="datetimePicker">
 	            {{ Form::text('fechanace', null, array('id'=>'nace','class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD')) }}
 	            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 	        </div>
 	       	</div>
-		</div>
-
-		<div class="col-md-12">
-
-			<div class="col-md-3 form-group">
+	       	<div class="col-md-3 form-group">
 				{{ Form::label('sexo', 'Sexo',array('class' => 'control-label')) }} 
 				{{Form::select('sexo', array('' => 'Seleccione','Masculino' => 'Masculino','Femenino' => 'Femenino',), null, array('class' =>'form-control'))}}
 			</div>
+	       	<div class="col-md-5 form-group">	
+				{{ Form::label('curp', 'CURP') }}
+				{{ Form::text('curp', null, array('class' => 'form-control mayuscula')) }}
+			</div>
+		</div>	
 
+		<div class="col-md-12">
+			<div class="col-md-4 form-group">	
+				{{ Form::label('RFC', 'RFC') }}
+				{{ Form::text('RFC', null, array('id'=>'rfc','class' => 'form-control mayuscula')) }}	
+			</div>
+			<div class="col-md-5 form-group">	
+				{{ Form::label('credencial', 'INE') }}
+				{{ Form::text('ine', null, array('id'=>'ine','class' => 'form-control')) }}	
+			</div>
+			
+			
 			<div class="col-md-3 form-group">
 				
 				{{ Form::label ('cuis', 'No. CUIS',array('class' => 'control-label')) }}
 				{{ Form::text('cuis', null, array('id'=>'cuis','class' => 'form-control')) }}
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<div class="col-md-6 form-group">
+				{{ Form::label('calle', 'Calle') }}
+				{{ Form::text('calle', null, array('class' => 'form-control','id'=>'calle')) }}
+			</div>
+			<div class="col-md-6 form-group">
+				{{ Form::label('numero', 'Numero') }}
+				{{ Form::text('numero', null, array('class' => 'form-control','id'=>'numero')) }}
+			</div>
+			<div class="col-md-6 form-group">
+				{{ Form::label('colonia', 'Colonia') }}
+				{{ Form::text('colonia', null, array('class' => 'form-control','id'=>'colonia')) }}
 			</div>
 			<div class="col-md-3 form-group">
 				{{ Form::label('grupoetnico', 'Grupo Étnico',array('class' => 'control-label')) }}
 				{{ Form::select('grupoetnico', $grupos ,null,array('class' => 'form-control')) }}
 
 			</div>
-
-			
-
-		</div>	
-
-		<div class="col-md-12">
 			<div class="col-md-3 form-group">
 				{{ Form::label('civil', 'Estado Civil') }} 
 				{{Form::select('civil', array('' => 'Seleccione','Soltero' => 'Soltero','Casado' => 'Casado',), null, array('class' =>'form-control'))}}
 			</div>
-
-			<div class="col-md-5 form-group">	
-				{{ Form::label('curp', 'CURP') }}
-				{{ Form::text('curp', null, array('class' => 'form-control mayuscula')) }}
-			</div>
-
-			<div class="col-md-4 form-group">	
-				{{ Form::label('RFC', 'RFC') }}
-				{{ Form::text('RFC', null, array('id'=>'rfc','class' => 'form-control mayuscula')) }}	
-			</div>
-	
-		</div>
-
-		<div class="col-md-12">
-			<div class="col-md-6 form-group">	
-				{{ Form::label('credencial', 'INE') }}
-				{{ Form::text('ine', null, array('id'=>'ine','class' => 'form-control')) }}	
-			</div>
-
-			<div class="col-md-6 form-group">
-				{{ Form::label('domicilio', 'Domicilio') }}
-				<div class="input-group">
-				<div class="input-group-addon"><i class="fa fa-home"></i></div>
-				{{ Form::text('domicilio', null, array('class' => 'form-control')) }}
-				</div>
-			</div>
-
 		</div>
 
 		<div class="col-md-12">
@@ -250,6 +275,40 @@
 <script src="js/es_ES.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+function encontrado (id) {
+	console.log(id);
+	$.post('encontradoupdate',{id:id}, function(json) {
+		$('#datitos, #documentos').removeClass("hidden");
+		$('#persona_id').val(json.persona_id);
+		$('#nombre').val(json.persona.nombre);
+		$('#paterno').val(json.persona.paterno);
+		$('#materno').val(json.persona.materno);
+		$('#nace').val(json.persona.fechanacimiento);
+		$('#curp').val(json.persona.curp);
+		$('#cuis').val(json.persona.cuis);
+		$('#cp').val(json.persona.direccion.cp);
+		$('#calle').val(json.persona.direccion.calle);
+		$('#numero').val(json.persona.direccion.num);
+		$('#colonia').val(json.persona.direccion.colonia);
+		$('#tel').val(json.persona.telefono.numero);
+		$('#domicilio').val(json.persona.domicilio);
+		$('#edo').val(json.persona.estado);
+		$('#lada').val(json.persona.telefono.lada);
+		$('#observ').val(json.persona.observaciones);
+		$('#localidad').val(json.persona.localidad_id);
+		$('#rfc').val(json.rfc);
+		$('#fecha').val(json.fecharegistro);
+		$('#ine').val(json.ine);
+		$('[name = tipoTel] option[value='+json.persona.telefono.tipo+']').attr('selected', true);
+		$('[name = sexo] option[value='+json.persona.sexo+']').attr('selected', true);
+		$('[name = civil] option[value='+json.estadocivil+']').attr('selected', true);
+		$('[name = taller] option[value='+json.taller+']').attr('selected', true);
+		$('[name = grupoetnico] option[value='+json.persona.grupoetnico_id+']').attr('selected', true);
+		$('[name = municipio] option[value='+json.municipio+']').attr('selected', true);
+		$('[name = rama] option[value='+json.persona.rama_id+']').attr('selected', true);
+		documentos(json.documentos);
+	}, 'json');
+}
 $(".filess").fileinput({
 				showUpload: false,
 				showCaption: false,
@@ -310,35 +369,30 @@ $('#buscarartesano').bootstrapValidator({
 })
 .on('success.form.bv', function(e) {
     e.preventDefault();
-	$.post($(this).attr('action'), $(this).serialize(), function(json) {
-		$('#datitos, #documentos').removeClass("hidden");
-			$('#persona_id').val(json.persona_id);
-			$('#nombre').val(json.persona.nombre);
-			$('#nace').val(json.persona.fechanacimiento);
-			$('#curp').val(json.persona.curp);
-			$('#cuis').val(json.persona.cuis);
-			$('#cp').val(json.persona.cp);
-			$('#tel').val(json.persona.telefono);
-			$('#domicilio').val(json.persona.domicilio);
-			$('#edo').val(json.persona.estado);
-			$('#lada').val(json.persona.lada);
-			$('#observ').val(json.persona.observaciones);
-			$('#localidad').val(json.persona.localidad_id);
-			$('#rfc').val(json.RFC);
-			$('#fecha').val(json.fecharegistro);
-			$('#ine').val(json.ine);
-			$('[name = tipoTel] option[value='+json.tipotelefono+']').attr('selected', true);
-			$('[name = sexo] option[value='+json.persona.sexo+']').attr('selected', true);
-			$('[name = civil] option[value='+json.estadocivil+']').attr('selected', true);
-			$('[name = taller] option[value='+json.taller+']').attr('selected', true);
-			$('[name = grupoetnico] option[value='+json.persona.grupoetnico_id+']').attr('selected', true);
-			$('[name = municipio] option[value='+json.municipio+']').attr('selected', true);
-			$('[name = rama] option[value='+json.persona.rama_id+']').attr('selected', true);
-			documentos(json.documentos);
+	$.post('verArtesano', $(this).serialize(), function(json) {
+		artesanos = '';
+		if(json.length > 1){
+			$.each(json,function(index,artesano){
+				artesanos += '<tr>'+
+				'<td>'+artesano.nombre+'</td>'+
+				'<td>'+artesano.paterno+'</td>'+
+				'<td>'+artesano.materno+'</td>'+
+				'<td>'+artesano.cumple+'</td>'+
+				'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>';	
+			});
+			$('#elementobody').html(artesanos);
+			$("#myModal").modal('show');
+		}
+		else if(json.length == 1)
+			encontrado(json[0].id)
+		else
+			swal('Error','No se encontró el artesano','error');
+		
 	}, 'json').fail(function(){
 		swal('Error','No se encontró el artesano','error');
 	});
 });
+
 $('#formupdate').bootstrapValidator({
 	// To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
 	feedbackIcons: {
@@ -467,14 +521,14 @@ $('#formupdate').bootstrapValidator({
 	}
 	}
 	}).on('success.form.bv', function(e) {
-        e.preventDefault();
-        $('.fa-refresh').removeClass('hidden');
-        $.post($(this).attr('action'),$(this).serialize(), function(json) {
-			if(json.success)
-				swal('Elemento actualizado','', "success");
-		}, 'json').fail(function(){
-					swal('Error','ocurrio un error','error');
-				});;
+  //       e.preventDefault();
+  //       $('.fa-refresh').removeClass('hidden');
+  //       $.post($(this).attr('action'),$(this).serialize(), function(json) {
+		// 	if(json.success)
+		// 		swal('Elemento actualizado','', "success");
+		// }, 'json').fail(function(){
+		// 			swal('Error','ocurrio un error','error');
+		// 		});;
     });
 
 $('#datetimePicker1').on('dp.change dp.show', function(e) {

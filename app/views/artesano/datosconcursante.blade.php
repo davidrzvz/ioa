@@ -52,6 +52,7 @@
 					<th>Paterno</th>
 					<th>Materno</th>
 					<th>Fecha Nacimiento</th>
+					<th>Rama</th>
 					<th>Seleccionar</th>
 					</tr>
 					</thead>
@@ -87,61 +88,7 @@
 			<label class="elementos">Sexo: </label>
 			<label id="sexo" class="label btn-ioa"></label>
 			</h4>
-
-			<h4>
-			<label class="elementos">CURP: </label>
-			<label id="curp" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">CUIS: </label>
-			<label id="cuis" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Código Postal:</label>
-			<label id="cp" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Lada: </label>
-			<label id="lada" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Teléfono: </label>
-			<label id="telefono" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Calle: </label>
-			<label id="calle" class="label btn-ioa"></label>
-			</h4>
-			<h4>
-			<label class="elementos">Número: </label>
-			<label id="numero" class="label btn-ioa"></label>
-			</h4>
-			<h4>
-			<label class="elementos">Colonia: </label>
-			<label id="colonia" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Estado: </label>
-			<label id="edo" class="label btn-ioa"></label>
-			</h4>
-
-
-			<h4>
-			<label class="elementos">Observaciones: </label>
-			<label id="observ" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Grupo Étnico: </label>
-			<label id="grupo" class="label btn-ioa"></label>
-			</h4>
-
+			
 			<h4>
 			<label class="elementos">Localidad: </label>
 			<label id="localidad" class="label btn-ioa"></label>
@@ -153,33 +100,13 @@
 			</h4>
 
 			<h4>
-			<label class="elementos">RFC: </label>
-			<label id="rfc" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Estado Civil: </label>
-			<label id="civil" class="label btn-ioa"></label>
+			<label class="grupo">Grupo Étnico: </label>
+			<label id="nace" class="label btn-ioa"></label>
 			</h4>
 
 			<h4>
 			<label class="elementos">Fecha registro: </label>
 			<label id="fecha" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">INE: </label>
-			<label id="ine" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Taller: </label>
-			<label id="taller" class="label btn-ioa"></label>
-			</h4>
-
-			<h4>
-			<label class="elementos">Tipo de teléfono: </label>
-			<label id="tipotel" class="label btn-ioa"></label>
 			</h4>
 
 		</div>
@@ -188,10 +115,7 @@
 	<div class="wellr hidden anadidos col-sm-4">
 		<div class="bg-orga col-md-12">CONCURSOS</div>
 		<div id="concursos"></div>
-		<div class="bg-orga col-md-12">FERIAS</div>
-		<div id="ferias"></div>
-		<div class="bg-orga col-md-12">TALLERES</div>
-		<div id="talleres"></div>
+		
 	</div>
 </div>		
 @endsection
@@ -215,10 +139,7 @@
 
 <script type="text/javascript">
 			$(document).ready(function() {
-			$('#datetimePicker1').datetimepicker({
-		        language: 'es',
-		        pickTime: false
-		    });
+			
 		    $('#buscarartesano').bootstrapValidator({
 		        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
 		        feedbackIcons: {
@@ -249,15 +170,7 @@
 		                        message: 'Por favor verifica el campo'
 		                    }
 		                    }
-		                },
-		            fechanace: {
-		                validators: {
-		                    notEmpty: {},
-		                    date: {
-		                        format: 'YYYY-MM-DD'
-		                    }
-		                }
-		            }		            
+		                },		            
 
 		        }
 		    })
@@ -271,6 +184,7 @@
 								'<td>'+artesano.paterno+'</td>'+
 								'<td>'+artesano.materno+'</td>'+
 								'<td>'+artesano.cumple+'</td>'+
+								'<td>'+artesano->persona->rama->nombre+'</td>'+
 								'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
 						});
 						$("#myModal").modal('show');
@@ -287,12 +201,7 @@
 		$('#myModal').on('hide.bs.modal', function() {
 		    $('#elementobody').html('');
 		});
-		$('#datetimePicker1').on('dp.change dp.show', function(e) {
-        $('#buscarartesano').bootstrapValidator('revalidateField', 'fechanace');
-        
-    });
-
-
+		
 });
     function encontrado (id) {
     	$.post('encontrado', {id:id}, function(json) {
@@ -308,29 +217,14 @@
 			$.each(json.ferias,function(index,feria){
 				$('#ferias').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+feria.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+feria.fechainicio+' al '+feria.fechafin+'</strong></label></h4><h4><label class="elementos">Ubicación: <strong>'+feria.lugar+'</strong></label></h4></div>');
 			});
-			$('#datitos, #documentos').removeClass("hidden");
+			$('#datitos').removeClass("hidden");
 			$('#nombre').text(json.persona.nombre+' '+json.persona.paterno+' '+json.persona.materno);
 			$('#nace').text(json.persona.fechanacimiento);
 			$('#sexo').text(json.persona.sexo);
-			$('#curp').text(json.persona.curp);
-			$('#cuis').text(json.persona.cuis);
-			$('#cp').text(json.persona.direccion.cp);
-			$('#telefono').text(json.persona.telefono.numero);
-			$('#calle').html(json.persona.direccion.calle);
-			$('#numero').text(json.persona.direccion.num);
-			$('#colonia').text(json.persona.direccion.colonia);
-			$('#edo').text('Oaxaca');
-			$('#lada').text(json.persona.telefono.lada);
-			$('#observ').text(json.persona.observaciones);
 			$('#grupo').text(json.persona.grupoetnico_id);
 			$('#localidad').text(json.persona.localidad_id);
 			$('#rama').text(json.persona.rama_id);
-			$('#rfc').text(json.rfc);
-			$('#civil').text(json.estadocivil);
 			$('#fecha').text(json.fecharegistro);
-			$('#ine').text(json.ine);
-			$('#taller').text(json.taller);
-			$('#tipotel').text(json.persona.telefono.tipo);
 			documentos(json.documentos);
 		}, 'json').fail(function(){
 			swal('Error','No se encontró el artesano','error');
@@ -338,16 +232,7 @@
     }
 	</script>
 
-<script>
-function documentos(documents){
-	var html='<div class="bg-orga col-md-12 text-center">DOCUMENTOS DEL ARTESANO</div>';
-	$(documents).each(function(){
-		html += '<div class="container bg-docs col-md-12"><div class="col-md-12"><strong>'+this.nombre+'</strong><div class="col-md-12" style="text-align:center;"><img style="border: 0pt; margin-left: 0px; margin-bottom: 10px; margin-top: 15px; height: 200px; width: 150px;" src="'+this.ruta+'" onClick="window.open('+"'"+this.ruta+"'"+')";></img></div></div></div>';
-	}); 
-	$('#documentos').html(html);
-}
-	
-</script>
+
 <script type="text/javascript">
 $(document).ready(function() {
     $("#menu-item-48175").addClass("current_page_item ");

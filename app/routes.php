@@ -56,6 +56,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('editarArtesano','EditarArtesanoController@editar');
 	Route::post('editarArtesano/update','EditarArtesanoController@update');
 	Route::post('editarArtesano','EditarArtesanoController@buscar2');
+	Route::post('encontradoupdate','EditarArtesanoController@encontrado');
 
 
 	Route::post('buscaConcurso','RegistroenConcursoController@buscaConcurso');
@@ -107,6 +108,11 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('organizaciones/nueva','OrganizacionesController@NuevaOrg');
 	Route::post('organizaciones/update','OrganizacionesController@UpdateOrg');
 	Route::post('organizaciones/delete','OrganizacionesController@EliminarOrg');
+
+	Route::post('organizaciones/comite','OrganizacionesController@Comite');
+
+	Route::get('concursante','DatosConcursanteController@verConcursante');
+	Route::post('concursante','DatosConcursanteController@buscar');
 
     
 });

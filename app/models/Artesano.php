@@ -31,6 +31,9 @@ return $this->belongsToMany('Feria');
 public function comprasyventas(){
 return $this->belongsToMany('Comprasyventa');
 }
+public function telefono(){
+return $this->hasMany('Telefono');
+}
 
 
 }

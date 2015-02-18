@@ -73,21 +73,35 @@
 </div>
 
 
-<div class="container wellr col-sm-6 col-sm-offset-3">
+<div class="container wellr col-sm-12">
 
     <div class="col-md-12">
         <div class="bg-orga col-md-12 text-center">EDICIÓN DE DATOS</div>
-        <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
+        <div class="col-sm-3" style="text-align: center; margin: 0 auto;">
+            <a  href="{{URL::to('gruposetnicos');}}">
+            <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/catalogos.png"></img><br>
+            {{ Form::label('org', 'GRUPOS ÉTNICOS') }}
+                           
+            </a>
+        </div>
+        <div class="col-sm-3" style="text-align: center; margin: 0 auto;">
             <a target="_self" href="{{URL::to('editarArtesano');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/editaruser.png"></img><br>
             {{ Form::label('reportes', 'EDITAR ARTESANO') }}
             </a>
         </div>
 
-        <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
+        <div class="col-sm-3" style="text-align: center; margin: 0 auto;">
             <a  href="{{URL::to('editarEventos');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/editarevento.png"></img><br>
             {{ Form::label('org', 'EDITAR EVENTOS') }}
+                           
+            </a>
+        </div>
+         <div class="col-sm-3" style="text-align: center; margin: 0 auto;">
+            <a  href="{{URL::to('ramas');}}">
+            <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/catalogos.png"></img><br>
+            {{ Form::label('org', 'RAMAS ART.') }}
                            
             </a>
         </div>
