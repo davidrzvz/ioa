@@ -43,8 +43,8 @@
  <label>CP: <u>{{$persona->cp}}</u></label>
  <br>
  <br>
- <label>Lada: <u>{{$persona->lada}}</u></label>
- <label>Telefono: <u>{{$persona->telefono}}</u></label>
+ <label>Lada: <u>{{$persona->telefono->lada}}</u></label>
+ <label>Telefono: <u>{{$persona->telefono->numero}}</u></label>
  <label>Rama: <u>{{$persona->rama->nombre}}</u></label>
  <br>
  <br>
