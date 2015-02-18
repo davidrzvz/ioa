@@ -61,17 +61,36 @@
 				{{ Form::text('artesamaterno', null, array('placeholder' => 'introduce apellido materno','class' => 'form-control')) }}
 				</div>
 				</div>
-
-
-				<div class="form-group fecha">
-		         	{{ Form::label('fecha1', 'Fecha de Nacimiento',array('style'=>'text-align: left','class' => 'control-label col-sm-2')) }}
-		        <div class="input-group date" id="datetimePicker" style="padding-left: 14px; padding-right: 104px;">
-		            {{ Form::text('fechanace', null, array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
-		            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-		        </div>
-				</div>
 			</div>
-
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="modal-title">Artesanos</h3>
+						</div>
+						<div class="modal-body">
+							<h5 class="text-center">Elige una opción</h5>
+							<table class="table table-hover">
+							<thead id="tblHead">
+							<tr>
+							<th>Nombre</th>
+							<th>Paterno</th>
+							<th>Materno</th>
+							<th>Fecha Nacimiento</th>
+							<th>Seleccionar</th>
+							</tr>
+							</thead>
+							<tbody id="elementobody">
+							</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 			
 			<div class="col-sm-12">
 
@@ -188,15 +207,7 @@
 		                        message: 'Por favor verifica el campo'
 		                    }
 		                    }
-		                },
-	                fechanace: {
-	                validators: {
-	                    notEmpty: {},
-	                    date: {
-	                        format: 'YYYY-MM-DD'
-	                    }
-	                }
-	            	}		            
+		                },	            
 
 		        }
 		    })
@@ -205,12 +216,22 @@
 				$.post($(this).attr('action'), $(this).serialize(), function(json) {
 					console.log(json);
 					$('#artesano').removeClass("hidden");
-						$('#nombre').text(json.persona.nombre);
-						$('#nace').text(json.persona.fechanacimiento);
-						$('#sexo').text(json.persona.sexo);
-						$('#curp').text(json.persona.curp);
-						$('#artesanoid').val(json.id);
-						$('[name=feriaid]').val("");
+						if(json.length == 0){
+							swal('Error', 'Persona no encontrada', 'error');
+							$('#inscrito_div').addClass('hidden');
+						}
+						else{
+							$.each(json,function(index,artesano){
+								$('#elementobody').append('<tr>'+
+								'<td>'+artesano.persona.nombre+'</td>'+
+								'<td>'+artesano.persona.paterno+'</td>'+
+								'<td>'+artesano.persona.materno+'</td>'+
+								'<td>'+artesano.persona.fechanacimiento+'</td>'+
+								'<td>'+artesano.persona.rama.nombre+'</td>'+
+								'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
+								$("#myModal").modal('show');
+							});
+						}
 				}, 'json').fail(function(){
 					swal('Error','No se encontró el artesano','error');
 				});
@@ -239,7 +260,9 @@ $('#registrar').submit( function(e) {
 	}
 	$('#btnregistrar').prop('disabled','disabled');
 });
-
+$('#myModal').on('hide.bs.modal', function() {
+		$('#elementobody').html('');
+	});
 	$('.bg-evento').click(function(){
 		$('.bg-evento').removeClass('sombreado-evento');
 		$(this).addClass('sombreado-evento');
