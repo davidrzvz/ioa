@@ -32,21 +32,50 @@ class RegistroenConcursoController extends BaseController {
 		///////////////////////////////////////////////////Artesano
 		$persona = Persona::create(array(
 			'nombre'			=> 	Input::get('nombre'),
+			'paterno'			=> 	Input::get('paterno'),
+			'materno'			=> 	Input::get('materno'),
 			'curp' 				=> 	Input::get('curp'),
 			'sexo'				=> 	Input::get('sexo'), 
-			'cuis'				=> 	Input::get('cuis'),
-			'cp'				=> 	Input::get('cp'), 
-			'telefono'			=> 	Input::get('tel'), 
-			'domicilio'			=> 	Input::get('domicilio'),
-			'estado'			=> 	Input::get('estado'), 
-			'lada'				=> 	Input::get('lada'), 
-			'observaciones'		=> 	Input::get('observ'), 
+			'cuis'				=> 	'Sin numero', 
+			'observaciones'		=> 	'Ninguna', 
 			'fechanacimiento'	=> 	Input::get('fechanace'), 
 			'grupoetnico_id'	=> 	Input::get('grupoetnico'), 
 			'localidad_id'		=> 	Input::get('localidad'), 
 			'rama_id'			=> 	Input::get('rama')));
 
+		$telefono = Telefono::create(array(
+			'persona_id' 	=> $persona->id,
+		    'numero'		=> Input::get('numero'),
+			'lada' 			=> Input::get('lada'),
+			'tipo' 			=> Input::get('tipoTel'),));
+		$direccion = Direccion::create(array(
+			'persona_id' 	=> $persona->id,
+		    'calle'			=> Input::get('calle'),
+			'num' 		=> Input::get('numero'),
+			'cp' 			=> Input::get('cp'),
+			'colonia' 		=> Input::get('colonia'),));
+
 		$persona = Persona::find($persona->id);
+		$numeroregistro = DB::table('artesano_concurso')
+			->select('numregistro')
+			->where('concurso_id','=',Input::get('concid'))
+			->orderBy('numregistro','desc')
+			->first();
+			if(is_null($numeroregistro))
+				$numeroregistro = 20500;
+			else
+				$numeroregistro = $numeroregistro->numregistro;
+		$numeroregistro2 = DB::table('concurso_persona')
+			->select('numregistro')
+			->where('concurso_id','=',Input::get('concid'))
+			->orderBy('numregistro','desc')
+			->first();
+			if(is_null($numeroregistro2))
+				$numeroregistro = 20500;
+			else
+				$numeroregistro2 = $numeroregistro2->numregistro;
+		if($numeroregistro2 > $numeroregistro)
+				$numeroregistro =	$numeroregistro2;
 		$persona->Concursos()->attach(Input::get('concid'),
 			array(
 				'categoria' 	=> 	Input::get('categoria'),
@@ -57,7 +86,8 @@ class RegistroenConcursoController extends BaseController {
 				'calidad' 		=> 	Input::get('calidad'),
 				'recibio' 		=> 	Input::get('recibio'),
 				'fecharegistro' => 	date('Y-m-d'),
-				'observaciones' => 	Input::get('observ')
+				'observaciones' => 	Input::get('observ'),
+				'numregistro'		=>	$numeroregistro+1
 				));	
 		return Response::json($persona);
 	}

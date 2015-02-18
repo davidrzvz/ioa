@@ -31,19 +31,33 @@
 		<div class="col-sm-8 pull-right wellr" id="divalta">
 			<div class="bg-orga col-sm-12 text-center">DATOS DEL PARTICIPANTE</div>
 			{{ Form::open(array('url' => 'personaConcurso','role' => 'form','id' => 'formalta','data-toggle' => 'validator')) }}
-				<div class="col-sm-12">	
-					<div class="col-sm-8 form-group">	
-						{{ Form::label ('nombre', 'Nombre Completo',array('class' => 'control-label')) }}
-						{{ Form::text('nombre', null, array('placeholder' => 'Nombre - - ApellidoPaterno - - ApellidoMaterno','class' => 'form-control mayuscula')) }}
+				<div class='col-md-12'>
+					<div id="idcurp" class="col-sm-5 form-group">	
+						{{ Form::label('curp', 'CURP') }}
+						{{ Form::text('curp', null, array('id' => 'curp', 'placeholder' => 'Ingrese CURP','class' => 'form-control')) }}
 					</div>
+				</div>
+				<div class="col-sm-12">	
+					<div class="col-sm-4 form-group">	
+						{{ Form::label ('nombre', 'Nombre',array('class' => 'control-label')) }}
+						{{ Form::text('nombre', null, array('placeholder' => 'Ingrese nombre','class' => 'form-control mayuscula')) }}
+					</div>
+					<div class="col-sm-4 form-group">	
+						{{ Form::label ('paterno', 'Nombre Completo',array('class' => 'control-label')) }}
+						{{ Form::text('paterno', null, array('placeholder' => 'Apellido paterno','class' => 'form-control mayuscula')) }}
+					</div>
+					<div class="col-sm-4 form-group">	
+						{{ Form::label ('materno', 'Apellido materno',array('class' => 'control-label')) }}
+						{{ Form::text('materno', null, array('placeholder' => 'Apellido materno','class' => 'form-control mayuscula')) }}
+					</div>
+				</div>
+				<div class="col-sm-12">
 					<div class="col-sm-3 form-group">
 						{{ Form::label('sexo', 'Sexo',array('class' => 'control-label')) }} 
 						{{Form::select('sexo', array('' => 'Seleccione','Masculino' => 'Masculino','Femenino' => 'Femenino',), null, array('class' =>'form-control'))}}
 					</div>
-				</div>
-				<div class="col-sm-12">
 					<div class="form-group col-sm-4 fecha">
-			          {{ Form::label('fechanace', 'fechanace',array('class' => 'control-label')) }}
+			          {{ Form::label('fechanace', 'Fecha de nacimiento',array('class' => 'control-label')) }}
 			          <div class="input-group date" id="datetimePicker">
 			            {{ Form::text('fechanace', null, array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
 			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -54,20 +68,30 @@
 						{{ Form::select('grupoetnico', $grupos, null, array('class' => 'form-control')) }}
 					</div>
 				</div>	
-				<div class="col-sm-12">
-					<div id="idcurp" class="col-sm-5 form-group">	
-						{{ Form::label('curp', 'CURP') }}
-						{{ Form::text('curp', null, array('id' => 'curp', 'placeholder' => 'Ingrese CURP','class' => 'form-control')) }}
-					</div>
-					<div class="col-sm-7 form-group">
-						{{ Form::label('domicilio', 'Domicilio') }}
+				
+				<div class="col-md-12">
+					<div class="col-md-6 form-group">
+						{{ Form::label('colonia', 'Colonia') }}
 						<div class="input-group">
-							<div class="input-group-addon"><i class="fa fa-home"></i></div>
-								{{ Form::text('domicilio', null, array('placeholder' => 'introduce calle y número','class' => 'form-control')) }}
+						<div class="input-group-addon"><i class="fa fa-home"></i></div>
+						{{ Form::text('colonia', null, array('placeholder' => 'Nombre de la colonia','class' => 'form-control')) }}
 						</div>
 					</div>
+					<div class="col-md-6 form-group">
+						{{ Form::label('calle', 'Calle') }}
+						<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-home"></i></div>
+						{{ Form::text('calle', null, array('placeholder' => 'Nombre de la calle','class' => 'form-control')) }}
+						</div>
+					</div>
+	
 				</div>
+				
 				<div class="col-sm-12">
+					<div class="col-md-3 form-group">
+						{{ Form::label('numero', 'Número') }}
+						{{ Form::text('numero', null, array('placeholder' => 'No.','class' => 'form-control')) }}
+					</div>
 					<div class="col-sm-4 form-group">
 						{{ Form::label('municipio', 'Municipio') }}
 						{{ Form::select('municipio',$municipios, null, array('class' => 'form-control','id'=>'selectmun')) }} 
@@ -78,7 +102,7 @@
 					</div>
 				</div>
 				<div class="col-sm-12">
-					<div class="form-group col-sm-2">
+					<div class="form-group col-sm-3">
 						{{ Form::label('cp', 'C.P.') }}
 						{{ Form::text('cp', null, array('placeholder' => 'CP','class' => 'form-control')) }}
 					</div>
@@ -97,8 +121,14 @@
 						{{ Form::text('tel', null, array('placeholder' => 'Teléfono','class' => 'form-control')) }}
 						</div>
 					</div>
+					<div class="col-md-3 form-group">
+						{{ Form::label('tipoTel', 'Tipo Teléfono') }} <br>
+						{{Form::select('tipoTel', array('' => 'Seleccione','Casa' => 'Casa','Celular' => 'Celular','Caseta' => 'Caseta','Vecino' => 'Vecino',), null, array('class' =>'form-control'))}}
+						</div>
 
-					<div class="col-sm-3 form-group">
+				</div>
+				<div class="col-md-12">
+					<div class="col-sm-4 form-group">
 						{{ Form::label('rama', 'Rama Artesanal') }} <br>
 						{{Form::select('rama', $ramas, null, array('class' =>'form-control'))}}
 					</div>
@@ -337,11 +367,15 @@ $(document).ready(function() {
 
 	$('#datetimePicker').datetimepicker({
         language: 'es',
-        pickTime: false
+        pickTime: false,
+        defaultDate: moment().subtract(8, 'y'),
+ 		maxDate: moment().subtract(6, 'y')
     });
     $('#datetimePicker1').datetimepicker({
         language: 'es',
-        pickTime: false
+        pickTime: false,
+        defaultDate: moment().subtract(8, 'y'),
+ 		maxDate: moment().subtract(6, 'y')
     });
 
 	$('#buscaconcursante').bootstrapValidator({
@@ -643,6 +677,7 @@ $(document).ready(function() {
 					closeOnCancel: false
 					},
 					function(isConfirm){
+						if(isConfirm)
 						$('#imprimir').submit();
 					});
 			}
