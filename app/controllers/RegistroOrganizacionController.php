@@ -14,7 +14,7 @@ public function post_nuevo()
 
 $Organizacion = Organizacion::create(array(
 	'nombre'=> Input::get('nombreOrg'), 
-	'telmunicipio'=> Input::get('telMun'),
+	'telefono'=> Input::get('telMun'),
 	)); 
 
 $Comite = Comite::create(array(

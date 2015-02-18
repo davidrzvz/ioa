@@ -389,7 +389,7 @@ $('#formregistroConcurso').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh tok'
     },
     fields: {
-        concurnombre: {
+        concursonombre: {
             validators: {
                 regexp:{
                 regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,

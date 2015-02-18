@@ -19,7 +19,10 @@ class OrganizacionesController extends BaseController {
 		if(is_null(Organizacion::where('nombre','=',Input::get('nombre'))->first()) ){
 			$org = new Organizacion;
 				$org->nombre 	= Input::get('nombre');
+				$org->telefono 	= Input::get('tel');
 			$org->save();
+			$Comite = Comite::create(array(
+			'organizacion_id' => $org->id));
 			return Response::json(array('success' => true));
 		}
 		else

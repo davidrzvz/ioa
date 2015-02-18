@@ -29,8 +29,7 @@ class EditarArtesanoController extends BaseController {
 		$nombre 	= Input::get('artesanombre');
 		$paterno 	= Input::get('artesapaterno');
 		$materno 	= Input::get('artesamaterno');
-		$fecha 		= Input::get('fechanace');
-		$artesanos 	= Artesano::whereHas('persona',function($q) use ($nombre,$paterno,$materno,$fecha)
+		$artesanos 	= Artesano::whereHas('persona',function($q) use ($nombre,$paterno,$materno)
 		{
 			$q->where('nombre','like','%'.$nombre.'%','and')
 			->where('paterno','like','%'.$paterno.'%','and');
