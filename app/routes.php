@@ -67,6 +67,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('personaConcurso2','RegistroenConcursoController@post_personaconcursos');
 
 	Route::post('buscaconcursante','RegistroenConcursoController@post_buscaconcursante');
+	Route::post('buscaconcursante2','RegistroenConcursoController@post_buscaconcursante2');
 
 	Route::get('editarEventos','editarEventoController@get_nuevo');
 	Route::post('editarEventos/feria','editarEventoController@updateFeria');

@@ -101,15 +101,18 @@ class RegistroenConcursoController extends BaseController {
 		$fecha= Input::get('fechanace');
 
 		$persona = Persona::where('nombre','like','%'.$nombre.'%','and')
-		->where('nombre','like','%'.$paterno.'%','and')
-		->where('nombre','like','%'.$materno.'%')
-		->where('fechanacimiento','=',$fecha)->first();
+		->where('paterno','like','%'.$paterno.'%','and')
+		->get();
 		if($persona){
-			$persona->artesano;
+			// $persona->artesano;
 			return Response::json($persona);
 		}
 		else
 			return Response::json(array('error'=>true));
+	}
+	public function post_buscaconcursante2(){
+		$persona = Persona::find(Input::get('id'));
+		return Response::json($persona);
 	}
 	
 	public function post_personaconcursos(){

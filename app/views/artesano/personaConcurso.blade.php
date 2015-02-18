@@ -389,7 +389,7 @@ $(document).ready(function() {
     })
 	.on('success.form.bv', function(e) {
         e.preventDefault();
-		$.post('verArtesano', $(this).serialize(), function(json) {
+		$.post('buscaconcursante', $(this).serialize(), function(json) {
 			console.log(json);
 			$('#inscrito_div').removeClass('hidden');
 			if(json.length == 0){
@@ -703,7 +703,8 @@ $( "#selectmun" ).change(function () {
 	}, 'json');
 }).change();
 function encontrado (id) {
-	$.post('encontrado', {id:id}, function(json) {
+	$.post('buscaconcursante2', {id:id}, function(json) {
+		console.log(json);
 		$('#inscrito').data('bootstrapValidator').resetForm(true);
 		$('[name = idpersona]').val(json.id);
 		if(json.artesano)
