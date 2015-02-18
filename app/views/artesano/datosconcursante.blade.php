@@ -106,7 +106,7 @@
 
 			<h4>
 			<label class="elementos">Fecha registro: </label>
-			<label id="fecha" class="label btn-ioa"></label>
+			<label id="fecharegistro" class="label btn-ioa"></label>
 			</h4>
 
 		</div>
@@ -184,7 +184,6 @@
 								'<td>'+artesano.paterno+'</td>'+
 								'<td>'+artesano.materno+'</td>'+
 								'<td>'+artesano.cumple+'</td>'+
-								'<td>'+artesano->persona->rama->nombre+'</td>'+
 								'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
 						});
 						$("#myModal").modal('show');
@@ -211,12 +210,7 @@
 			$.each(json.concursos,function(index,concurso){
 				$('#concursos').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4></div>');
 			});
-			$.each(json.talleres,function(index,taller){
-				$('#talleres').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+taller.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+taller.fechainicio+' al '+taller.fechafin+'</strong></label></h4><h4><label class="elementos">Maestro: <strong>'+taller.maestro+'</strong></label></h4></div>');
-			});
-			$.each(json.ferias,function(index,feria){
-				$('#ferias').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+feria.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+feria.fechainicio+' al '+feria.fechafin+'</strong></label></h4><h4><label class="elementos">Ubicación: <strong>'+feria.lugar+'</strong></label></h4></div>');
-			});
+			
 			$('#datitos').removeClass("hidden");
 			$('#nombre').text(json.persona.nombre+' '+json.persona.paterno+' '+json.persona.materno);
 			$('#nace').text(json.persona.fechanacimiento);
