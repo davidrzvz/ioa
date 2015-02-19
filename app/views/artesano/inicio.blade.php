@@ -34,9 +34,9 @@
         </div>
 
         <div class="col-sm-6" style="text-align: center; margin: 0 auto;">
-            <a  href="{{URL::to('organizacion');}}">
+            <a  href="{{URL::to('organizaciones');}}">
             <img style="border: 0pt; margin-left: 0px; margin-bottom: 10px;" src="./imgs/orga.png"></img><br>
-            {{ Form::label('org', 'REG. ORGANIZACIÓN') }}
+            {{ Form::label('org', 'ORGANIZACIONES') }}
                            
             </a>
         </div>

@@ -69,7 +69,7 @@
 
 	<div class="pull-left wellr col-md-3 hidden" id="documentos">      
 	</div>
-	<div class="col-sm-5 hidden wellr" id="datitos">
+	<div class="col-sm-4 hidden wellr" id="datitos">
 		<div class="bg-orga col-md-12">DATOS DEL ARTESANO</div>
 
 		<div class="col-md-12">
@@ -100,7 +100,7 @@
 			</h4>
 
 			<h4>
-			<label class="grupo">Grupo Étnico: </label>
+			<label class="elementos">Grupo Étnico: </label>
 			<label id="grupo" class="label btn-ioa"></label>
 			</h4>
 
@@ -112,8 +112,8 @@
 		</div>
 
 	</div>
-	<div class="wellr hidden anadidos col-sm-4">
-		<div class="bg-orga col-md-12">CONCURSOS</div>
+	<div class="hidden anadidos col-sm-8">
+		<div class="bg-orga col-md-12 text-center">HISTORIAL DE PARTICIPACIÓN EN CONCURSOS</div>
 		<div id="concursos"></div>
 		
 	</div>
@@ -181,7 +181,6 @@
 					$('#artesano').removeClass("hidden");
 						if(json.length == 0){
 							swal('Error', 'Persona no encontrada', 'error');
-							$('#inscrito_div').addClass('hidden');
 						}
 						else{
 							$.each(json,function(index,artesano){
@@ -210,7 +209,7 @@
 			$(".anadidos").removeClass('hidden')
 			console.log(json.persona.telefono);
 			$.each(json.concursos,function(index,concurso){
-				$('#concursos').append('<div class="wellr"><h4><label class="elementos nombreconcurso">Nombre: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4></div>');
+				$('#concursos').append('<div class="wellrr col-sm-6"><h4><label class="elementos nombreconcurso">Concurso: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4><h4><label class="elementos cat">Categoría: <strong>'+concurso.pivot.categoria+'</strong></label></h4><h4><label class="elementos pieza">Pieza: <strong>'+concurso.pivot.pieza+'</strong></label></h4><h4><label class="elementos calidad">Calidad: <strong>'+concurso.pivot.calidad+'</strong></label></h4><h4><label class="elementos registro">No. registro: <strong>'+concurso.pivot.numregistro+'</strong></label></h4><h4><label class="elementos costo">Costo Unitario: <strong>'+concurso.pivot.costounitario+'</strong></label></h4><h4><label class="elementos avaluo">Avaluo: <strong>'+concurso.pivot.avaluo+'</strong></label></h4><h4><label class="elementos entrego">Entregó: <strong>'+concurso.pivot.entrego+'</strong></label></h4><h4><label class="elementos premio">Premio: <strong>'+concurso.pivot.premio+'</strong></label></h4><h4><label class="elementos dev">Fecha de devolución: <strong>'+concurso.pivot.fechadev+'</strong></label></h4></div>');
 			});
 			
 			$('#datitos').removeClass("hidden");

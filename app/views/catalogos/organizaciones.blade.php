@@ -136,7 +136,7 @@
     }
     .tok{
         top: 17px !important;
-        right: 23px !important;
+        right: 0px !important;
     }
     textarea{
         resize:none !important;
@@ -169,9 +169,9 @@
 $(document).ready(function() {
     $('#nueva-org').bootstrapValidator({
         feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok nombre',
-            invalid: 'glyphicon glyphicon-remove nombre',
-            validating: 'glyphicon glyphicon-refresh nombre'
+            valid: 'glyphicon glyphicon-ok tok',
+            invalid: 'glyphicon glyphicon-remove tok',
+            validating: 'glyphicon glyphicon-refresh tok'
         },
         fields: {
             enabled: false,
@@ -184,7 +184,17 @@ $(document).ready(function() {
                     }
                 }
             },
-        }
+            tel: {
+            validators: {
+                notEmpty: {},
+                stringLength:{
+                      max: 10,
+                      min: 10,
+                      message:'Intoduce un telefono a 10 digitos'
+                    }
+            }
+            }
+        },
     })
     .on('success.form.bv', function(e) {
         e.preventDefault();

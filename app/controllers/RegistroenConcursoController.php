@@ -85,6 +85,7 @@ class RegistroenConcursoController extends BaseController {
 				'entrego' 		=> 	Input::get('entrego'),
 				'calidad' 		=> 	Input::get('calidad'),
 				'recibio' 		=> 	Input::get('recibio'),
+				'produccion' 	=> 	Input::get('prod'),
 				'fecharegistro' => 	date('Y-m-d'),
 				'observaciones' => 	Input::get('observ'),
 				'numregistro'		=>	$numeroregistro+1
@@ -185,6 +186,7 @@ class RegistroenConcursoController extends BaseController {
 				'calidad' 			=> 	Input::get('calidad'),
 				'recibio' 			=> 	Input::get('recibio'),
 				'fecharegistro' 	=> 	date('Y-m-d'),
+				'produccion' 		=> 	Input::get('prod'),
 				'observaciones' 	=> 	Input::get('observ'),
 				'numregistro'		=>	$numeroregistro+1
 				));

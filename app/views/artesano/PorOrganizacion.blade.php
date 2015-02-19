@@ -114,7 +114,7 @@
 							{{ Form::text('RFC', null, array('placeholder' => 'Ingrese RFC','class' => 'form-control mayuscula')) }}	
 						</div>
 
-						<div class="col-md-2 form-group">	
+						<div class="col-md-3 form-group">	
 							{{ Form::label('credencial', 'INE') }}
 							{{ Form::text('ine', null, array('placeholder' => 'Ingrese num','class' => 'form-control')) }}	
 						</div>	
@@ -582,6 +582,11 @@
 		                        message: 'Por favor verifica el campo'
 		                    }
 		                }},
+		                tipoTel: {
+		                	validators: {
+		                		notEmpty: {},
+		                	}
+		                },
 		            cp:{
 		                validators: {
 		                    integer: {},
@@ -589,7 +594,8 @@
 								min: 5,
 								max: 5,
 								message: 'El CP debe tener 5 dígitos'
-							}
+							},
+							notEmpty: {}
 		                }
 		            },
 		            numero:{
@@ -639,7 +645,8 @@
 		                        min: 13,
 		                        max:13,
 		                        message:'Se requieren 13'
-		                    }
+		                    },
+		                    notEmpty: {}
 		                }
 		            },
                     sexo: {

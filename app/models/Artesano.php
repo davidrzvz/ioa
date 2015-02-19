@@ -20,7 +20,7 @@ return $this->hasMany('Producto');
 }
 
 public function Concursos(){
-return $this->belongsToMany('Concurso')->withPivot('premio','numregistro','categoria','pieza','costounitario','avaluo','entrego','fechadev','calidad','recibio','fecharegistro', 'observaciones');
+return $this->belongsToMany('Concurso')->withPivot('premio','numregistro','categoria','pieza','produccion','costounitario','avaluo','entrego','fechadev','calidad','recibio','fecharegistro', 'observaciones');
 }
 public function Talleres(){
 return $this->belongsToMany('Taller');

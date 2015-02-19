@@ -154,16 +154,23 @@
 							{{ Form::label('costo', 'Costo Aprox') }}
 							<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-dollar"></i></div>
-								{{ Form::text('costo', null, array('class' => 'form-control')) }}
+								{{ Form::text('costo', null, array('placeholder' => 'costo','class' => 'form-control')) }}
 							</div>
 						</div>
 						<div class="col-sm-3 form-group">
 							{{ Form::label('avaluo', 'Avaluo') }}
 							<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-dollar"></i></div>
-								{{ Form::text('avaluo', null, array('class' => 'form-control')) }}
+								{{ Form::text('avaluo', null, array('placeholder' => 'avaluo','class' => 'form-control')) }}
 							</div>
 						</div>
+						<div class="col-sm-3 form-group">
+								{{ Form::label('prod', 'Producción mensual') }}
+								<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-signal"></i></div>
+									{{ Form::text('prod', null, array('placeholder' => 'produccion','class' => 'form-control')) }}
+								</div>
+							</div>
 						<div class="col-sm-6 form-group">
 							{{ Form::label('entrego', 'Entregó') }}
 							<div class="input-group">
@@ -221,13 +228,7 @@
 							{{ Form::label('artesapaterno', 'Apellido paterno') }}
 							{{ Form::text('artesapaterno', null, array('placeholder' => 'introduce apellido paterno','class' => 'form-control')) }}
 						</div>
-<!-- 						<div class="form-group col-sm-6 fecha">
-				         	{{ Form::label('fechanace', 'Fecha de Nacimiento',array('class' => 'control-label')) }}
-				          	<div class="input-group date" id="datetimePicker1">
-					            {{ Form::text('fechanace', null, array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
-					            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-				          	</div>
-						</div> -->
+
 						<div class="col-sm-6 form-group">
 							{{ Form::label('artesamaterno', 'Apellido materno') }}
 							{{ Form::text('artesamaterno', null, array('placeholder' => 'introduce apellido materno','class' => 'form-control')) }}
@@ -265,7 +266,7 @@
 							</table>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+							<button id="cerrar" type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -293,14 +294,21 @@
 								{{ Form::label('costo', 'Costo Aprox') }}
 								<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-dollar"></i></div>
-									{{ Form::text('costo', null, array('class' => 'form-control')) }}
+									{{ Form::text('costo', null, array('placeholder' => 'costo','class' => 'form-control')) }}
 								</div>
 							</div>
 							<div class="col-sm-3 form-group">
 								{{ Form::label('avaluo', 'Avaluo') }}
 								<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-dollar"></i></div>
-									{{ Form::text('avaluo', null, array('class' => 'form-control')) }}
+									{{ Form::text('avaluo', null, array('placeholder' => 'avaluo','class' => 'form-control')) }}
+								</div>
+							</div>
+							<div class="col-sm-3 form-group">
+								{{ Form::label('prod', 'Producción mensual') }}
+								<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-signal"></i></div>
+									{{ Form::text('prod', null, array('placeholder' => 'produccion','class' => 'form-control')) }}
 								</div>
 							</div>
 						</div>
@@ -427,7 +435,7 @@ $(document).ready(function() {
 			console.log(json);
 			$('#inscrito_div').removeClass('hidden');
 			if(json.length == 0){
-				swal('Error', 'Persona no encontrada', 'error');
+				swal('Error', 'No se encontraron coincidencias', 'error');
 				$('#inscrito_div').addClass('hidden');
 			}
 			else{
@@ -678,7 +686,7 @@ $(document).ready(function() {
         else
 		$.post($('#inscrito').attr('action'), $('#inscrito').serialize(), function(json) {
 			if(json.error)
-				swal('Error', 'Esta persona ya esta inscrita', 'error');
+				swal('Error', 'Esta persona ya esta inscrita en el concurso seleccionado', 'error');
 			else{
 				$('[name = registroartesano]').val($('[name = idartesano]').val());
 				$('[name = registropersona]').val($('[name = idpersona]').val());
@@ -744,6 +752,9 @@ $('#1234').click(function(){
 	$('#divalta').addClass('hidden');
 
 });
+$('#cerrar').click(function(){
+	$('#inscrito_div').addClass('hidden');
+});
 </script>
 
 <script type="text/javascript" charset="utf-8">
@@ -767,7 +778,7 @@ function encontrado (id) {
 		$('[name = concid]').val("");
 		$('.bg-evento').removeClass('sombreado-evento');
 	}, 'json').fail(function(){
-		swal('Error','No se encontró el artesano','error');
+		swal('Error','Ocurrió un error, vuelva a intentarlo','error');
 	});
 }
 </script>

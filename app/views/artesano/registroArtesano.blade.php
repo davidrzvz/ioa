@@ -428,7 +428,8 @@
 								min: 5,
 								max: 5,
 								message: 'El CP debe tener 5 dígitos'
-							}
+							},
+							notEmpty: {}
 		                }
 		            },
 		            numero:{
@@ -478,7 +479,8 @@
 		                        min: 13,
 		                        max:13,
 		                        message:'Se requieren 13'
-		                    }
+		                    },
+		                    notEmpty: {}
 		                }
 		            },
                     sexo: {
@@ -487,6 +489,16 @@
                     	}
                     },
 		            civil: {
+		                validators: {
+		                    notEmpty: {}
+		                }
+		            },
+		            colonia: {
+		                validators: {
+		                    notEmpty: {}
+		                }
+		            },
+		            calle: {
 		                validators: {
 		                    notEmpty: {}
 		                }
@@ -501,6 +513,11 @@
 		                        message:'Verifica el no. de digitos'
 		                }
 		                }},
+		                tipoTel: {
+		                	validators: {
+		                		notEmpty: {},
+		                	}
+		                },
 		                lada: {
 		                validators: {
 		                    integer: {},

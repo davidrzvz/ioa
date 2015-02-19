@@ -1262,11 +1262,17 @@ width: 445px;
 
 /*Agregado */
 .wellr {
-    background-color: rgba(51, 48, 45, 0.1)!important;
-    margin-bottom: 20px;
-    padding: 9px;
-  border-radius: 3px;
+background-color: rgba(51, 48, 45, 0.1)!important;
+margin-bottom: 20px;
+padding: 9px;
+border-radius: 3px;
 
+}
+.wellrr {
+background-color: rgba(230, 230, 230, 0.5)!important;
+margin-bottom: 20px;
+padding: 9px;
+border-radius: 20px;
 }
 .bg-orga {
   color: #fff;
@@ -1305,6 +1311,10 @@ background-color: rgba(241, 222, 163, 0.8)!important;
 }
 .bg-evento:hover ,.bg-docs:hover{
     background-color: rgba(177, 159, 105, 0.6)!important;
+    cursor: pointer;
+}
+.wellrr:hover{
+    background-color: rgba(206, 106, 46, 0.6)!important;
     cursor: pointer;
 }
 

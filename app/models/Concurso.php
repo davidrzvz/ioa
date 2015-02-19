@@ -10,7 +10,7 @@ public function Personas(){
 }
 
 public function Artesanos(){
-	return $this->belongsToMany('Artesano')->withPivot('premio','numregistro','categoria','pieza','costounitario','avaluo','entrego','fechadev','calidad','recibio','fecharegistro','observaciones');
+	return $this->belongsToMany('Artesano')->withPivot('premio','numregistro','categoria','pieza','produccion','costounitario','avaluo','entrego','fechadev','calidad','recibio','fecharegistro','observaciones');
 }
 
 }
