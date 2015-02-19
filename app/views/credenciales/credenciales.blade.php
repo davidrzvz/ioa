@@ -26,16 +26,6 @@
 					</div>
 				</div>
 
-				<div class="col-md-12 form-group">
-					<div class="form-group col-sm-12 fecha">
-			         	{{ Form::label('fechanace', 'Fecha de Nacimiento',array('class' => 'control-label')) }}
-			          	<div class="input-group date" id="datetimePicker1">
-			            {{ Form::text('fechanace', null, array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
-			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			          	</div>
-					</div>
-				</div>
-
 					<div class="form-group" style="top: 13px !important;">
 						<button id="found" type="submit" class="btn btn-ioa pull-right">
 							<span class="glyphicon glyphicon-search"></span> 
@@ -68,10 +58,6 @@
 						{{ Form::label ('organización', 'NOMBRE ORGANIZACIÓN') }}
 						{{ Form::text('nombreorg', null, array('placeholder' => 'Escriba el nombre de la organización','class' => 'form-control')) }} 
 					</div>
-					<div class="col-md-4 form-group">
-						{{ Form::label ('tel', 'TELÉFONO DEL MUNICIPIO') }}
-						{{ Form::text('telmun', null, array('placeholder' => 'Número de telefono','class' => 'form-control')) }} 
-					</div>
 
 					<div class="col-md-1 form-group" style="top: 17px !important; ">
 						<button type="submit" class="btn btn-ioa">
@@ -98,6 +84,62 @@
 		  <div id="artesanos"></div>
 		</div>
 	</div>
+	<div class="modal fade" id="artesanomodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="modal-title">Artesanos</h3>
+						</div>
+						<div class="modal-body">
+							<h5 class="text-center">Elige una opción</h5>
+							<table class="table table-hover">
+							<thead id="tblHead">
+							<tr>
+							<th>Nombre</th>
+							<th>Paterno</th>
+							<th>Materno</th>
+							<th>Fecha Nacimiento</th>
+							<th>Seleccionar</th>
+							</tr>
+							</thead>
+							<tbody id="elementobody">
+							</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<div class="modal fade" id="orgmodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="modal-title">Organizaciones</h3>
+						</div>
+						<div class="modal-body">
+							<h5 class="text-center">Elige una opción</h5>
+							<table class="table table-hover">
+								<thead id="tblHead">
+									<tr>
+										<th>Organización</th>
+										<th>Teléfono</th>
+										<th>Seleccionar</th>
+									</tr>
+								</thead>
+								<tbody id="elementobody2">
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 @stop
 @section('scripts')
 <style type="text/css" media="screen">
@@ -149,26 +191,31 @@ $(document).ready(function() {
                         message: 'Por favor verifica el campo'
                     }
                     }
-                },
-            fechanace: {
-                validators: {
-                    notEmpty: {},
-                    date: {
-                        format: 'YYYY-MM-DD'
-                    }
                 }
-            }
         }
     })
     .on('success.form.bv', function(e) {
     	e.preventDefault();
 		$.post($(this).attr('action'), $(this).serialize(), function(json) {
-			if(json.success){
-				$('#imp_artesano').removeClass("hidden");
-				$('[name=id]').val(json.artesano.id);
-			}
-			else
-				swal('Error','No se encontró el artesano','error');
+				// $('#imp_artesano').removeClass("hidden");
+				// $('[name=id]').val(json.artesano.id);
+			console.log(json);
+				if(json.length == 0){
+					swal('Error', 'Persona no encontrada', 'error');
+					$('#artesano').addClass("hidden");
+				}
+				else{
+					$.each(json,function(index,artesano){
+						$('#elementobody').append('<tr>'+
+						'<td>'+artesano.persona.nombre+'</td>'+
+						'<td>'+artesano.persona.paterno+'</td>'+
+						'<td>'+artesano.persona.materno+'</td>'+
+						'<td>'+artesano.persona.fechanacimiento+'</td>'+
+						'<td>'+artesano.persona.rama.nombre+'</td>'+
+						'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
+						$("#artesanomodal").modal('show');
+					});
+				}
 		}, 'json').fail(function(){
 			swal('Error','No se encontró el artesano','error');
 		});
@@ -202,14 +249,18 @@ $(document).ready(function() {
     })
     .on('success.form.bv', function(e) {
 		e.preventDefault();
-		$.post($(this).attr('action'), $(this).serialize(), function(json) {
-			if(json.success){
-				$('#form_org').removeClass("hidden");
-				$('[name=org_id]').val(json.organizacion.id);
-				creartabla(json);
+		$.post('buscorg', $(this).serialize(), function(json) {
+        	if(json.length >= 1){
+            	$.each(json,function(index,org){
+					$('#elementobody2').append('<tr>'+
+					'<td>'+org.nombre+'</td>'+
+					'<td>'+org.telefono+'</td>'+
+					'<td><button class="btn-ioa btn-xs" onClick="encontrada('+org.id+','+org.organizacion_id+')" data-dismiss="modal">Seleccionar</button></td>');
+				});
+				$("#orgmodal").modal('show');
 			}
 			else
-				swal('Error','No se encontró la organizacion','error');
+				swal('Error','No se registro la organizacion','error');
 		}, 'json').fail(function(){
 			swal('Error','No se encontró la organizacion','error');
 		});
@@ -249,6 +300,12 @@ $(document).ready(function() {
 			$('#artesanos_table').find('tbody').find('tr').removeClass('success');
 	});
 });
+$('#artesanomodal').on('hide.bs.modal', function() {
+		    $('#elementobody').html('');
+		});
+$('#orgmodal').on('hide.bs.modal', function() {
+		    $('#elementobody2').html('');
+		});		
 function creartabla(json){
 	$('#artesanos').html('<table id="artesanos_table" class="table table-hover table-first-column-number data-table display full"></table>');
 	$('#artesanos_table').dataTable( {
@@ -276,6 +333,25 @@ function creartabla(json){
 	$('#artesanos_table').find('tbody').find('tr').on( 'click', function () {
 		$(this).toggleClass('success');
 	} );	 
+}
+function encontrado (id) {
+	$.post('buscaconcursante2', {id:id}, function(json) {
+		console.log(json);
+		$('#imp_artesano').removeClass("hidden");
+		$('[name=id]').val(json.id);
+	}, 'json').fail(function(){
+		swal('Error','No se encontró el artesano','error');
+	});
+}
+function encontrada (id) {
+	$.post('credenciales/organizacion', {id:id}, function(json) {
+		console.log(json);
+		$('#form_org').removeClass("hidden");
+		$('[name=org_id]').val(json.organizacion.id);
+		creartabla(json);
+	}, 'json').fail(function(){
+		swal('Error','No se encontró el artesano','error');
+	});
 }
 </script>
 <script type="text/javascript">

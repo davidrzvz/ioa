@@ -10,17 +10,20 @@ class CredencialesController extends BaseController {
         $nombre     = Input::get('artesanombre');
         $paterno    = Input::get('artesapaterno');
         $materno    = Input::get('artesamaterno');
-        $fecha      = Input::get('fechanace');
-        $artesano   = Artesano::whereHas('persona',function($q) use ($nombre,$paterno,$materno,$fecha)
+
+        $artesanos   = Artesano::whereHas('persona',function($q) use ($nombre,$paterno,$materno)
         {
             $q->where('nombre','like','%'.$nombre.'%','and')
-            ->where('nombre','like','%'.$paterno.'%','and')
-            ->where('nombre','like','%'.$materno.'%')
-            ->where('fechanacimiento','=',$fecha);
+            ->where('paterno','like','%'.$paterno.'%','and')
+            ->where('materno','like','%'.$materno.'%');
         })
-        ->first();
-        if(!is_null($artesano))
-            return Response::json(array('success' => true,'artesano' => $artesano));
+        ->get();
+        if(!is_null($artesanos)){
+            foreach ($artesanos as $artesano) {
+               $artesano->persona->rama;
+            }
+            return Response::json($artesanos);
+        }
         return Response::json(array('success' => false));
     }
     public function postCredencial(){
@@ -32,13 +35,13 @@ class CredencialesController extends BaseController {
         return $pdf->stream();
     }
     public function postOrganizacion(){
-        $Organizacion = Organizacion::where('nombre','=',Input::get('nombreorg'))->where('telmunicipio','=',Input::get('telmun'))->first();
+        $Organizacion = Organizacion::find(Input::get('id'));
         if(!is_null($Organizacion))
             $artesanos = $Organizacion->artesanos()->get();
             $personas = array();
             foreach ($artesanos as $artesano) {
                 $personas[] = array($artesano->persona->id,
-                    $artesano->persona->nombre,
+                    $artesano->persona->nombre.' '.$artesano->persona->paterno.' '.$artesano->persona->materno,
                     $artesano->persona->fechanacimiento
                     );
             }

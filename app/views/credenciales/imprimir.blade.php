@@ -19,9 +19,9 @@
 			<h3>Instituto Oaxacaqueño <br> de las Artesanias</h3>
 			<div >
 				<img src="{{URL::to($persona->documentos()->where('nombre','=','Foto del artesano')->first()->ruta)}}" alt=""><br><br>
-				{{$persona->nombre}} <br>
+				{{$persona->nombre}} {{$persona->paterno}} {{$persona->materno}}<br>
 				Rama: <u>{{$persona->rama->nombre}}</u> <br>
-				grupoetnico: <u>{{$persona->grupoetnico->nombre}}</u> <br>
+				Grupo Etnico: <u>{{$persona->grupoetnico->nombre}}</u> <br>
 				INE: <u>{{$persona->artesano->ine}}</u> <br>
 				CURP: <u>{{$persona->curp}}</u> <br>
 				RFC: <u>{{$persona->artesano->rfc}}</u>
