@@ -113,6 +113,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('organizaciones/comite','OrganizacionesController@Comite');
 
 	Route::get('concursante','DatosConcursanteController@verConcursante');
+	Route::post('concursante','DatosConcursanteController@buscar');
+	Route::post('concursante/update','DatosConcursanteController@update');
 
 	Route::controller('organizacion_artesano', 'OrgController');
 

@@ -117,7 +117,45 @@
 		<div id="concursos"></div>
 		
 	</div>
-</div>		
+</div>
+<div class="modal fade" id="concurso">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 class="modal-title">Concursante</h3>
+				</div>
+				<div class="modal-body">
+					{{ Form::open(array('url' => 'ArtesanoEnFeria/update','role' => 'form','id' => 'update','class' => '')) }}
+					<div class="modal-body">
+					{{ Form::text('personaid', null, array('class' => 'hiddenn','id' => 'personaid')) }} 
+					{{ Form::text('concursoid', null, array('class' => 'hiddenn','id' => 'concursoid')) }}
+					    <div class="form-group">  
+					      {{ Form::label('entrego', 'Entregó',array('class' => 'control-label')) }}
+					      {{ Form::text('entrego', null, array('placeholder' => 'introduce nombre','class' => 'form-control')) }}
+					    </div>
+					    <div class="form-group">  
+					      {{ Form::label('premio', 'Premio',array('class' => 'control-label')) }}
+					      {{ Form::text('premio', null, array('placeholder' => 'introduce nombre','class' => 'form-control')) }}
+					    </div>
+					    <div class="form-group fecha">
+					      {{ Form::label('fecha', 'Fecha de devolución',array('class' => 'control-label')) }}
+					      <div class="input-group date" id="datetimePicker">
+					        {{ Form::text('fecha', null, array('class' => 'form-control','placeholder' => 'YYYY-MM-DD', 'data-date-format' => 'YYYY-MM-DD')) }}
+					        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					      </div>
+					    </div>
+					    <br>
+					</div>
+					<div class="modal-footer">
+					    <button id='bcancelar' type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+					    {{ Form::button('<i class="fa fa-floppy-o "></i> Guardar',array('class' => 'btn btn-success','id' => 'guardar','type' => 'submit')) }}
+					</div> 
+					{{ Form::close() }}
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 @endsection
 
 
@@ -139,7 +177,10 @@
 
 <script type="text/javascript">
 			$(document).ready(function() {
-			
+			$('#datetimePicker').datetimepicker({
+        language: 'es',
+        pickTime: false
+    });
 		    $('#buscarartesano').bootstrapValidator({
 		        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
 		        feedbackIcons: {
@@ -201,15 +242,62 @@
 		$('#myModal').on('hide.bs.modal', function() {
 		    $('#elementobody').html('');
 		});
-		
+		$('#update').bootstrapValidator({
+		        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok tok',
+		            invalid: 'glyphicon glyphicon-remove tok',
+		            validating: 'glyphicon glyphicon-refresh tok'
+		        },
+		        fields: {
+		            entrego: {
+		                validators: {
+		                    regexp:{
+		                    regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+		                        message: 'Por favor verifica el campo'
+		                    }
+		                    }},
+		            premio:{
+		                validators: {
+		                    notEmpty: {},
+		                }
+		            },
+		            fecha: {
+		                validators: {
+		                    notEmpty: {
+		                    },
+		                    date: {
+		                        format: 'YYYY-MM-DD',
+		                    }
+		                }
+		            },	            
+		        }
+		    })
+			.on('success.form.bv', function(e) {
+	            e.preventDefault();
+				$.post('concursante/update', $(this).serialize(), function(json) {
+					console.log(json);
+					if(!json.error)
+					swal('Exito','todo salio bien','success');
+					$('#concursos').html('');
+					encontrado(json.id);
+					$("#concurso").modal('hide');
+				}, 'json').fail(function(){
+					swal('Error','No se encontró el artesano','error');
+				});
+			});
+		$('#myModal').on('hide.bs.modal', function() {
+		    $('#elementobody').html('');
+		});
 });
     function encontrado (id) {
     	$.post('encontrado', {id:id}, function(json) {
 			$('#buscarartesano').closest(".wellr").addClass('hidden');
 			$(".anadidos").removeClass('hidden')
-			console.log(json.persona.telefono);
+			console.log(json.persona.id);
+			$('#personaid').val(json.persona.id);
 			$.each(json.concursos,function(index,concurso){
-				$('#concursos').append('<div class="wellrr col-sm-6"><h4><label class="elementos nombreconcurso">Concurso: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4><h4><label class="elementos cat">Categoría: <strong>'+concurso.pivot.categoria+'</strong></label></h4><h4><label class="elementos pieza">Pieza: <strong>'+concurso.pivot.pieza+'</strong></label></h4><h4><label class="elementos calidad">Calidad: <strong>'+concurso.pivot.calidad+'</strong></label></h4><h4><label class="elementos registro">No. registro: <strong>'+concurso.pivot.numregistro+'</strong></label></h4><h4><label class="elementos costo">Costo Unitario: <strong>'+concurso.pivot.costounitario+'</strong></label></h4><h4><label class="elementos avaluo">Avaluo: <strong>'+concurso.pivot.avaluo+'</strong></label></h4><h4><label class="elementos entrego">Entregó: <strong>'+concurso.pivot.entrego+'</strong></label></h4><h4><label class="elementos premio">Premio: <strong>'+concurso.pivot.premio+'</strong></label></h4><h4><label class="elementos dev">Fecha de devolución: <strong>'+concurso.pivot.fechadev+'</strong></label></h4></div>');
+				$('#concursos').append('<div class=" col-sm-6"><h4><label class="elementos nombreconcurso"><div class="col-sm-1 pull-right" style="cursor:pointer;" onClick="update('+concurso.id+')"><i class="fa fa-pencil fa-lg pull-right"></i>Editar</div>Concurso: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4><h4><label class="elementos cat">Categoría: <strong>'+concurso.pivot.categoria+'</strong></label></h4><h4><label class="elementos pieza">Pieza: <strong>'+concurso.pivot.pieza+'</strong></label></h4><h4><label class="elementos calidad">Calidad: <strong>'+concurso.pivot.calidad+'</strong></label></h4><h4><label class="elementos registro">No. registro: <strong>'+concurso.pivot.numregistro+'</strong></label></h4><h4><label class="elementos costo">Costo Unitario: <strong>'+concurso.pivot.costounitario+'</strong></label></h4><h4><label class="elementos avaluo">Avaluo: <strong>'+concurso.pivot.avaluo+'</strong></label></h4><h4><label class="elementos entrego">Entregó: <strong>'+concurso.pivot.entrego+'</strong></label></h4><h4><label class="elementos premio">Premio: <strong>'+concurso.pivot.premio+'</strong></label></h4><h4><label class="elementos dev">Fecha de devolución: <strong>'+concurso.pivot.fechadev+'</strong></label></h4></div>');
 			});
 			
 			$('#datitos').removeClass("hidden");
@@ -223,6 +311,10 @@
 		}, 'json').fail(function(){
 			swal('Error','No se encontró el artesano','error');
 		});
+    }
+    function update(id){
+    	$('#concursoid').val(id);
+    	$("#concurso").modal('show');
     }
 	</script>
 

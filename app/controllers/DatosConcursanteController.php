@@ -81,5 +81,18 @@ class DatosConcursanteController extends BaseController {
 		return Response::json($artesano);
 	}
 
+	public function update(){
+		$objt = Artesano::find(Input::get('personaid'));
+		if(is_null($objt))
+			$objt = Persona::find(Input::get('personaid'));
+		if($objt->concursos()->where('concurso_id','=',Input::get('concursoid'))->update(array(
+			'entrego' 	=> Input::get('entrego'),
+			'fechadev' 	=> Input::get('fecha'),
+			'premio' 	=> Input::get('premio')
+			)))
+		return Response::json(array('success'=>true,'id'=>Input::get('personaid')));
 
+		return Response::json(array('error'=>true));
+
+	}
 }
