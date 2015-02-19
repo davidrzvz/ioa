@@ -20,4 +20,10 @@ class OrgController extends BaseController {
 		}
 		return Response::json($artesanoArr);
     }
+    public function postEliminar()
+    {
+    	if(Artesano::find(Input::get('artesano')) -> Organizacion() -> detach(Input::get('organizacion')))return Response::json(array('success' => true));
+    	else 
+    		return Response::json(array('error' => true));
+    }
 }

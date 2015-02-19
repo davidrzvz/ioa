@@ -50,7 +50,7 @@
     </div>
 
   <div class="modal fade" id="editar">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -248,6 +248,9 @@ function editar(btn){
                 },
             },
         } );
+        $('#tartesanoss').find('tbody').find('tr').on( 'click', function () {
+                elim($(this).closest("tr").find("td:nth-child(6)").text(), id)
+              } );
 //añadir el boton que lanza la funcion elim(idartesadno, idorganizacion) el organizacion es el de la linea 219, y el del artesano viene en el json.
         $('#editar').modal('show');
     }, 'json');
@@ -266,7 +269,17 @@ function eliminar(btn) {
     });
 }
 function elim (arte, orga) {
-    // body...
+    swal({   title: "Estás completamente seguro?",   text: "Se borrará este artesano de esta organización, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+    $.post('organizacion_artesano/eliminar', {artesano:arte,organizacion:orga}, function(json) {
+        console.log(json);
+        if(json.success){
+            $('#editar').modal('hide');
+            swal('Exito', 'Todo salio bien', "success");
+        }
+        else 
+            swal('Error', 'Ocurrio un error', "error");
+    }, 'json');
+    });
 }
 function datos(tr){
     var id = $(tr).find("td:nth-child(1)").text();
