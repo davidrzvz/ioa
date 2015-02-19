@@ -8,6 +8,7 @@
         <div class="col-md-12">
             <div class="col-md-8">
             <h3 style="margin-bottom:20px;"><i class="fa  fa-sitemap"></i><strong> Organizaciones</strong></h3>
+            <h4>Clic en la organización para ver los datos del comité</h4>
             </div>
             <div class="col-md-2" style="margin-top:10px;">
             <button type="button" class="btn btn-success" id="bnuevo"><i class="fa fa-plus fa-lg"></i> Nueva</button>
@@ -46,9 +47,11 @@
                 
             </div>
             <div  id="comite">
+
                 
             </div>
             <div id="artesanos">
+
                 
             </div>
     </div>
@@ -319,13 +322,13 @@ function eliminar(btn) {
 }
 function datos(tr){
     var id = $(tr).find("td:nth-child(1)").text();
-    $('#organizacion').html('<h1>Organización: '+$(tr).find("td:nth-child(2)").text()+'</h1><h2>Telefono: '+$(tr).find("td:nth-child(3)").text()+'</h2>');
+    $('#organizacion').html('<h2>Organización: '+$(tr).find("td:nth-child(2)").text()+'</h2><h2>Telefono: '+$(tr).find("td:nth-child(3)").text()+'</h2>');
     $.post('{{URL::to("organizaciones/comite");}}','id='+id, function(json) {
             if(json.comite.length > 0)
                 $('#datos').removeClass('hidden');
             else
                 swal('Error','No se encontraron registros','error');
-            $('#comite').html('<table id="tcomite" class="table table-hover table-first-column-number data-table display full"></table>');
+            $('#comite').html('<div class="bg-orga text-center">COMITÉ DE LA ORGANIZACIÓN</div><table id="tcomite" class="table table-hover table-first-column-number data-table display full"></table>');
             $('#tcomite').dataTable( {
               "data": json.comite,
               "columns": [
@@ -339,10 +342,10 @@ function datos(tr){
                           { "title": "Cargo" },
                       ],
               "language": {
-                    "lengthMenu": "concursantes por página _MENU_",
+                    "lengthMenu": "Elementos por página _MENU_",
                     "zeroRecords": "No se encontro",
                     "info": "Pagina _PAGE_ de _PAGES_",
-                    "infoEmpty": "No records available",
+                    "infoEmpty": "No hay registros por mostrar",
                     "infoFiltered": "(Ver _MAX_ total records)",
                     'search': 'Buscar: ',
                     "paginate": {
@@ -367,7 +370,7 @@ function datos(tr){
                 },
             } );
 ///
-            $('#artesanos').html('<table id="tartesanos" class="table table-hover table-first-column-number data-table display full"></table>');
+            $('#artesanos').html('<div class="bg-orga text-center">ARTESANOS EN LA ORGANIZACIÓN</div><table id="tartesanos" class="table table-hover table-first-column-number data-table display full"></table>');
             $('#tartesanos').dataTable( {
               "data": json.artesanos,
               "columns": [

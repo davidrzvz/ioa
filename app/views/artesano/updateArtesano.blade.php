@@ -244,10 +244,17 @@
 	
 		</div>
 
+
 		<div class="form-group" >
 			<button type="submit" class="btn btn-ioa btn-lg pull-right">
 			<span class="glyphicon glyphicon-floppy-disk"></span> 
 			Guardar
+			</button>
+		</div>
+		<div class="form-group" >
+			<button id="cancelar" type="button" class="btn btn-danger btn-lg pull-right">
+			<span class="glyphicon glyphicon-remove"></span> 
+			Cancelar
 			</button>
 		</div>
 		{{Form::close()}}
@@ -335,6 +342,7 @@ $('#buscarartesano').bootstrapValidator({
     fields: {
         artesanombre: {
             validators: {
+            	notEmpty: {},
                 regexp:{
                 regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
                     message: 'Por favor verifica el campo'
@@ -409,6 +417,21 @@ $('#formupdate').bootstrapValidator({
 	                message: 'Por favor verifica el campo'
 	            }
 	            }},
+	    paterno: {
+            validators: {
+                notEmpty: {},
+            	regexp:{
+                regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+                    message: 'Por favor verifica el campo'
+                }
+                }},
+        materno: {
+            validators: {
+            	regexp:{
+                regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+                    message: 'Por favor verifica el campo'
+                }
+                }},
 	    cp:{
 	        validators: {
 	            integer: {},
@@ -464,6 +487,22 @@ $('#formupdate').bootstrapValidator({
 	    		notEmpty: {}
 	    	}
 	    },
+	    numero:{
+		    validators: {
+		        integer: {},
+		        notEmpty: {},
+		    }
+		},
+		colonia: {
+            validators: {
+                notEmpty: {}
+            }
+        },
+        calle: {
+            validators: {
+                notEmpty: {}
+            }
+        },
 	    civil: {
 	        validators: {
 	            notEmpty: {}
@@ -471,8 +510,18 @@ $('#formupdate').bootstrapValidator({
 	    },
 	    tel: {
 	        validators: {
-	            integer:{}
+	            integer:{},
+	            stringLength: {
+	                min: 7,
+	                max: 7,
+	                message:'Se requieren 7 dig'
+	        }
 	        }},
+	    tipoTel: {
+        	validators: {
+        		notEmpty: {},
+        	}
+        },
 	        lada: {
 	        validators: {
 	            integer: {},
@@ -557,6 +606,11 @@ $('.mayuscula').focusout(function() {
 
 $('#datetimePicker').on('dp.change dp.show', function(e) {
     $('#formupdate').bootstrapValidator('revalidateField', 'fechanace');
+});
+
+$('#cancelar').click(function(){
+window.location.reload();	
+
 });
 </script>
 

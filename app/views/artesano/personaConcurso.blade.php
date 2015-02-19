@@ -43,7 +43,7 @@
 						{{ Form::text('nombre', null, array('placeholder' => 'Ingrese nombre','class' => 'form-control mayuscula')) }}
 					</div>
 					<div class="col-sm-4 form-group">	
-						{{ Form::label ('paterno', 'Nombre Completo',array('class' => 'control-label')) }}
+						{{ Form::label ('paterno', 'Apellido paterno',array('class' => 'control-label')) }}
 						{{ Form::text('paterno', null, array('placeholder' => 'Apellido paterno','class' => 'form-control mayuscula')) }}
 					</div>
 					<div class="col-sm-4 form-group">	
@@ -164,20 +164,14 @@
 								{{ Form::text('avaluo', null, array('placeholder' => 'avaluo','class' => 'form-control')) }}
 							</div>
 						</div>
-						<div class="col-sm-3 form-group">
+						<div class="col-sm-4 form-group">
 								{{ Form::label('prod', 'Producción mensual') }}
 								<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-signal"></i></div>
 									{{ Form::text('prod', null, array('placeholder' => 'produccion','class' => 'form-control')) }}
 								</div>
 							</div>
-						<div class="col-sm-6 form-group">
-							{{ Form::label('entrego', 'Entregó') }}
-							<div class="input-group">
-							<div class="input-group-addon"><i class="fa fa-male"></i></div>
-							{{ Form::text('entrego', null, array('placeholder' => 'Nombre de quien entrega la pieza','class' => 'form-control')) }}
-							</div>
-						</div>
+						
 					</div>
 					<div class="col-sm-12">
 						<div class="col-sm-7 form-group">
@@ -472,6 +466,37 @@ $(document).ready(function() {
 	                    message: 'Por favor verifica el campo'
 	                }
 	                }},
+	        paterno:{
+                validators: {
+                    notEmpty: {},
+                	regexp:{
+                    regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+                        message: 'Por favor verifica el campo'
+                    }
+                    }},
+            materno:{
+				validators: {
+                    regexp:{
+                    regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+                        message: 'Por favor verifica el campo'
+                    }
+                    }
+                },
+                colonia: {
+		                validators: {
+		                    notEmpty: {}
+		                }
+		            },
+		            calle: {
+		                validators: {
+		                    notEmpty: {}
+		                }
+		            },
+	                tipoTel: {
+	                	validators: {
+	                		notEmpty: {},
+	                	}
+	                },
 	        cp:{
 	            validators: {
 	                integer: {},
@@ -526,6 +551,12 @@ $(document).ready(function() {
 	        		notEmpty:{}
 	        	}
 	        },
+	        numero:{
+                validators: {
+                    integer: {},
+                    notEmpty: {},
+                }
+            },
 	        concid:{
 	        	validators: {
 	        		notEmpty:{}
@@ -562,11 +593,17 @@ $(document).ready(function() {
 	        		notEmpty:{}
 	        	}
 	        },
-	        	avaluo:{
-	        	validators: {
-	        		integer: {},
-	        		notEmpty:{}
-	        	}
+        	avaluo:{
+        	validators: {
+        		integer: {},
+        		notEmpty:{}
+        	}
+	        },
+	        prod:{
+        	validators: {
+        		integer: {},
+        		notEmpty:{}
+        	}
 	        },
 	        observ: {
 	            validators: {
@@ -670,6 +707,12 @@ $(document).ready(function() {
 	        		integer: {},
 	        		notEmpty:{}
 	        	}
+	        },
+	        prod:{
+        	validators: {
+        		integer: {},
+        		notEmpty:{}
+        	}
 	        },
 	        avaluo:{
 	        	validators: {

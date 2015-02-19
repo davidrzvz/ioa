@@ -216,7 +216,7 @@
 				$.post($(this).attr('action'), $(this).serialize(), function(json) {
 					console.log(json);
 						if(json.length == 0){
-							swal('Error', 'Persona no encontrada', 'error');
+							swal('Error', 'Artesano no encontrado', 'error');
 							$('#artesano').addClass("hidden");
 						}
 						else{

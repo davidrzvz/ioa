@@ -46,7 +46,7 @@
 				{{ Form::close() }}
 			</div>
 		</div>
-		<div class="col-sm-7 wellr">	
+		<div class="col-sm-6 wellr">	
 			<div class="col-md-12">
 				{{ Form::open(array('url' => 'credenciales/organizacion','role' => 'form','id' => 'organizacion','class' => 'form')) }}
 					<div class="col-md-12">
@@ -68,7 +68,7 @@
 				{{ Form::close() }}
 			</div>
     	</div>
-    	<div id="form_org" class="col-sm-5 wellr hidden" style="min-height:700px; margin:10px 0 0 30px;">
+    	<div id="form_org" class="col-sm-6 col-sm-offset-1 wellr hidden" style="min-height:400px; margin:10px 0 0 30px;">
     		{{ Form::open(array('url' => 'credenciales/credenciales','role' => 'form','id' => 'form_artesanos','class' => 'class')) }}
     			{{ Form::text('org_id', null, array('class' => 'hidden')) }}
 	    		<div class="checkbox col-sm-6">
