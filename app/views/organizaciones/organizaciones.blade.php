@@ -7,7 +7,7 @@
         
         <div class="col-md-12">
             <div class="col-md-8">
-            <h3 style="margin-bottom:20px;"><i class="fa  fa-sitemap"></i><strong> Organizaciones</strong></h3>
+            <h3 style="margin-bottom:20px;"><i class="fa  fa-sitemap"></i><strong> Eliminar integrantes de organización</strong></h3>
             </div>
         </div>
         <div class="col-md-9 col-md-offset-1 wellr">

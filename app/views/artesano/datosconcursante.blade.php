@@ -128,10 +128,10 @@
 				<div class="modal-body">
 					{{ Form::open(array('url' => 'ArtesanoEnFeria/update','role' => 'form','id' => 'update','class' => '')) }}
 					<div class="modal-body">
-					{{ Form::text('personaid', null, array('class' => 'hiddenn','id' => 'personaid')) }} 
-					{{ Form::text('concursoid', null, array('class' => 'hiddenn','id' => 'concursoid')) }}
+					{{ Form::text('personaid', null, array('class' => 'hidden','id' => 'personaid')) }} 
+					{{ Form::text('concursoid', null, array('class' => 'hidden','id' => 'concursoid')) }}
 					    <div class="form-group">  
-					      {{ Form::label('entrego', 'Entregó',array('class' => 'control-label')) }}
+					      {{ Form::label('entrego', 'Devolvió',array('class' => 'control-label')) }}
 					      {{ Form::text('entrego', null, array('placeholder' => 'introduce nombre','class' => 'form-control')) }}
 					    </div>
 					    <div class="form-group">  
@@ -297,7 +297,7 @@
 			console.log(json.persona.id);
 			$('#personaid').val(json.persona.id);
 			$.each(json.concursos,function(index,concurso){
-				$('#concursos').append('<div class=" col-sm-6"><h4><label class="elementos nombreconcurso"><div class="col-sm-1 pull-right" style="cursor:pointer;" onClick="update('+concurso.id+')"><i class="fa fa-pencil fa-lg pull-right"></i>Editar</div>Concurso: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4><h4><label class="elementos cat">Categoría: <strong>'+concurso.pivot.categoria+'</strong></label></h4><h4><label class="elementos pieza">Pieza: <strong>'+concurso.pivot.pieza+'</strong></label></h4><h4><label class="elementos calidad">Calidad: <strong>'+concurso.pivot.calidad+'</strong></label></h4><h4><label class="elementos registro">No. registro: <strong>'+concurso.pivot.numregistro+'</strong></label></h4><h4><label class="elementos costo">Costo Unitario: <strong>'+concurso.pivot.costounitario+'</strong></label></h4><h4><label class="elementos avaluo">Avaluo: <strong>'+concurso.pivot.avaluo+'</strong></label></h4><h4><label class="elementos entrego">Entregó: <strong>'+concurso.pivot.entrego+'</strong></label></h4><h4><label class="elementos premio">Premio: <strong>'+concurso.pivot.premio+'</strong></label></h4><h4><label class="elementos dev">Fecha de devolución: <strong>'+concurso.pivot.fechadev+'</strong></label></h4></div>');
+				$('#concursos').append('<div class=" col-sm-6"><h4><label class="elementos nombreconcurso"><div class="col-sm-1 pull-right" style="cursor:pointer;" onClick="update('+concurso.id+')"><i class="fa fa-pencil fa-lg pull-right"></i>Editar</div>Concurso: <strong>'+concurso.nombre+'</strong></label></h4><h4><label class="elementos fechaconcurso">Fecha: <strong>'+concurso.fecha+'</strong></label></h4><h4><label class="elementos">Premiación: <strong>'+concurso.premiacion+'</strong></label></h4><h4><label class="elementos nivelconcurso">Nivel: <strong>'+concurso.nivel+'</strong></label></h4><h4><label class="elementos cat">Categoría: <strong>'+concurso.pivot.categoria+'</strong></label></h4><h4><label class="elementos pieza">Pieza: <strong>'+concurso.pivot.pieza+'</strong></label></h4><h4><label class="elementos calidad">Calidad: <strong>'+concurso.pivot.calidad+'</strong></label></h4><h4><label class="elementos registro">No. registro: <strong>'+concurso.pivot.numregistro+'</strong></label></h4><h4><label class="elementos costo">Costo Unitario: <strong>'+concurso.pivot.costounitario+'</strong></label></h4><h4><label class="elementos avaluo">Avaluo: <strong>'+concurso.pivot.avaluo+'</strong></label></h4><h4><label class="elementos entrego">Devolvió: <strong>'+concurso.pivot.entrego+'</strong></label></h4><h4><label class="elementos premio">Premio: <strong>'+concurso.pivot.premio+'</strong></label></h4><h4><label class="elementos dev">Fecha de devolución: <strong>'+concurso.pivot.fechadev+'</strong></label></h4></div>');
 			});
 			
 			$('#datitos').removeClass("hidden");

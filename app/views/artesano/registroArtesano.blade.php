@@ -386,8 +386,8 @@
 			$('#datetimePicker').datetimepicker({
 		        language: 'es',
 		        pickTime: false,
-		        defaultDate: moment().subtract(8, 'y'),
- 				maxDate: moment().subtract(6, 'y')
+		        defaultDate: moment().subtract(20, 'y'),
+ 				maxDate: moment().subtract(18, 'y')
 		    });
 
 		    $('#formalta').bootstrapValidator({
