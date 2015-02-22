@@ -566,7 +566,7 @@
     			}
 		        }
 		    }).on('success.form.bv', function(e) {
-	            e.preventDefault();
+	            //e.preventDefault();
 				// $.post($(this).attr('action'), $(this).serialize(), function(json) {
 				// 	if(json.success)
 				// 		swal('','Artesano registrado exitosamente','success');
