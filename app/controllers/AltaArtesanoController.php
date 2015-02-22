@@ -162,8 +162,8 @@ class AltaArtesanoController extends BaseController {
 			$documento -> persona_id = $personaArtesano->id;
 			$documento -> save();
 		}
-	//return Response::json(array('success' => true,'artesano' => $personaArtesano));
-		return Redirect::back();
+	return Response::json(array('success' => true,'artesano' => $personaArtesano));
+		//return Redirect::back();
 	}
 
 	public function post_nuevopor()

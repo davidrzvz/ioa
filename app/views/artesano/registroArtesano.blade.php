@@ -566,13 +566,30 @@
     			}
 		        }
 		    }).on('success.form.bv', function(e) {
-	            //e.preventDefault();
-				// $.post($(this).attr('action'), $(this).serialize(), function(json) {
-				// 	if(json.success)
-				// 		swal('','Artesano registrado exitosamente','success');
-				// }, 'json').fail(function(){
-				// 	swal('Error','No se registro el artesano','error');
-				// });
+	            e.preventDefault();
+	            var formData = new FormData($("#formalta")[0]);
+	            $.ajax({
+	                      url: $(this).attr('action'),  
+	                      type: 'POST',
+	                      // Form data
+	                      //datos del formulario
+	                      data: formData,
+	                      //necesario para subir archivos via ajax
+	                      cache: false,
+	                      contentType: false,
+	                      processData: false,
+	                      //mientras enviamos el archivo
+
+	                      //una vez finalizado correctamente
+	                      success: function(data){
+	                          if(data.success)
+	                          	swal('','Artesano registrado exitosamente','success');
+	                      },
+	                      //si ha ocurrido un error
+	                      error: function(){
+	                          swal('Error','No se registro el artesano','error');
+	                      }
+	                  });
 			});
 		$('.mayuscula').focusout(function() {
 				$(this).val($(this).val().toUpperCase());
