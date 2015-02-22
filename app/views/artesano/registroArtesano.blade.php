@@ -567,12 +567,12 @@
 		        }
 		    }).on('success.form.bv', function(e) {
 	            e.preventDefault();
-				$.post($(this).attr('action'), $(this).serialize(), function(json) {
-					if(json.success)
-						swal('','Artesano registrado exitosamente','success');
-				}, 'json').fail(function(){
-					swal('Error','No se registro el artesano','error');
-				});
+				// $.post($(this).attr('action'), $(this).serialize(), function(json) {
+				// 	if(json.success)
+				// 		swal('','Artesano registrado exitosamente','success');
+				// }, 'json').fail(function(){
+				// 	swal('Error','No se registro el artesano','error');
+				// });
 			});
 		$('.mayuscula').focusout(function() {
 				$(this).val($(this).val().toUpperCase());
