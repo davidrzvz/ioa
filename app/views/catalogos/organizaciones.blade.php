@@ -308,16 +308,16 @@ function editar(btn){
     $('[name = tel]').val($(btn).closest("tr").find("td:nth-child(3)").text());
 }
 function eliminar(btn) {
-    swal({   title: "Estás completamente seguro?",   text: "Se borrarán todos los artesanos pertenecientes a esta organización, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
-        $.post('{{URL::to("organizaciones/delete");}}', {org:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
-            if(json.success){
+    swal({   title: "Estás seguro?",   text: "Sólo se pueden eliminar organizaciones sin artesanos!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+        $.post('{{URL::to("organizaciones/delete");}}', {org:$(btn).closest("tr").find("td:nth-child(1)").text()}) 
+                .done(function(json){
                 swal('Organización eliminada', null, "success");
                 $(btn).closest("tr").remove();
                 location.reload();
-            }
-            else
-                swal('Error', 'Ocurrio un error', "error");
-        }, 'json');
+            })
+            .fail(function(xhr, textStatus, errorThrown) {
+                swal('Error', 'Existen artesanos registrados en la organización, no se puede eliminar', "error");
+            })
     });
 }
 function datos(tr){
@@ -327,7 +327,7 @@ function datos(tr){
             if(json.comite.length > 0)
                 $('#datos').removeClass('hidden');
             else
-                swal('Error','No se encontraron registros','error');
+                swal('Error','Aún no hay artesanos registrados','error');
             $('#comite').html('<div class="bg-orga text-center">COMITÉ DE LA ORGANIZACIÓN</div><table id="tcomite" class="table table-hover table-first-column-number data-table display full"></table>');
             $('#tcomite').dataTable( {
               "data": json.comite,

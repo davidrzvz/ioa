@@ -220,7 +220,6 @@
 
 						</div>
 					
-
 						<div class="col-md-12">	
 						<div class="col-md-4 form-group">	
 							{{ Form::label('producto', 'Nombre del Producto') }}

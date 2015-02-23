@@ -262,18 +262,20 @@ function editar(btn){
     $('[name = nombre]').val($(btn).closest("tr").find("td:nth-child(2)").text());
 }
 function eliminar(btn) {
-    swal({   title: "Estás completamente seguro?",   text: "Se borrarán todos los artesanos pertenecientes a este grupo, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
-    $.post('{{URL::to("gruposetnicos/delete");}}', {grupo:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
-            if(json.success){
-                swal('Grupo eliminado', null, "success");
+    swal({   title: "Estás seguro?",   text: "El grupo sólo se puede eliminar si no hay artesanos que pertenecen a el!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+        
+        $.post('{{URL::to("gruposetnicos/delete");}}', {grupo:$(btn).closest("tr").find("td:nth-child(1)").text()}
+            .done(function(json){
+                swal('Grupo Étnico eliminado', null, "success");
                 $(btn).closest("tr").remove();
                 location.reload();
-            }
-            else
-                swal('Error', 'Ocurrio un error', "error");
-        }, 'json');
+            })
+            .fail(function(xhr, textStatus, errorThrown) {
+                swal('Error', 'Existen artesanos registrados en el Grupo Étnico, no se puede eliminar', "error");
+            })
     });
 }
+
 </script>
 
 
