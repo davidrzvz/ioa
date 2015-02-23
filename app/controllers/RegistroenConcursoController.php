@@ -146,6 +146,10 @@ class RegistroenConcursoController extends BaseController {
 		return Response::json($persona);
 	}
 	
+	public function post_buscaconcursante3(){
+		$persona = Persona::find(Input::get('id'));
+		return Response::json($persona);
+	}
 	public function post_personaconcursos(){
 		if(Input::get('idartesano') == "")
 			$objt = Persona::find(Input::get('idpersona'));

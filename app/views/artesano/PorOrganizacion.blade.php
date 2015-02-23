@@ -15,11 +15,7 @@
 			<div class="col-xs-4 col-md-6 form-group">
 				{{ Form::label ('organización', 'NOMBRE ORGANIZACIÓN') }}
 				{{ Form::text('nombreorg', null, array('placeholder' => 'Escriba el nombre de la organización','class' => 'form-control')) }} 
-			</div><!-- 
-			<div class="col-md-3 form-group">
-				{{ Form::label ('tel', 'TELÉFONO DEL MUNICIPIO') }}
-				{{ Form::text('telmun', null, array('placeholder' => 'Escriba el número de telefono','class' => 'form-control')) }} 
-			</div> -->
+			</div>
 
 			<div class="col-md-1 form-group" style="top: 17px !important; ">
 				<button type="submit" class="btn btn-ioa">
