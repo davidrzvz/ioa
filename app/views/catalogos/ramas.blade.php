@@ -263,15 +263,22 @@ function editar(btn){
 }
 function eliminar(btn) {
     swal({   title: "Estás seguro?",   text: "La rama sólo se puede eliminar si no hay artesanos que pertenecen a ella!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
-        $.post('{{URL::to("ramas/delete");}}', {rama:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
-            if(json.success){
-                swal('Rama eliminada', null, "success");
-                $(btn).closest("tr").remove();
-                location.reload();
-            }
-            else
-                swal('Error', 'Ocurrio un error', "error");
-        }, 'json');
+        // $.post('{{URL::to("ramas/delete");}}', {rama:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
+        $.post('{{URL::to("ramas/delete");}}', {rama:$(btn).closest("tr").find("td:nth-child(1)").text()}/*, function(json*/) 
+            // if(json.success){
+            //     swal('Rama eliminada', null, "success");
+            //     $(btn).closest("tr").remove();
+            //     location.reload();
+            // }
+            // else
+            //     swal('Error', 'Ocurrio un error', "error");
+            .done(function(json){
+                console.log(json);
+            })
+            .fail(function(xhr, textStatus, errorThrown) {
+                swal('Error', 'TIENE PERSONAS, NO SE ELIMINARÁ', "error");
+            })
+        // }, 'json');
     });
 }
 </script>
