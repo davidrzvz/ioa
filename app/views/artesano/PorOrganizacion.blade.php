@@ -12,7 +12,7 @@
 			</div>
 			<div class="bg-orga col-md-12">DATOS DE LA ORGANIZACIÓN</div>
 		
-			<div class="col-xs-4 col-md-6 form-group">
+			<div class="col-xs-4 col-md-4 form-group">
 				{{ Form::label ('organización', 'NOMBRE ORGANIZACIÓN') }}
 				{{ Form::text('nombreorg', null, array('placeholder' => 'Escriba el nombre de la organización','class' => 'form-control')) }} 
 			</div>
@@ -34,8 +34,28 @@
 			</div>
 		</form>
 	</div>
+	<div class="wellr col-md-5">
+<div class="col-md-12 text-center"><strong>TIPO DE REGISTRO</strong></div>
+	<div class="col-sm-6">
+		<div class="form-group pull-right">
+			<button id="nuevoregistro" type="button" class="btn btn-ioa">
+			<span class="glyphicon glyphicon-remove"></span> 
+			Nuevo Registro
+			</button>
+		</div>
+	</div>
+	
+	<div class="col-sm-6">
+		<div class="form-group" >
+			<button id="yaregistrado" type="button" class="btn btn-ioa">
+			<span class="glyphicon glyphicon-ok"></span> 
+			Artesano ya registrado 
+			</button>
+		</div>
+	</div>
+	</div>
 		
-		<div class="col-sm-12">
+		<div class="col-sm-12 hidden" id="formregnuevo">
 			<div class="bg-orga col-md-12">DATOS DEL ARTESANO</div>
 			{{ Form::open(array('id' => 'formalta','url'=>'por/registro','files'=>true)) }}
 				<div class="col-md-12">
@@ -393,8 +413,102 @@
 			</div>
 		{{Form::close()}}
 	</div>
+
+
+		<div class="col-sm-6 wellr hidden pull-right" id="formyareg">
+		<div class="bg-orga col-md-12" style="margin-top:10px; text-align:center;">BUSCAR ARTESANOS</div>
+		
+		{{ Form::open(array('class'=>"form-horizontal",'id'=>'buscarartesano', 'url'=>"ArtesanoEnFeria")) }}
+		
+			<div class="col-md-12">				
+				
+				<div class="form-group">
+					{{ Form::label('artesanombre', 'Nombre(s)',array('style'=>'text-align: left;','class' => 'control-label col-sm-2')) }}
+					<div class="col-sm-8">
+					{{ Form::text('artesanombre', null, array('id'=>'artesanombre1','placeholder' => 'introduce nombre','class' => 'form-control')) }}
+					</div>
+				</div>
+
+				<div class="form-group">
+				{{ Form::label('artesapaterno', 'Apellido paterno',array('style'=>'text-align: left','class' => 'control-label col-sm-2')) }}
+				<div class="col-sm-8">
+				{{ Form::text('artesapaterno', null, array('placeholder' => 'introduce apellido paterno','class' => 'form-control')) }}
+				</div>
+				</div>
+
+				<div class="form-group">
+				{{ Form::label('artesamaterno', 'Apellido materno',array('style'=>'text-align: left','class' => 'control-label col-sm-2')) }}
+				<div class="col-sm-8">
+				{{ Form::text('artesamaterno', null, array('placeholder' => 'introduce apellido materno','class' => 'form-control')) }}
+				</div>
+				</div>
+			</div>
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 class="modal-title">Artesanos</h3>
+						</div>
+						<div class="modal-body">
+							<h5 class="text-center">Elige una opción</h5>
+							<table class="table table-hover">
+							<thead id="tblHead">
+							<tr>
+							<th>Nombre</th>
+							<th>Paterno</th>
+							<th>Materno</th>
+							<th>Fecha Nacimiento</th>
+							<th>Seleccionar</th>
+							</tr>
+							</thead>
+							<tbody id="elementobody">
+							</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default " data-dismiss="modal">Cerrar</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			
+			<div class="col-sm-12">
+
+				<div class="form-group" style="top: 13px !important;">
+					<button id="found" type="submit" class="btn btn-ioa pull-right">
+						<span class="glyphicon glyphicon-search"></span> 
+						Buscar 
+					</button>
+				</div>
+				</div>
+
+
+			<div class="bg-orga col-md-12">DATOS COMITÉ</div>
+					
+				<div class= "col-md-12 form-group">
+					<div class="col-md-4">
+						{{ Form::label ('cargo', 'CARGO A OCUPAR') }}
+						{{ Form::select('cargo', array('' => 'Seleccione','Presidente' => 'Presidente','Secretario' => 'Secretario','Tesorero' => 'Tesorero','Vocal de control y vigilancia' => 'Vocal de control y vigilancia','Vocal 1' => 'Vocal 1', 'Vocal 2' => 'Vocal 2'), null, array('class' =>'form-control'))}}
+					</div>
+					{{ Form::text('comiteid', null, array('class' => 'hidden')) }}
+					{{ Form::text('idartesano', null, array('class' => 'hidden')) }}
+					{{ Form::text('orgaid', null, array('class' => 'hidden')) }}
+				</div>
+					
+					<div class="col-md-12 form-group" style="margin-top: 10px;">
+					<button type="submit" class="btn btn-ioa btn-lg pull-right">
+						 Guardar 
+						<span class="glyphicon glyphicon-ok"></span></button>
+				</div>
+
+
+
+			
+				{{Form::close()}}
+			</div>
 	</div>
-	<div class="modal fade" id="myModal">
+	<div class="modal fade" id="myModal2">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -411,7 +525,7 @@
 								<th>Seleccionar</th>
 							</tr>
 						</thead>
-						<tbody id="elementobody">
+						<tbody id="orgabody">
 						</tbody>
 					</table>
 				</div>
@@ -429,10 +543,14 @@
 
 <style type="text/css" media="screen">
 	.fecha i{
-	    right: 55px !important;
+	    right: 23px !important;
 	  }
 	.tok{
 		top: 17px !important;
+		right: 23px !important;
+	}
+	.tor{
+		top: 0px !important;
 		right: 23px !important;
 	}
 </style>
@@ -488,12 +606,12 @@
             	console.log(result)
             	if(result.length >= 1){
 	            	$.each(result,function(index,org){
-						$('#elementobody').append('<tr>'+
+						$('#orgabody').append('<tr>'+
 						'<td>'+org.nombre+'</td>'+
 						'<td>'+org.telefono+'</td>'+
 						'<td><button class="btn-ioa btn-xs" onClick="encontrado('+org.id+','+org.organizacion_id+')" data-dismiss="modal">Seleccionar</button></td>');
 					});
-					$("#myModal").modal('show');
+					$("#myModal2").modal('show');
 				}
 				else
 					swal('Error','No se registro la organizacion','error');
@@ -515,8 +633,8 @@
        			$('[name=comiteid]').val('');
 			}
 		}
-		$('#myModal').on('hide.bs.modal', function() {
-		    $('#elementobody').html('');
+		$('#myModal2').on('hide.bs.modal', function() {
+		    $('#orgabody').html('');
 		});
 	</script>
 
@@ -721,6 +839,67 @@
 				});
 			});
 
+			$('#buscarartesano').bootstrapValidator({
+		        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok tor',
+		            invalid: 'glyphicon glyphicon-remove tor',
+		            validating: 'glyphicon glyphicon-refresh tor'
+		        },
+		        fields: {
+		            artesanombre: {
+		                validators: {
+		                	notEmpty: {},
+		                    regexp:{
+		                    regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+		                        message: 'Por favor verifica el campo'
+		                    }
+		                    }},
+		            artesapaterno:{
+		                validators: {
+		                    notEmpty: {},
+		                	regexp:{
+		                    regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+		                        message: 'Por favor verifica el campo'
+		                    }
+		                    }},
+		            artesamaterno:{
+						validators: {
+		                    regexp:{
+		                    regexp:/^[a-zA-Z áéíóúñÑÁÉÍÓÚ]+$/,
+		                        message: 'Por favor verifica el campo'
+		                    }
+		                    }
+		                },	            
+
+		        }
+		    })
+			.on('success.form.bv', function(e) {
+	            e.preventDefault();
+				$.post($(this).attr('action'), $(this).serialize(), function(json) {
+					console.log(json);
+						if(json.length == 0){
+							swal('Error', 'Artesano no encontrado', 'error');
+							$('#artesano').addClass("hidden");
+						}
+						else{
+							$.each(json,function(index,artesano){
+								$('#elementobody').append('<tr>'+
+								'<td>'+artesano.persona.nombre+'</td>'+
+								'<td>'+artesano.persona.paterno+'</td>'+
+								'<td>'+artesano.persona.materno+'</td>'+
+								'<td>'+artesano.persona.fechanacimiento+'</td>'+
+								'<td>'+artesano.persona.rama.nombre+'</td>'+
+								'<td><button class="btn-ioa btn-xs" onClick="encontrado2('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
+								$("#myModal").modal('show');
+							});
+						}
+				}, 'json').fail(function(){
+					swal('Error','No se encontró el artesano','error');
+					$('#artesano').addClass("hidden");
+				});
+			});
+
 $('.mayuscula').focusout(function() {
 				$(this).val($(this).val().toUpperCase());
 			});
@@ -730,7 +909,22 @@ $('.mayuscula').focusout(function() {
 $('#datetimePicker').on('dp.change dp.show', function(e) {
         $('#formalta').bootstrapValidator('revalidateField', 'fechanace');
     });
-	</script>
+
+function encontrado2 (id) {
+	$.post('buscaconcursante2', {id:id}, function(json) {
+		console.log(json);
+		$('#artesano').removeClass("hidden");
+						$('#nombre').text(json.nombre);
+						$('#nace').text(json.fechanacimiento);
+						$('#sexo').text(json.sexo);
+						$('#curp').text(json.curp);
+						$('#artesanoid').val(json.artesano.id);
+						$('[name=feriaid]').val("");
+	}, 'json').fail(function(){
+		swal('Error','No se encontró el artesano','error');
+	});
+}
+</script>
 
 <script type="text/javascript" charset="utf-8">
 $( "#selectmun" ).change(function () {
@@ -761,6 +955,16 @@ $( "#selectmun" ).change(function () {
 $(document).ready(function() {
     $("#menu-item-48155").addClass("current_page_item ");
     });
+
+$('#nuevoregistro').click(function(){
+	$('#formregnuevo').removeClass('hidden');
+	$('#formyareg').addClass('hidden');
+});
+$('#yaregistrado').click(function(){
+	$('#formyareg').removeClass('hidden');
+	$('#formregnuevo').addClass('hidden');
+	
+});
 </script>
 
 @stop
