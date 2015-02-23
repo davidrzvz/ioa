@@ -416,34 +416,62 @@
 
 
 		<div class="col-sm-6 wellr hidden pull-right" id="formyareg">
-		<div class="bg-orga col-md-12" style="margin-top:10px; text-align:center;">BUSCAR ARTESANOS</div>
-		
-		{{ Form::open(array('class'=>"form-horizontal",'id'=>'buscarartesano', 'url'=>"ArtesanoEnFeria")) }}
-		
-			<div class="col-md-12">				
-				
-				<div class="form-group">
-					{{ Form::label('artesanombre', 'Nombre(s)',array('style'=>'text-align: left;','class' => 'control-label col-sm-2')) }}
-					<div class="col-sm-8">
-					{{ Form::text('artesanombre', null, array('id'=>'artesanombre1','placeholder' => 'introduce nombre','class' => 'form-control')) }}
+			<div class="bg-orga col-md-12" style="margin-top:10px; text-align:center;">BUSCAR ARTESANOS</div>
+			
+			{{ Form::open(array('class'=>"form-horizontal",'id'=>'buscarartesano', 'url'=>"ArtesanoEnFeria")) }}
+			
+				<div class="col-md-12">				
+					
+					<div class="form-group">
+						{{ Form::label('artesanombre', 'Nombre(s)',array('style'=>'text-align: left;','class' => 'control-label col-sm-2')) }}
+						<div class="col-sm-8">
+						{{ Form::text('artesanombre', null, array('id'=>'artesanombre1','placeholder' => 'introduce nombre','class' => 'form-control')) }}
+						</div>
+					</div>
+
+					<div class="form-group">
+						{{ Form::label('artesapaterno', 'Apellido paterno',array('style'=>'text-align: left','class' => 'control-label col-sm-2')) }}
+						<div class="col-sm-8">
+						{{ Form::text('artesapaterno', null, array('placeholder' => 'introduce apellido paterno','class' => 'form-control')) }}
+						</div>
+					</div>
+
+					<div class="form-group">
+						{{ Form::label('artesamaterno', 'Apellido materno',array('style'=>'text-align: left','class' => 'control-label col-sm-2')) }}
+						<div class="col-sm-8">
+						{{ Form::text('artesamaterno', null, array('placeholder' => 'introduce apellido materno','class' => 'form-control')) }}
+						</div>
 					</div>
 				</div>
-
-				<div class="form-group">
-				{{ Form::label('artesapaterno', 'Apellido paterno',array('style'=>'text-align: left','class' => 'control-label col-sm-2')) }}
-				<div class="col-sm-8">
-				{{ Form::text('artesapaterno', null, array('placeholder' => 'introduce apellido paterno','class' => 'form-control')) }}
+				<div class="col-sm-12">
+					<div class="form-group" style="top: 13px !important;">
+						<button id="found" type="submit" class="btn btn-ioa pull-right">
+							<span class="glyphicon glyphicon-search"></span> 
+							Buscar 
+						</button>
+					</div>
 				</div>
+			{{Form::close()}}
+			{{ Form::open(array('url' => 'artesanoenorg','role' => 'form','id' => 'formregistrar','class' => '')) }}
+				<div class="bg-orga col-md-12">DATOS COMITÉ</div>	
+				<div class= "col-md-12 form-group">
+					<div class="col-md-4">
+						{{ Form::label ('cargo', 'CARGO A OCUPAR') }}
+						{{ Form::select('cargo', array('' => 'Seleccione','Presidente' => 'Presidente','Secretario' => 'Secretario','Tesorero' => 'Tesorero','Vocal de control y vigilancia' => 'Vocal de control y vigilancia','Vocal 1' => 'Vocal 1', 'Vocal 2' => 'Vocal 2'), null, array('class' =>'form-control'))}}
+					</div>
+					{{ Form::text('comiteid', null, array('class' => 'hidden')) }}
+					{{ Form::text('idartesano', null, array('class' => 'hidden')) }}
+					{{ Form::text('orgid', null, array('class' => 'hidden')) }}
+				</div>	
+				<div class="col-md-12 form-group" style="margin-top: 10px;">
+						<button type="submit" class="btn btn-ioa btn-lg pull-right">
+							 Guardar 
+							<span class="glyphicon glyphicon-ok"></span></button>
 				</div>
-
-				<div class="form-group">
-				{{ Form::label('artesamaterno', 'Apellido materno',array('style'=>'text-align: left','class' => 'control-label col-sm-2')) }}
-				<div class="col-sm-8">
-				{{ Form::text('artesamaterno', null, array('placeholder' => 'introduce apellido materno','class' => 'form-control')) }}
-				</div>
-				</div>
-			</div>
-			<div class="modal fade" id="myModal">
+			{{ Form::close() }}
+		</div>
+	</div>
+	<div class="modal fade" id="myModal">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -472,42 +500,6 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-			
-			<div class="col-sm-12">
-
-				<div class="form-group" style="top: 13px !important;">
-					<button id="found" type="submit" class="btn btn-ioa pull-right">
-						<span class="glyphicon glyphicon-search"></span> 
-						Buscar 
-					</button>
-				</div>
-				</div>
-
-
-			<div class="bg-orga col-md-12">DATOS COMITÉ</div>
-					
-				<div class= "col-md-12 form-group">
-					<div class="col-md-4">
-						{{ Form::label ('cargo', 'CARGO A OCUPAR') }}
-						{{ Form::select('cargo', array('' => 'Seleccione','Presidente' => 'Presidente','Secretario' => 'Secretario','Tesorero' => 'Tesorero','Vocal de control y vigilancia' => 'Vocal de control y vigilancia','Vocal 1' => 'Vocal 1', 'Vocal 2' => 'Vocal 2'), null, array('class' =>'form-control'))}}
-					</div>
-					{{ Form::text('comiteid', null, array('class' => 'hidden')) }}
-					{{ Form::text('idartesano', null, array('class' => 'hidden')) }}
-					{{ Form::text('orgaid', null, array('class' => 'hidden')) }}
-				</div>
-					
-					<div class="col-md-12 form-group" style="margin-top: 10px;">
-					<button type="submit" class="btn btn-ioa btn-lg pull-right">
-						 Guardar 
-						<span class="glyphicon glyphicon-ok"></span></button>
-				</div>
-
-
-
-			
-				{{Form::close()}}
-			</div>
-	</div>
 	<div class="modal fade" id="myModal2">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -635,6 +627,9 @@
 		}
 		$('#myModal2').on('hide.bs.modal', function() {
 		    $('#orgabody').html('');
+		});
+		$('#myModal').on('hide.bs.modal', function() {
+		    $('#elementobody').html('');
 		});
 	</script>
 
@@ -831,12 +826,23 @@
 		        }
 		    }).on('success.form.bv', function(e) {
 	            e.preventDefault();
-				$.post($(this).attr('action'), $(this).serialize(), function(json) {
-					if(json.success)
-						swal('','Artesano registrado exitosamente','success');
-				}, 'json').fail(function(){
-					swal('Error','No se registro el artesano','error');
+	            var formData = new FormData($("#formalta")[0]);
+	            $.ajax({
+					url: $(this).attr('action'),  
+					type: 'POST',
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(data){
+					  if(data.success)
+					  	swal('','Artesano registrado exitosamente','success');
+					},
+					error: function(){
+					  swal('Error','No se registro el artesano','error');
+					}
 				});
+
 			});
 
 			$('#buscarartesano').bootstrapValidator({
@@ -911,18 +917,7 @@ $('#datetimePicker').on('dp.change dp.show', function(e) {
     });
 
 function encontrado2 (id) {
-	$.post('buscaconcursante2', {id:id}, function(json) {
-		console.log(json);
-		$('#artesano').removeClass("hidden");
-						$('#nombre').text(json.nombre);
-						$('#nace').text(json.fechanacimiento);
-						$('#sexo').text(json.sexo);
-						$('#curp').text(json.curp);
-						$('#artesanoid').val(json.artesano.id);
-						$('[name=feriaid]').val("");
-	}, 'json').fail(function(){
-		swal('Error','No se encontró el artesano','error');
-	});
+	$('[name=idartesano]').val(id);
 }
 </script>
 
@@ -964,6 +959,15 @@ $('#yaregistrado').click(function(){
 	$('#formyareg').removeClass('hidden');
 	$('#formregnuevo').addClass('hidden');
 	
+});
+$('#formregistrar').submit(function(e){
+	e.preventDefault();
+	$.post($(this).attr('action'), $(this).serialize(), function(json) {
+		if(json.success)
+			swal('','Artesano registrado exitosamente','success');
+	}, 'json').fail(function(){
+		swal('Error','No se registro el artesano','error');
+	});
 });
 </script>
 

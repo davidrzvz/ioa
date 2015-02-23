@@ -169,7 +169,7 @@ class AltaArtesanoController extends BaseController {
 	public function post_nuevopor()
 	{
 		///////////////////////////////////////////////////Artesano
-	$personaArtesano = Persona::create(array(
+		$personaArtesano = Persona::create(array(
 			'nombre'			=> Input::get('nombre'),
 			'paterno'			=> Input::get('paterno'),
 			'materno'			=> Input::get('materno'),
@@ -360,5 +360,13 @@ class AltaArtesanoController extends BaseController {
         $calidad=$ppp;
         imagejpeg($tmp,$ruta.$nombreN,$calidad);
         
+    }
+    public function artesanoenorg(){
+    	$artesano = Artesano::find(Input::get('idartesano'));
+    	$artesano->organizacion()->attach(Input::get('orgid'));
+    		if ((Input::get('cargo')) != '') {
+    			$artesano->Comite()->attach(Input::get('comiteid'),array('cargo' => Input::get('cargo'),));	
+    			}
+    	return Response::json(array('success' => true));
     }
 }

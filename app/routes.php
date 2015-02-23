@@ -46,6 +46,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('buscorg','AltaArtesanoController@post_buscorg');
 	Route::get('por','AltaArtesanoController@get_nuevopor');
 	Route::post('por/registro','AltaArtesanoController@post_nuevopor');
+	Route::post('artesanoenorg','AltaArtesanoController@artesanoenorg');
 
 	Route::post('artesano/municipio','selectmunicipiosController@post_mun');
 	Route::post('editarArtesano/municipio','selectmunicipiosController@post_mun');
