@@ -212,7 +212,7 @@ $(document).ready(function() {
 						'<td>'+artesano.persona.materno+'</td>'+
 						'<td>'+artesano.persona.fechanacimiento+'</td>'+
 						'<td>'+artesano.persona.rama.nombre+'</td>'+
-						'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.id+')" data-dismiss="modal">Seleccionar</button></td>');
+						'<td><button class="btn-ioa btn-xs" onClick="encontrado('+artesano.persona.id+')" data-dismiss="modal">Seleccionar</button></td>');
 						$("#artesanomodal").modal('show');
 					});
 				}
