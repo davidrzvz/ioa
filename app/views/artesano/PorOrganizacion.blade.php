@@ -34,25 +34,25 @@
 			</div>
 		</form>
 	</div>
-	<div class="wellr col-md-5">
-<div class="col-md-12 text-center"><strong>TIPO DE REGISTRO</strong></div>
-	<div class="col-sm-6">
-		<div class="form-group pull-right">
-			<button id="nuevoregistro" type="button" class="btn btn-ioa">
-			<span class="glyphicon glyphicon-remove"></span> 
-			Nuevo Registro
-			</button>
+	<div class="wellr col-md-5 hidden" id="tiporegistro">
+		<div class="col-md-12 text-center"><strong>TIPO DE REGISTRO</strong></div>
+		<div class="col-sm-6">
+			<div class="form-group pull-right">
+				<button id="nuevoregistro" type="button" class="btn btn-ioa">
+				<span class="glyphicon glyphicon-remove"></span> 
+				Nuevo Registro
+				</button>
+			</div>
 		</div>
-	</div>
-	
-	<div class="col-sm-6">
-		<div class="form-group" >
-			<button id="yaregistrado" type="button" class="btn btn-ioa">
-			<span class="glyphicon glyphicon-ok"></span> 
-			Artesano ya registrado 
-			</button>
+		
+		<div class="col-sm-6">
+			<div class="form-group" >
+				<button id="yaregistrado" type="button" class="btn btn-ioa">
+				<span class="glyphicon glyphicon-ok"></span> 
+				Artesano ya registrado 
+				</button>
+			</div>
 		</div>
-	</div>
 	</div>
 		
 		<div class="col-sm-12 hidden" id="formregnuevo">
@@ -617,12 +617,14 @@
 	    		$('#nok').addClass('hidden');
 	    		$('[name=orgid]').val(organizacion_id);
        			$('[name=comiteid]').val(id);
+       			$('#tiporegistro').removeClass('hidden');
 			}
 			else {
 				$('#nok').removeClass('hidden');
 				$('#ok').addClass('hidden');
 				$('[name=orgid]').val('');
        			$('[name=comiteid]').val('');
+       			$('#tiporegistro').addClass('hidden');
 			}
 		}
 		$('#myModal2').on('hide.bs.modal', function() {
