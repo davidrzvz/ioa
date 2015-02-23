@@ -65,20 +65,20 @@
 			
 			</div>
 	
-			<div class="col-md-12" id="updateFeria">
+			<div class="col-sm-12" id="updateFeria">
 				{{ Form::open(array('id' =>'formupdateFeria')) }}
-				<div class="bg-orga col-md-12">UPDATE DE FERIA</div>
+				<div class="bg-orga col-sm-12">UPDATE DE FERIA</div>
 				<input type="text" name="id" class="hidden">
-				<div class="col-md-12 form-group">
+				<div class="col-sm-12 form-group">
 				{{ Form::label('ferianombre', 'NOMBRE DE LA FERIA',array('class' => 'control-label')) }}
 				{{ Form::text('ferianombre', null, array('placeholder' => 'Introduce nombre de la feria','class' => 'form-control mayuscula')) }}
 				</div>
-				<div class="col-md-12 form-group">
+				<div class="col-sm-12 form-group">
 				{{ Form::label('ferialugar', 'LUGAR DE LA FERIA',array('class' => 'control-label')) }}
 				{{ Form::text('ferialugar', null, array('placeholder' => 'Introduce el lugar de la feria','class' => 'form-control mayuscula')) }}
 				</div>
 
-				<div class="col-md-12 form-group">
+				<div class="col-sm-12 form-group">
 					{{ Form::label('tipo', 'TIPO DE LA FERIA') }} 
 					{{Form::select('tipo', array(''=>'Seleccione tipo','INTERNACIONAL' => 'Internacional','PABELLON FONART' => 'Pabellón Fonart','NACIONAL' => 'Nacional','REGIONAL' => 'Regional'), null, array('class' =>'form-control'))}}
 				</div>

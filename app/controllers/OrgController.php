@@ -10,12 +10,13 @@ class OrgController extends BaseController {
 		$artesanoArr = array();
 		foreach ($artesanos as $artesano) {
 			$artesanoArr [] = array(
+				$artesano -> id,
 				$artesano -> persona -> nombre,
 				$artesano -> persona -> paterno,
 				$artesano -> persona -> materno,
 				$artesano -> persona -> fechanacimiento,
 				$artesano -> rfc,
-				$artesano -> id,
+				
 			);
 		}
 		return Response::json($artesanoArr);

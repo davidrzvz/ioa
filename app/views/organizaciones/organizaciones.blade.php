@@ -225,12 +225,13 @@ function editar(btn){
         var tabble=$('#tartesanoss').dataTable( {
           "data": json,
           "columns": [
+                      { "title": "No." },
                       { "title": "Nombre" },
                       { "title": "Apellido paterno" },
                       { "title": "Apellido materno" },
                       { "title": "Fecha nace" },
                       { "title": "RFC" },
-                      { "title": "eliminar" },
+                      
                       // { "title": "organizacion" },
                   ],
           "language": {
@@ -249,7 +250,7 @@ function editar(btn){
             },
         } );
         $('#tartesanoss').find('tbody').find('tr').on( 'click', function () {
-                elim($(this).closest("tr").find("td:nth-child(6)").text(), id)
+                elim($(this).closest("tr").find("td:nth-child(1)").text(), id)
               } );
 //añadir el boton que lanza la funcion elim(idartesadno, idorganizacion) el organizacion es el de la linea 219, y el del artesano viene en el json.
         $('#editar').modal('show');

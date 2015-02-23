@@ -262,7 +262,7 @@ function editar(btn){
 	$('[name = nombre]').val($(btn).closest("tr").find("td:nth-child(2)").text());
 }
 function eliminar(btn) {
-    swal({   title: "Estás completamente seguro?",   text: "Se borrarán todos los artesanos pertenecientes a esta rama, esta acción no se puede deshacer!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+    swal({   title: "Estás seguro?",   text: "La rama sólo se puede eliminar si no hay artesanos que pertenecen a ella!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
         $.post('{{URL::to("ramas/delete");}}', {rama:$(btn).closest("tr").find("td:nth-child(1)").text()}, function(json) {
             if(json.success){
                 swal('Rama eliminada', null, "success");
