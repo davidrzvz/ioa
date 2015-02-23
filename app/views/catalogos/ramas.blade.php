@@ -273,7 +273,9 @@ function eliminar(btn) {
             // else
             //     swal('Error', 'Ocurrio un error', "error");
             .done(function(json){
-                console.log(json);
+                swal('Rama eliminada', null, "success");
+                $(btn).closest("tr").remove();
+                location.reload();
             })
             .fail(function(xhr, textStatus, errorThrown) {
                 swal('Error', 'TIENE PERSONAS, NO SE ELIMINARÁ', "error");
