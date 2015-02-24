@@ -124,6 +124,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('eneventos','OrganizacionesController@enEventos');
 	Route::post('taller','OrganizacionesController@Talleres');
 
+	Route::controller('eliminar','EliminarController');
+
 	Route::controller('organizacion_artesano', 'OrgController');
 
     

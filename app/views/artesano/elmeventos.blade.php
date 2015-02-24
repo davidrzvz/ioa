@@ -124,6 +124,8 @@
 					</tbody>
 				</table>
 			</div>
+			<h2 id="nombretabla" class="agregado"></h2>
+			<div id="divartesanos" class="agregado"></div>
 		</div>
 	</div>
 		@endsection
@@ -147,17 +149,20 @@ $('#btnferias').click(function(){
 	$('#ferias').removeClass('hidden');
 	$('#concursos').addClass('hidden');
 	$('#talleres').addClass('hidden');
+	$('.agregado').html('');
 	;
 });
 $('#btnconcursos').click(function(){
 	$('#concursos').removeClass('hidden');
 	$('#talleres').addClass('hidden');
 	$('#ferias').addClass('hidden');
+	$('.agregado').html('');
 });
 $('#btntalleres').click(function(){
 	$('#talleres').removeClass('hidden');
 	$('#ferias').addClass('hidden');
 	$('#concursos').addClass('hidden');
+	$('.agregado').html('');
 });
 
 </script>
@@ -179,7 +184,8 @@ $('#btntalleres').click(function(){
         "next":       "Siguiente",
         "previous":   "Anterior"
     },
-        }
+        },
+
 } );
      $('#feris').dataTable( {
         "language": {
@@ -197,51 +203,153 @@ $('#btntalleres').click(function(){
     },
         }
 } );
+	$('#concs tbody').on( 'click', 'td', function (){
+		var id = ($(this).closest("tr")).find("td:nth-child(1)").text();
+		// console.log(($(this).closest("tr")).find("td:nth-child(2)").text());
+		$('#nombretabla').text(($(this).closest("tr")).find("td:nth-child(2)").text());
+		$.post('eliminar/concursos',{id:id}, function(json) {
+			$('#divartesanos').html('<table id="telementos" class="table table-hover table-first-column-number data-table display full"></table>');
+			$('#telementos').dataTable( {
+			    "data": json,
+			    "columns": [
+			    	{ "title": "Id" },
+			        { "title": "Nombre" },
+			        { "title": "Paterno" },
+			        { "title": "Materno" },
+			        { "title": "Fecha Nacimiento" },
+			        { "title": "Rama" },
+			        { "title": "Gpo. Étnico" },
+			    ],
+			    "language": {
+				      "lengthMenu": "Elementos por página _MENU_",
+				      "zeroRecords": "Ningún elemento se ha registrado",
+				      "info": "Pagina _PAGE_ de _PAGES_",
+				      "infoEmpty": "No records available",
+				      "infoFiltered": "(Ver _MAX_ total records)",
+				      'search': 'Buscar: ',
+				      "paginate": {
+					        "first":      "Inicio",
+					        "last":       "Fin",
+					        "next":       "Siguiente",
+					        "previous":   "Anterior"
+			      	},
+				},
+			} );
+		}, 'json');
+	});
+	$('#feris tbody').on( 'click', 'td', function (){
+		var id = ($(this).closest("tr")).find("td:nth-child(1)").text();
+		console.log(id);
+		$('#nombretabla').text(($(this).closest("tr")).find("td:nth-child(2)").text());
+		$.post('eliminar/ferias',{id:id}, function(json) {
+			$('#divartesanos').html('<table id="telementos" class="table table-hover table-first-column-number data-table display full"></table>');
+			$('#telementos').dataTable( {
+			    "data": json,
+			    "columns": [
+			    	{ "title": "Id" },
+			        { "title": "Nombre" },
+			        { "title": "Paterno" },
+			        { "title": "Materno" },
+			        { "title": "Fecha Nacimiento" },
+			        { "title": "Rama" },
+			        { "title": "Gpo. Étnico" },
+			    ],
+			    "language": {
+				      "lengthMenu": "Elementos por página _MENU_",
+				      "zeroRecords": "Ningún elemento se ha registrado",
+				      "info": "Pagina _PAGE_ de _PAGES_",
+				      "infoEmpty": "No records available",
+				      "infoFiltered": "(Ver _MAX_ total records)",
+				      'search': 'Buscar: ',
+				      "paginate": {
+					        "first":      "Inicio",
+					        "last":       "Fin",
+					        "next":       "Siguiente",
+					        "previous":   "Anterior"
+			      	},
+				},
+			} );
+		}, 'json');
+	});
+	$('#tallrs tbody').on( 'click', 'td', function (){
+		var id = ($(this).closest("tr")).find("td:nth-child(1)").text();
+		console.log(id);
+		$('#nombretabla').text(($(this).closest("tr")).find("td:nth-child(2)").text());
+		$.post('eliminar/talleres',{id:id}, function(json) {
+			$('#divartesanos').html('<table id="telementos" class="table table-hover table-first-column-number data-table display full"></table>');
+			$('#telementos').dataTable( {
+			    "data": json,
+			    "columns": [
+			    	{ "title": "Id" },
+			        { "title": "Nombre" },
+			        { "title": "Paterno" },
+			        { "title": "Materno" },
+			        { "title": "Fecha Nacimiento" },
+			        { "title": "Rama" },
+			        { "title": "Gpo. Étnico" },
+			    ],
+			    "language": {
+				      "lengthMenu": "Elementos por página _MENU_",
+				      "zeroRecords": "Ningún elemento se ha registrado",
+				      "info": "Pagina _PAGE_ de _PAGES_",
+				      "infoEmpty": "No records available",
+				      "infoFiltered": "(Ver _MAX_ total records)",
+				      'search': 'Buscar: ',
+				      "paginate": {
+					        "first":      "Inicio",
+					        "last":       "Fin",
+					        "next":       "Siguiente",
+					        "previous":   "Anterior"
+			      	},
+				},
+			} );
+		}, 'json');
+	});
 </script>
 <script type="text/javascript">
-$(document).ready(function() {
-    $("#menu-item-48164").addClass("current_page_item ");
-    });
+	$(document).ready(function() {
+	    $("#menu-item-48164").addClass("current_page_item ");
+	    });
 
-function eliminar(btn) {
-    swal({   title: "Estás seguro?",   text: "El concurso se borrará!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
-        $.post('{{URL::to("eventos/concurso");}}', {concurso:$(btn).closest("tr").find("td:nth-child(1)").text()}) 
-                .done(function(json){
-                swal('Concurso eliminado', null, "success");
-                $(btn).closest("tr").remove();
-                location.reload();
-            })
-            .fail(function(xhr, textStatus, errorThrown) {
-                swal('Error', 'Existen artesanos registrados en el concurso, no se puede eliminar', "error");
-            })
-    });
-}
-function eliminar2(btn) {
-    swal({   title: "Estás seguro?",   text: "La feria se borrará!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
-        $.post('{{URL::to("eventos/feria");}}', {feria:$(btn).closest("tr").find("td:nth-child(1)").text()}) 
-                .done(function(json){
-                swal('Feria eliminada', null, "success");
-                $(btn).closest("tr").remove();
-                location.reload();
-            })
-            .fail(function(xhr, textStatus, errorThrown) {
-                swal('Error', 'Existen artesanos registrados en la feria, no se puede eliminar', "error");
-            })
-    });
-}
-function eliminar3(btn) {
-    swal({   title: "Estás seguro?",   text: "El taller se borrará!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
-        $.post('{{URL::to("eventos/taller");}}', {taller:$(btn).closest("tr").find("td:nth-child(1)").text()}) 
-                .done(function(json){
-                swal('Taller eliminado', null, "success");
-                $(btn).closest("tr").remove();
-                location.reload();
-            })
-            .fail(function(xhr, textStatus, errorThrown) {
-                swal('Error', 'Existen artesanos registrados en el taller, no se puede eliminar', "error");
-            })
-    });
-}
+	function eliminar(btn) {
+	    swal({   title: "Estás seguro?",   text: "El concurso se borrará!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+	        $.post('{{URL::to("eventos/concurso");}}', {concurso:$(btn).closest("tr").find("td:nth-child(1)").text()}) 
+	                .done(function(json){
+	                swal('Concurso eliminado', null, "success");
+	                $(btn).closest("tr").remove();
+	                location.reload();
+	            })
+	            .fail(function(xhr, textStatus, errorThrown) {
+	                swal('Error', 'Existen artesanos registrados en el concurso, no se puede eliminar', "error");
+	            })
+	    });
+	}
+	function eliminar2(btn) {
+	    swal({   title: "Estás seguro?",   text: "La feria se borrará!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+	        $.post('{{URL::to("eventos/feria");}}', {feria:$(btn).closest("tr").find("td:nth-child(1)").text()}) 
+	                .done(function(json){
+	                swal('Feria eliminada', null, "success");
+	                $(btn).closest("tr").remove();
+	                location.reload();
+	            })
+	            .fail(function(xhr, textStatus, errorThrown) {
+	                swal('Error', 'Existen artesanos registrados en la feria, no se puede eliminar', "error");
+	            })
+	    });
+	}
+	function eliminar3(btn) {
+	    swal({   title: "Estás seguro?",   text: "El taller se borrará!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
+	        $.post('{{URL::to("eventos/taller");}}', {taller:$(btn).closest("tr").find("td:nth-child(1)").text()}) 
+	                .done(function(json){
+	                swal('Taller eliminado', null, "success");
+	                $(btn).closest("tr").remove();
+	                location.reload();
+	            })
+	            .fail(function(xhr, textStatus, errorThrown) {
+	                swal('Error', 'Existen artesanos registrados en el taller, no se puede eliminar', "error");
+	            })
+	    });
+	}
 
 </script>
 @endsection 
