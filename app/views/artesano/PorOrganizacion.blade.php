@@ -505,7 +505,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h3 class="modal-title">Artesanos</h3>
+					<h3 class="modal-title">Organizaciones</h3>
 				</div>
 				<div class="modal-body">
 					<h5 class="text-center">Elige una opción</h5>

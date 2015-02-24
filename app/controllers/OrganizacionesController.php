@@ -103,6 +103,31 @@ class OrganizacionesController extends BaseController {
 		}
 		return Response::json(array('comite' => $comite,'artesanos' => $artesanos));
 	}
+
+		public function Talleres(){
+		
+		$taller = Taller::find(Input::get('id'));
+		$artesanos = array();
+		foreach ($taller->Artesanos()->get() as $persona) {
+			$tel='';
+			if(!is_null($persona->persona->telefono))
+				$tel = $persona->persona->telefono->numero;
+			$artesanos[] = array(
+				$persona->persona->nombre,
+				$persona->persona->paterno,
+				$persona->persona->materno,
+				$persona->persona->fechanacimiento,
+				$persona->persona->sexo,
+				$persona->persona->cuis,
+				$tel
+				); 
+		}
+		return Response::json(array('artesanos' => $artesanos));
+	}
+	public function enEventos(){
+       
+       return View::make('artesano/enEventos')->with('talleres',Taller::all());
+    }
 }
 
 

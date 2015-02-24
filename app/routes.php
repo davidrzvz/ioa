@@ -116,6 +116,13 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('concursante','DatosConcursanteController@verConcursante');
 	Route::post('concursante','DatosConcursanteController@buscar');
 	Route::post('concursante/update','DatosConcursanteController@update');
+	
+	Route::get('eventos','eliminarEventosController@verEventos');
+	Route::post('eventos/concurso','eliminarEventosController@EliminarConcurso');
+	Route::post('eventos/feria','eliminarEventosController@EliminarFeria');
+	Route::post('eventos/taller','eliminarEventosController@EliminarTaller');
+	Route::get('eneventos','OrganizacionesController@enEventos');
+	Route::post('taller','OrganizacionesController@Talleres');
 
 	Route::controller('organizacion_artesano', 'OrgController');
 
