@@ -24,8 +24,12 @@ $Feria = Feria::create(array(
 	'fechafin'=> Input::get('fecha2'),
 	'tipo'=> Input::get('tipo'),
 	'lugar'=> Input::get('ferialugar')));
+$log = new Logs();
+	$log->usuario = Auth::user()->username;
+	$log->url =  Request::url();
+	$log->recurso = json_encode($Feria);
+	$log->save();
 
-	
 return Response::json(array('success' => true));
 	 
 }
@@ -36,7 +40,11 @@ $Taller = Taller::create(array(
 	'fechainicio'=> Input::get('fecha1'),
 	'fechafin'=> Input::get('fecha2'),
 	'maestro'=> Input::get('maestro'))); 
-
+$log = new Logs();
+	$log->usuario = Auth::user()->username;
+	$log->url =  Request::url();
+	$log->recurso = json_encode($Taller);
+	$log->save();
 return Response::json(array('success' => true));
 
 }
@@ -49,6 +57,11 @@ $Concurso = Concurso::create(array(
 	'fecha'=> Input::get('fecha1'),
 	'nivel'=> Input::get('nivel'), 
 	'premiacion'=> Input::get('fecha2'))); 
+$log = new Logs();
+	$log->usuario = Auth::user()->username;
+	$log->url =  Request::url();
+	$log->recurso = json_encode($Concurso);
+	$log->save();
 return Response::json(array('success' => true));
 }
 }

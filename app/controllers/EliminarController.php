@@ -49,6 +49,11 @@ class EliminarController extends BaseController {
 				$persona -> Grupoetnico -> nombre,
 			);
 		}
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($data);
+			$log->save();
 		return Response::json($data);
 	}
 
@@ -68,6 +73,11 @@ class EliminarController extends BaseController {
 				$artesano -> persona -> Grupoetnico -> nombre,
 			);
 		}
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($data);
+			$log->save();
 		return Response::json($data);
 	}
 
@@ -77,6 +87,11 @@ class EliminarController extends BaseController {
 		$id_feria = Input::get('feria');
 		$artesano = Artesano::find($id_artesano);
 		$artesano -> ferias() -> detach($id_feria);
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($artesano);
+			$log->save();
 		return Response::json($artesano);
 	}
 
@@ -91,6 +106,11 @@ class EliminarController extends BaseController {
 		// else{
 			$persona -> Concursos() -> detach($id_concurso);
 		// }
+			$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($id_persona);
+			$log->save();
 		return Response::json($id_persona);
 	}
 
@@ -100,6 +120,11 @@ class EliminarController extends BaseController {
 		$id_taller = Input::get('taller');
 		$artesano = Artesano::find($id_artesano);
 		$artesano -> talleres() -> detach($id_taller);
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($artesano);
+			$log->save();
 		return Response::json($artesano);
 	}
 }

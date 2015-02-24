@@ -88,7 +88,12 @@ class RegistroenConcursoController extends BaseController {
 				'fecharegistro' => 	date('Y-m-d'),
 				'observaciones' => 	Input::get('observ'),
 				'numregistro'		=>	$numeroregistro+1
-				));	
+				));
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($persona);
+			$log->save();	
 		return Response::json($persona);
 	}
 		
@@ -192,6 +197,11 @@ class RegistroenConcursoController extends BaseController {
 				'observaciones' 	=> 	Input::get('observ'),
 				'numregistro'		=>	$numeroregistro+1
 				));
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($objt);
+			$log->save();
 		return Response::json(array('success'=>true));
 	}
 }

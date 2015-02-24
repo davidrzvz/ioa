@@ -232,7 +232,7 @@ $('#btntalleres').click(function(){
 			    ],
 			    "language": {
 				      "lengthMenu": "Elementos por página _MENU_",
-				      "zeroRecords": "Ningún elemento se ha registrado",
+				      "zeroRecords": "No se ha registrado nigún artesano",
 				      "info": "Pagina _PAGE_ de _PAGES_",
 				      "infoEmpty": "No records available",
 				      "infoFiltered": "(Ver _MAX_ total records)",
@@ -271,7 +271,7 @@ $('#btntalleres').click(function(){
 			    ],
 			    "language": {
 				      "lengthMenu": "Elementos por página _MENU_",
-				      "zeroRecords": "Ningún elemento se ha registrado",
+				      "zeroRecords": "No se ha registrado nigún artesano",
 				      "info": "Pagina _PAGE_ de _PAGES_",
 				      "infoEmpty": "No records available",
 				      "infoFiltered": "(Ver _MAX_ total records)",
@@ -310,7 +310,7 @@ $('#btntalleres').click(function(){
 			    ],
 			    "language": {
 				      "lengthMenu": "Elementos por página _MENU_",
-				      "zeroRecords": "Ningún elemento se ha registrado",
+				      "zeroRecords": "No se ha registrado nigún artesano",
 				      "info": "Pagina _PAGE_ de _PAGES_",
 				      "infoEmpty": "No records available",
 				      "infoFiltered": "(Ver _MAX_ total records)",
@@ -379,23 +379,55 @@ $('#btntalleres').click(function(){
 	function detach1 (btn) {
 		id = ($(btn).closest("tr").find("td:nth-child(1)").text());
 		//acá pones tu alert, si dice que si entonces continúa con el POST de jQuery
+		swal({   title: "Eliminar de la feria?",
+			text: "Seguro que quieres eliminar al artesano de la feria?", 
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Sí, borrar!",
+			cancelButtonText: "No, cancelar!",
+			closeOnConfirm: false }, 
+			function(){ 
+
 		$.post('eliminar/detachf',{id:id,feria:feria}, function(json) {
-			console.log(json);
+			swal('Éxito', 'Artesano eliminado de la feria', "success");
+			location.reload();
 		}, 'json');
+		});
 	}
 	function detach2 (btn) {
 		id = ($(btn).closest("tr").find("td:nth-child(1)").text());
 		//acá pones tu alert, si dice que si entonces continúa con el POST de jQuery
+		swal({   title: "Eliminar de la feria?",
+			text: "Seguro que quieres eliminar al artesano de la feria?", 
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Sí, borrar!",
+			cancelButtonText: "No, cancelar!",
+			closeOnConfirm: false }, 
+			function(){
 		$.post('eliminar/detachc',{id:id,concurso:concurso}, function(json) {
 			console.log(json);
 		}, 'json');
+		});
 	}
 	function detach3 (btn) {
 		id = ($(btn).closest("tr").find("td:nth-child(1)").text());
 		//acá pones tu alert, si dice que si entonces continúa con el POST de jQuery
+		swal({   title: "Eliminar de la feria?",
+			text: "Seguro que quieres eliminar al artesano de la feria?", 
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Sí, borrar!",
+			cancelButtonText: "No, cancelar!",
+			closeOnConfirm: false }, 
+			function(){
 		$.post('eliminar/detacht',{id:id,taller:taller}, function(json) {
 			console.log(json);
 		}, 'json');
+		});
 	}
 
 </script>

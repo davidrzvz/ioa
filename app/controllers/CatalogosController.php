@@ -22,6 +22,11 @@ class CatalogosController extends BaseController {
 				$rama->nombre 	= Input::get('nombre');
 			$rama->save();
 			return Response::json(array('success' => true));
+			$log = new Logs();
+				$log->usuario = Auth::user()->username;
+				$log->url =  Request::url();
+				$log->recurso = json_encode($rama);
+				$log->save();
 		}
 		else
 			return Response::json(array('ocupado' => true));
@@ -45,6 +50,11 @@ class CatalogosController extends BaseController {
 			$rama->update(array(
 				'nombre' 	=> Input::get('nombre'),
 				));
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($rama);
+			$log->save();
 		return Response::json(array('success' => true));
 	}
 	public function EliminarRama()
@@ -59,6 +69,11 @@ class CatalogosController extends BaseController {
 			//buscamos la rama en la base de datos segun la id enviada
 			$rama = Rama::find(Input::get('rama'));
 			$rama->delete();
+			$log = new Logs();
+				$log->usuario = Auth::user()->username;
+				$log->url =  Request::url();
+				$log->recurso = json_encode($rama);
+				$log->save();
 			return Response::json(array('success' => true));
 		}
 
@@ -81,6 +96,11 @@ class CatalogosController extends BaseController {
 			$grupo = new Gruposetnico;
 				$grupo->nombre 	= Input::get('nombre');
 			$grupo->save();
+			$log = new Logs();
+				$log->usuario = Auth::user()->username;
+				$log->url =  Request::url();
+				$log->recurso = json_encode($grupo);
+				$log->save();
 			return Response::json(array('success' => true));
 		}
 		else
@@ -105,6 +125,11 @@ class CatalogosController extends BaseController {
 			$grupo->update(array(
 				'nombre' 	=> Input::get('nombre'),
 				));
+			$log = new Logs();
+				$log->usuario = Auth::user()->username;
+				$log->url =  Request::url();
+				$log->recurso = json_encode($grupo);
+				$log->save();
 		return Response::json(array('success' => true));
 	}
 
@@ -120,6 +145,11 @@ class CatalogosController extends BaseController {
 				//buscamos el grupo en la base de datos segun la id enviada
 				$grupo = Gruposetnico::find(Input::get('grupo'));
 				$grupo->delete();
+				$log = new Logs();
+					$log->usuario = Auth::user()->username;
+					$log->url =  Request::url();
+					$log->recurso = json_encode($grupo);
+					$log->save();
 				return Response::json(array('success' => true));
 			}
 

@@ -142,7 +142,7 @@
         }
 } );
 </script>
-    <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function() {
     $('#nuevo-grupo').bootstrapValidator({
         feedbackIcons: {
@@ -262,9 +262,14 @@ function editar(btn){
     $('[name = nombre]').val($(btn).closest("tr").find("td:nth-child(2)").text());
 }
 function eliminar(btn) {
-    swal({   title: "Estás seguro?",   text: "El grupo sólo se puede eliminar si no hay artesanos que pertenecen a el!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Sí, borrar", cancelButtonText: "¡No, cancelar!",   closeOnConfirm: false }, function(){
-        
-        $.post('{{URL::to("gruposetnicos/delete");}}', {grupo:$(btn).closest("tr").find("td:nth-child(1)").text()}
+    swal({   title: "Estás seguro?",
+        text: "El grupo sólo se puede eliminar si no hay artesanos que pertenecen a el!",
+        type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sí, borrar",
+        cancelButtonText: "¡No, cancelar!",
+        closeOnConfirm: false }, 
+        function(){
+        $.post('{{URL::to("gruposetnicos/delete");}}', {grupo:$(btn).closest("tr").find("td:nth-child(1)").text()})
             .done(function(json){
                 swal('Grupo Étnico eliminado', null, "success");
                 $(btn).closest("tr").remove();
@@ -272,7 +277,7 @@ function eliminar(btn) {
             })
             .fail(function(xhr, textStatus, errorThrown) {
                 swal('Error', 'Existen artesanos registrados en el Grupo Étnico, no se puede eliminar', "error");
-            })
+             })
     });
 }
 

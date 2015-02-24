@@ -19,6 +19,11 @@ class eliminarEventosController extends BaseController {
 			//buscamos el concurso en la base de datos segun la id enviada
 			$concurso = Concurso::find(Input::get('concurso'));
 			$concurso->delete();
+			$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($concurso);
+			$log->save();
 			return Response::json(array('success' => true));
 		}
 
@@ -34,6 +39,11 @@ class eliminarEventosController extends BaseController {
 			//buscamos la feria en la base de datos segun la id enviada
 			$feria = Feria::find(Input::get('feria'));
 			$feria->delete();
+			$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($feria);
+			$log->save();
 			return Response::json(array('success' => true));
 		}
 
@@ -49,6 +59,11 @@ class eliminarEventosController extends BaseController {
 			//buscamos el taller en la base de datos segun la id enviada
 			$taller = Taller::find(Input::get('taller'));
 			$taller->delete();
+			$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($taller);
+			$log->save();
 			return Response::json(array('success' => true));
 		}
 

@@ -162,6 +162,12 @@ class AltaArtesanoController extends BaseController {
 			$documento -> persona_id = $personaArtesano->id;
 			$documento -> save();
 		}
+
+	$log = new Logs();
+		$log->usuario = Auth::user()->username;
+		$log->url =  Request::url();
+		$log->recurso = json_encode($personaArtesano);
+		$log->save();
 	return Response::json(array('success' => true,'artesano' => $personaArtesano));
 		//return Redirect::back();
 	}
@@ -303,7 +309,12 @@ class AltaArtesanoController extends BaseController {
 			if ((Input::get('cargo')) != '') {
 				$artesano->Comite()->attach(Input::get('comiteid'),array('cargo' => Input::get('cargo'),));	
 				}
-		return Response::json(array('success' => true));	
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($personaArtesano);
+			$log->save();
+		return Response::json(array('success' => true,));	
 	}
 
 	public function post_buscorg(){
@@ -367,6 +378,11 @@ class AltaArtesanoController extends BaseController {
     		if ((Input::get('cargo')) != '') {
     			$artesano->Comite()->attach(Input::get('comiteid'),array('cargo' => Input::get('cargo'),));	
     			}
+    	$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($artesano);
+			$log->save();
     	return Response::json(array('success' => true));
     }
 }

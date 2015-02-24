@@ -19,6 +19,11 @@ class OrgController extends BaseController {
 				
 			);
 		}
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($artesanos);
+			$log->save();
 		return Response::json($artesanoArr);
     }
     public function postEliminar()

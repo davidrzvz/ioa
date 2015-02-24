@@ -25,6 +25,11 @@ public function buscar()
 		foreach ($artesanos as $artesano) {
 			$artesano->persona->rama;
 		}
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($artesanos);
+			$log->save();
 		return Response::json($artesanos);
 	}
 	else
@@ -40,6 +45,11 @@ $objt = Artesano::find(Input::get('artesanoid'));
 if(!is_null($objt->Ferias()->where('feria_id','=',Input::get('feriaid'))->first()))
 			return Response::json(array('error'=>true));
 $objt->Ferias()->attach(Input::get('feriaid'));
+$log = new Logs();
+	$log->usuario = Auth::user()->username;
+	$log->url =  Request::url();
+	$log->recurso = json_encode($objt);
+	$log->save();
 return Response::json(array('success'=>true));
 }
 }

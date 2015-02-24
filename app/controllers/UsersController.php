@@ -11,13 +11,18 @@ class UsersController extends BaseController{
 		$my_id = Auth::user()->id;
 		if(Auth::user()->role_id == 2){	
 			$users = User::where('role_id','<>','2')->where('id','<>',$my_id)->get();
-			return View::make('usuarios.usuarios')-> with('users',$users);			
+			//Aqui va insertado el log.
+			$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			//$log->recurso = json_encode($VARIABLE_ARRAY);
+			$log->save();
+			return View::make('usuarios.usuarios')-> with('users',$users);
 		}
 		else{
 			return "sorry no eres administrador";	
-		}	
+		}
 	}
-
 	// metodo para agregar al usuario
     public function postNuevo()
 	{
@@ -36,7 +41,13 @@ class UsersController extends BaseController{
 	    $user->role_id = Input::get('tipo');
         $user->password = Hash::make('123');
 	    $user->save();
-
+		//CARGA DEL LOG
+		$log = new Logs();
+		$log->usuario = Auth::user()->username;
+		$log->url =  Request::url();
+		$log->recurso = json_encode($user);
+		$log->save();
+		//TERMINA CARGA DEL LOG
 		return Response::json(array(
 			'success' 	=> 	true,
 			'user_id' 	=> 	$user->id,
@@ -58,7 +69,6 @@ class UsersController extends BaseController{
 		$user->delete();
 		return Response::json(array('success' => true));
 	}
-
 	//controlador para actualizar datos del usuario
 	public function postUpdate()
 	{
@@ -82,7 +92,6 @@ class UsersController extends BaseController{
 			'username' 	=> 	Input::get('nombre_editar'),
 			'role_id' 	=> 	Input::get('tipo_editar')));	
 	}
-
 	public function postPassword()
 	{
 		$rules = array(

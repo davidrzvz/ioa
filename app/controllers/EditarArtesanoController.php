@@ -176,6 +176,11 @@ class EditarArtesanoController extends BaseController {
 			$documento -> persona_id = $Personartesano->id;
 			$documento -> save();
 		}
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($artesano);
+			$log->save();
 		return Redirect::back();
 	}
 

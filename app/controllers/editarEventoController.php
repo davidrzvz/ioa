@@ -25,6 +25,11 @@ class EditarEventoController extends BaseController {
 			"fechafin"  => Input::get("fecha2"),
 
 			));
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($taller);
+			$log->save();
 		return Response::json(array('success' => true));
 	}
 	public function updateFeria(){
@@ -36,6 +41,11 @@ class EditarEventoController extends BaseController {
 			"fechafin"  => Input::get("fecha2"),
 
 			));
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($feria);
+			$log->save();
 		return Response::json(array('success' => true));
 	}
 	public function updateConcurso(){
@@ -46,6 +56,11 @@ class EditarEventoController extends BaseController {
 			"premiacion"  => Input::get("fecha2")
 
 			));
+		$log = new Logs();
+			$log->usuario = Auth::user()->username;
+			$log->url =  Request::url();
+			$log->recurso = json_encode($concurso);
+			$log->save();
 		return Response::json(array('success' => true));
 	}
 }
