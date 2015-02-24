@@ -185,6 +185,9 @@ $('#btntalleres').click(function(){
         "previous":   "Anterior"
     },
         },
+        "columnDefs": [
+            { className: "hidden", "targets": [ 0 ] }
+          ]
 
 } );
      $('#feris').dataTable( {
@@ -201,10 +204,17 @@ $('#btntalleres').click(function(){
         "next":       "Siguiente",
         "previous":   "Anterior"
     },
-        }
+        },
+        "columnDefs": [
+            { className: "hidden", "targets": [ 0 ] }
+          ]
 } );
+    var feria;
+    var concurso;
+    var taller;
 	$('#concs tbody').on( 'click', 'td', function (){
 		var id = ($(this).closest("tr")).find("td:nth-child(1)").text();
+		concurso = id;
 		// console.log(($(this).closest("tr")).find("td:nth-child(2)").text());
 		$('#nombretabla').text(($(this).closest("tr")).find("td:nth-child(2)").text());
 		$.post('eliminar/concursos',{id:id}, function(json) {
@@ -212,7 +222,7 @@ $('#btntalleres').click(function(){
 			$('#telementos').dataTable( {
 			    "data": json,
 			    "columns": [
-			    	{ "title": "Id" },
+			    	{ "title": "Id", className: "hidden" },
 			        { "title": "Nombre" },
 			        { "title": "Paterno" },
 			        { "title": "Materno" },
@@ -235,18 +245,23 @@ $('#btntalleres').click(function(){
 			      	},
 				},
 			} );
+			if (json.length > 0) {
+				$("#telementos tbody tr").each(function(index){
+				      $(this).append('<td><button class="btn btn-danger btn-xs" onclick="detach2(this)">Eliminar</button></td>');
+				});
+			};
 		}, 'json');
 	});
 	$('#feris tbody').on( 'click', 'td', function (){
 		var id = ($(this).closest("tr")).find("td:nth-child(1)").text();
-		console.log(id);
+		feria = id;
 		$('#nombretabla').text(($(this).closest("tr")).find("td:nth-child(2)").text());
 		$.post('eliminar/ferias',{id:id}, function(json) {
 			$('#divartesanos').html('<table id="telementos" class="table table-hover table-first-column-number data-table display full"></table>');
 			$('#telementos').dataTable( {
 			    "data": json,
 			    "columns": [
-			    	{ "title": "Id" },
+			    	{ "title": "Id", className: "hidden" },
 			        { "title": "Nombre" },
 			        { "title": "Paterno" },
 			        { "title": "Materno" },
@@ -269,18 +284,23 @@ $('#btntalleres').click(function(){
 			      	},
 				},
 			} );
+			if (json.length > 0) {
+				$("#telementos tbody tr").each(function(index){
+				      $(this).append('<td><button class="btn btn-danger btn-xs" onclick="detach1(this)">Eliminar</button></td>');
+				});
+			};
 		}, 'json');
 	});
 	$('#tallrs tbody').on( 'click', 'td', function (){
 		var id = ($(this).closest("tr")).find("td:nth-child(1)").text();
-		console.log(id);
+		taller = id;
 		$('#nombretabla').text(($(this).closest("tr")).find("td:nth-child(2)").text());
 		$.post('eliminar/talleres',{id:id}, function(json) {
 			$('#divartesanos').html('<table id="telementos" class="table table-hover table-first-column-number data-table display full"></table>');
 			$('#telementos').dataTable( {
 			    "data": json,
 			    "columns": [
-			    	{ "title": "Id" },
+			    	{ "title": "Id", className: "hidden" },
 			        { "title": "Nombre" },
 			        { "title": "Paterno" },
 			        { "title": "Materno" },
@@ -303,6 +323,11 @@ $('#btntalleres').click(function(){
 			      	},
 				},
 			} );
+			if (json.length > 0) {
+				$("#telementos tbody tr").each(function(index){
+				      $(this).append('<td><button class="btn btn-danger btn-xs" onclick="detach3(this)">Eliminar</button></td>');
+				});
+			};
 		}, 'json');
 	});
 </script>
@@ -349,6 +374,28 @@ $('#btntalleres').click(function(){
 	                swal('Error', 'Existen artesanos registrados en el taller, no se puede eliminar', "error");
 	            })
 	    });
+	}
+
+	function detach1 (btn) {
+		id = ($(btn).closest("tr").find("td:nth-child(1)").text());
+		//acá pones tu alert, si dice que si entonces continúa con el POST de jQuery
+		$.post('eliminar/detachf',{id:id,feria:feria}, function(json) {
+			console.log(json);
+		}, 'json');
+	}
+	function detach2 (btn) {
+		id = ($(btn).closest("tr").find("td:nth-child(1)").text());
+		//acá pones tu alert, si dice que si entonces continúa con el POST de jQuery
+		$.post('eliminar/detachc',{id:id,concurso:concurso}, function(json) {
+			console.log(json);
+		}, 'json');
+	}
+	function detach3 (btn) {
+		id = ($(btn).closest("tr").find("td:nth-child(1)").text());
+		//acá pones tu alert, si dice que si entonces continúa con el POST de jQuery
+		$.post('eliminar/detacht',{id:id,taller:taller}, function(json) {
+			console.log(json);
+		}, 'json');
 	}
 
 </script>
