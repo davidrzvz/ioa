@@ -27,29 +27,27 @@ class EliminarController extends BaseController {
 		$artesanos = Concurso::find($id) -> artesanos() -> get();
 		$personas = Concurso::find($id) -> personas() -> get();
 		$data = array();
+		foreach ($artesanos as $artesano) {
+			$data[] = array(
+				$artesano -> persona -> id,
+				$artesano -> persona -> nombre,
+				$artesano -> persona -> paterno,
+				$artesano -> persona -> materno,
+				$artesano -> persona -> fechanacimiento,
+				$artesano -> persona -> Rama -> nombre,
+				$artesano -> persona -> Grupoetnico -> nombre,
+			);
+		}
 		foreach ($personas as $persona) {
-			if($persona -> artesano){
-				$data[] = array(
-					$persona -> id,
-					$persona -> nombre,
-					$persona -> paterno,
-					$persona -> materno,
-					$persona -> fechanacimiento,
-					$persona -> Rama -> nombre,
-					$persona -> Grupoetnico -> nombre,
-				);
-			}
-			else{
-				$data[] = array(
-					$persona -> id,
-					$persona -> nombre,
-					$persona -> paterno,
-					$persona -> materno,
-					$persona -> fechanacimiento,
-					$persona -> Rama -> nombre,
-					$persona -> Grupoetnico -> nombre,
-				);
-			}
+			$data[] = array(
+				$persona -> id,
+				$persona -> nombre,
+				$persona -> paterno,
+				$persona -> materno,
+				$persona -> fechanacimiento,
+				$persona -> Rama -> nombre,
+				$persona -> Grupoetnico -> nombre,
+			);
 		}
 		return Response::json($data);
 	}
@@ -90,9 +88,9 @@ class EliminarController extends BaseController {
 		if ($persona -> artesano) {
 			$persona -> artesano -> Concursos() -> detach($id_concurso);
 		}
-		else{
+		// else{
 			$persona -> Concursos() -> detach($id_concurso);
-		}
+		// }
 		return Response::json($id_persona);
 	}
 
